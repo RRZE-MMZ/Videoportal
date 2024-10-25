@@ -23,21 +23,18 @@
                               d="M1 5h12m0 0L9 1m4 4L9 9" />
                     </svg>
                 </a>
-                <div>
-
-                    <a href="https://github.com/rrze-mmz/Tides"
-                       class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white
+                <a href="https://github.com/rrze-mmz/Tides"
+                   class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white
                     rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                        <div class="flex justify-center items-center space-x-2">
-                            <div>
-                                {{__('homepage.jumbotron link 2')}}
-                            </div>
-                            <div>
-                                <x-iconoir-git class="w-5 h-5" />
-                            </div>
+                    <div class="flex justify-center items-center space-x-2">
+                        <div>
+                            {{__('homepage.jumbotron link 2')}}
                         </div>
-                    </a>
-                </div>
+                        <div>
+                            <x-iconoir-git class="w-5 h-5" />
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -74,9 +71,16 @@
                             {{  __('homepage.series.Recently added!') }} Portal
                         </div>
                         <a href="{{ route('frontend.series.index') }}"
-                           class="text-sm underline dark:text-white "
-                        >
+                           class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
+                    rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                             {{__('homepage.series.more series') }}
+                            <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M1 5h12m0 0L9 1m4 4L9 9" />
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -96,13 +100,24 @@
             @endif
         @endauth
 
-        <div class="flex w-full items-end border-b justify-content-between pb-4
+        <div class="flex w-full items-end border-b justify-content-between pb-4 pt-10
             border-b-2 border-black dark:border-white"
         >
             <div class="flex w-full items-end justify-between pb-2">
                 <div class="text-2xl dark:text-white font-bold">  {{  __('homepage.series.Recently added!') }} </div>
-                <a href="{{ route('frontend.series.index') }}"
-                   class="text-sm underline dark:text-white ">{{__('homepage.series.more series') }}</a>
+                <div>
+                    <a href="{{ route('frontend.series.index') }}"
+                       class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
+                    rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                        {{__('homepage.series.more series') }}
+                        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -127,7 +142,16 @@
             <div class="flex w-full items-end justify-between pb-2">
                 <div class="text-2xl dark:text-white font-bold"> {{  __('homepage.clips.Recently added!') }}</div>
                 <a href="{{ route('frontend.clips.index') }}"
-                   class="text-sm underline dark:text-white">{{__('homepage.clips.more clips')}}</a>
+                   class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
+                    rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                    {{__('homepage.clips.more clips')}}
+                    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                </a>
             </div>
 
         </div>

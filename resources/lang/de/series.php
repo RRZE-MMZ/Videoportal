@@ -18,6 +18,9 @@ return [
     'frontend' => [
         'show' => [
             'views' => ':counter Videoaufrufe',
+            'spanning in more semesters with the last one being' => 'Verteilt sich über mehrere Semester, wobei das '
+                .'letzte das :semester_title ist',
+
         ],
         'index' => [
             'Series index' => 'Serienindex',

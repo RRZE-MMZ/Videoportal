@@ -18,6 +18,8 @@ return [
     'frontend' => [
         'show' => [
             'views' => ':counter views',
+            'spanning in more semesters with the last one being' => 'Spanning in more semesters with the last one  '
+                                                                    .'being :semester_title',
         ],
         'index' => [
             'Series index' => 'Series index',

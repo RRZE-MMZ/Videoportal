@@ -75,34 +75,33 @@
             @endauth
         </div>
 
-        <div class="flex flex-col lg:flex-row border-b-2 border-gray-500 py-4 mt-4"
-        >
-            <div class="flex w-1/4  items-center justify-items-center">
-                <x-heroicon-o-clock class="h-6 w-6" />
-                <span class="pl-3">
-                    {{ $series->fetchClipsSemester() }}
+        <div class="flex flex-col lg:flex-row border-b-2 border-gray-500 py-4 mt-4">
+            <div class="flex w-1/4 items-center justify-items-center">
+                <x-heroicon-o-clock class="h-6 w-6 flex-shrink-0" />
+                <span class="pl-3 flex-grow">
+            {{ $series->fetchClipsSemester() }}
                 </span>
             </div>
-
-            <div class="flex w-1/4">
-                <x-heroicon-o-user class="h-6 w-6" />
-                <span class="pl-3">
-                    {{ $series->presenters->map(function ($presenter) {
-                        return $presenter->getFullNameAttribute();
-                    })->implode(', ') }}
-                </span>
+            <div class="flex w-1/4 items-center">
+                <x-heroicon-o-user class="h-6 w-6 flex-shrink-0" />
+                <span class="pl-3 flex-grow">
+            {{ $series->presenters->map(function ($presenter) {
+                return $presenter->getFullNameAttribute();
+            })->implode(', ') }}
+        </span>
             </div>
 
-            <div class="flex w-1/4">
-                <x-heroicon-o-arrow-up-circle class="h-6 w-6" />
-                <span class="pl-3"> {{ $series->latestClip?->updated_at }} </span>
+            <div class="flex w-1/4 items-center">
+                <x-heroicon-o-arrow-up-circle class="h-6 w-6 flex-shrink-0" />
+                <span class="pl-3 flex-grow"> {{ $series->latestClip?->updated_at }} </span>
             </div>
 
-            <div class="flex w-1/4">
-                <x-heroicon-o-eye class='h-6 w-6' />
-                <span class="pl-3"> {{ __('series.frontend.show.views', ['counter' => $series->views()]) }} </span>
+            <div class="flex w-1/4 items-center">
+                <x-heroicon-o-eye class="h-6 w-6 flex-shrink-0" />
+                <span class="pl-3 flex-grow"> {{ __('series.frontend.show.views', ['counter' => $series->views()]) }} </span>
             </div>
         </div>
+
 
         @auth()
             <div class="flex flex-col pt-10">

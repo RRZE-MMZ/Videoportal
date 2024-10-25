@@ -240,9 +240,19 @@ class Series extends BaseModel
         return $this->clips()
             ->with('semester')
             ->get()
-            ->pluck('semester.name')
-            ->unique()
-            ->implode(', ');
+            ->pluck('semester')
+            ->unique('id')
+            ->sortByDesc('id')
+            ->pluck('name')
+            ->when(function ($semesters) {
+                return $semesters->count() > 3;
+            }, function ($semesters) {
+                return __('series.frontend.show.spanning in more semesters with the last one being', [
+                    'semester_title' => $semesters->first(),
+                ]);
+            }, function ($semesters) {
+                return $semesters->implode(', ');
+            });
     }
 
     public function clipsLanguageCode(): string
