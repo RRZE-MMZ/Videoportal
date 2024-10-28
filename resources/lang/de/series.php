@@ -47,10 +47,12 @@ return [
         'update series owner' => 'Serienbesitzer aktualisieren',
         'Add a series member' => 'Neue Serien-Teilnehmer hinzufügen',
         'actual episode' => 'Aktuelle Episode:',
-        'mass update clip metadata for series' => 'Massenaktualisierung der Clip-Metadaten für die Serie: :seriesTitle',
-        'Series chapter has no clips' => 'Die Serien-Kapitel <span class="italic">:chapterTitle</span> hat keine Clips.',
-        'no user series found' => 'Du hast noch keine Serie. Bitte erstelle eine!',
-        'Select a series for clip' => 'Wähle eine Serie für den Clip: :clip_title',
+        'mass update clip metadata for series' => 'Massenaktualisierung der Clip-Metadaten für die '.
+                            'Serie: <span class="pl-2 font-semibold">:seriesTitle</span>',
+        'reorder clips for series' => 'Clips für die Serie neu '.
+                                'anordnen:  <span class="pl-2 italic">:series_title</span>',
+        'reorder series clips with chapters info' => 'Da deine Serie Kapitel hat, wird die Reihenfolge der Clips auf '.
+                            'der Verwaltungsseite der Serienkapitel angepasst.',
         'delete' => [
             'modal title' => 'Sind Sie sicher, dass Sie den Serien „:series_title“ löschen möchten?',
             'modal body' => 'Bitte vorsichtig vorgehen. Das Löschen dieses Serien wird alle zugehörigen Clips sowie '.

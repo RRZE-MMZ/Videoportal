@@ -72,7 +72,6 @@
                     {{ __('series.backend.actions.back to edit series') }}
                 </x-back-button>
             </div>
-
         </div>
 
     @endif
