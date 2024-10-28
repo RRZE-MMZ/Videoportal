@@ -51,6 +51,10 @@ return [
             <span class="pl-2 font-semibold"> :seriesTitle </span>',
         'Series chapter has no clips' => 'Series chapter <span class="italic"> :chapterTitle </span> has no clips',
         'Select a series for clip' => 'Select a series for clip: :clip_title',
+        'reorder clips for series' => 'Reorder clips for series: '.
+                                            ' <span class="pl-2 italic"> :series_title </span>',
+        'reorder series clips with chapters info' => 'Because your series has chapters, the clips order is adjusted '.
+                                                       'on the series chapters management page.',
         'delete' => [
             'modal title' => 'Are you certain you wish to delete the series titled ":series_title"?',
             'modal body' => 'Please proceed with caution. Deleting this series will permanently remove all associated '.
