@@ -17,6 +17,7 @@
     </video>
 @elseif($wowzaStatus->contains('pass') && !empty($defaultVideoUrl))
     <mediaPlayer id="target"
+                 
                  src="{{ $defaultVideoUrl }}"
                  title="{{ $clip->title }}"
                  streamType="on-demand"

@@ -112,3 +112,8 @@ trix-editor {
   max-height: 350px !important;
   overflow-y: auto !important;
 }
+
+.vidstack-player-container {
+  min-width: 100%; /* or set a specific value */
+  min-height: 300px; /* optional, based on your layout needs */
+}
