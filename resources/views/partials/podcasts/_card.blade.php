@@ -1,9 +1,8 @@
-<div
-    class="grid grid-rows-3 grid-flow-col  bg-gray-50 rounded-lg shadow  dark:bg-gray-800
-    dark:border-gray-700 items-start">
-    <div class="row-span-3">
-        <a href="{{ route('frontend.podcasts.show', $podcast) }}" class="m-4 py-2">
-            <img class="max-w-fit w-48 rounded-lg sm:rounded-none sm:rounded-l-lg px-2 "
+<div class="grid grid-cols-1 sm:grid-cols-3 bg-gray-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <!-- Image Section -->
+    <div class="col-span-1 flex justify-center sm:justify-start p-4">
+        <a href="{{ route('frontend.podcasts.show', $podcast) }}" class="block">
+            <img class="w-32 sm:w-48 rounded-lg"
                  @if(!is_null($podcast->image_id))
                      src="{{ asset('images/'.$podcast->cover->file_name) }}"
                  @else
@@ -13,76 +12,69 @@
         </a>
     </div>
 
-    <div class="col-span-2 w-full pt-4 pl-4 items-start">
-        <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white px-1">
-            <a
-                @if(str_contains(url()->current(), 'admin'))
-                    href="{{ route('podcasts.edit', $podcast) }}">{{ $podcast->title }}
+    <!-- Content Section -->
+    <div class="col-span-2 flex flex-col justify-between p-4">
+        <!-- Title -->
+        <h3 class="text-lg sm:text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-2">
+            <a @if(str_contains(url()->current(), 'admin'))
+                   href="{{ route('podcasts.edit', $podcast) }}">{{ $podcast->title }}
                 @else
                     href="{{ route('frontend.podcasts.show', $podcast) }}">{{ $podcast->title }}
                 @endif
-
             </a>
         </h3>
-    </div>
-    <div class="row-span-2 col-span-1 pl-4">
-        <div class="flex float-left">
-            <p class="mt-3 mb-4 font-light text-gray-800 dark:text-white float-">
-                @if($podcast->description==='')
-                    <span class="italic">No description available</span>
-                @else
-                    {{ Str::limit(removeHtmlElements($podcast->description), 250, ' (...)') }}
-                @endif
-            </p>
-        </div>
 
-        <div class="flex w-full justify-between p-2 items-center">
-            <div>
-                <ul class="flex space-x-4 sm:mt-0">
-                    <li>
-                        <a href="{{$podcast->website_url}}"
-                           class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                            <x-iconoir-www class="w-6 text-black dark:text-white" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                            <x-iconoir-spotify class="w-6 dark:text-white" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-white hover:text-gray-900 dark:hover:text-white">
-                            <x-iconoir-apple-mac class="w-6  text-black dark:text-white" />
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-span-11 flex flex-row space-x-2">
-                @can('edit-podcast', $podcast)
-                    <div>
-                        <a href="{{ route('podcasts.edit', $podcast) }}"
-                        >
-                            <x-button class="bg-green-500 hover:bg-green-700"
-                            >
-                                Edit podcast
-                            </x-button>
-                        </a>
-                    </div>
-                    <div>
-                        <x-modals.delete
-                            :route="route('podcasts.destroy',$podcast) "
-                            class="w-full justify-center"
-                        >
+        <!-- Description -->
+        <p class="text-sm sm:text-base font-light text-gray-800 dark:text-gray-300 mb-4">
+            @if($podcast->description === '')
+                <span class="italic">No description available</span>
+            @else
+                {{ Str::limit(removeHtmlElements($podcast->description), 250, ' (...)') }}
+            @endif
+        </p>
+
+        <!-- Links and Actions -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <!-- Social Links -->
+            <ul class="flex space-x-4">
+                <li>
+                    <a href="{{ $podcast->website_url }}"
+                       class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <x-iconoir-www class="w-5 sm:w-6 text-black dark:text-white" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <x-iconoir-spotify class="w-5 sm:w-6 dark:text-white" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <x-iconoir-apple-mac class="w-5 sm:w-6 text-black dark:text-white" />
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Edit and Delete Actions -->
+            @can('edit-podcast', $podcast)
+                <div class="flex space-x-2">
+                    <a href="{{ route('podcasts.edit', $podcast) }}">
+                        <x-button class="bg-green-500 hover:bg-green-700 ">
+                            Edit podcast
+                        </x-button>
+                    </a>
+                    @if(str_contains(url()->current(), 'admin'))
+                        <x-modals.delete :route="route('podcasts.destroy', $podcast)">
                             <x-slot:title>
-                                {{ __('podcast.backend.delete.modal title',['podcast_title'=>$podcast->title]) }}
+                                {{ __('podcast.backend.delete.modal title', ['podcast_title' => $podcast->title]) }}
                             </x-slot:title>
                             <x-slot:body>
                                 {{ __('podcast.backend.delete.modal body') }}
                             </x-slot:body>
                         </x-modals.delete>
-                    </div>
-                @endcan
-            </div>
+                    @endif
+                </div>
+            @endcan
         </div>
     </div>
 </div>
