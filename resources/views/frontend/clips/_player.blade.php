@@ -106,7 +106,7 @@
         <div class="flex flex-col lg:grid lg:grid-cols-6 gap-4 text-center lg:text-center">
             @if ($clip->series_id)
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-heroicon-o-academic-cap class="h-5 w-5" />
+                    <x-heroicon-o-academic-cap class="h-5 w-5 flex-shrink-0" />
                     <a href="{{ route('frontend.series.show', $clip->series) }}" class="underline">
                         {{ $clip->series->title }}
                     </a>
@@ -114,29 +114,29 @@
             @endif
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-user-group class="h-5 w-5" />
+                <x-heroicon-o-user-group class="h-5 w-5 flex-shrink-0" />
                 <span>{{ $clip->presenters->pluck('full_name')->implode(', ') }}</span>
             </div>
 
             @if($clip->is_livestream)
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-heroicon-o-clock class="h-5 w-5" />
+                    <x-heroicon-o-clock class="h-5 w-5 flex-shrink-0" />
                     <span>LIVESTREAM</span>
                 </div>
             @else
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-heroicon-o-clock class="h-5 w-5" />
+                    <x-heroicon-o-clock class="h-5 w-5 flex-shrink-0" />
                     <span>{{ $clip->assets()->first()->durationToHours() }} Min</span>
                 </div>
             @endif
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-calendar class="h-5 w-5" />
+                <x-heroicon-o-calendar class="h-5 w-5 flex-shrink-0" />
                 <span>{{ $clip->created_at->format('Y-m-d') }}</span>
             </div>
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-arrow-up-circle class="h-5 w-5" />
+                <x-heroicon-o-arrow-up-circle class="h-5 w-5 flex-shrink-0" />
                 <span>{{ $clip->assets->first()?->updated_at }}</span>
             </div>
 

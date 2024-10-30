@@ -67,7 +67,7 @@
                                         {{ $presenter['presenter_fullName'] }}
                                     </div>
                                     <img src="{{ env('app_url').$presenter['presenter_image_url'] }}"
-                                         alt="clip poster image"
+                                         alt="presenter image"
                                          class="h-8 rounded-full">
                                 @endforeach
                             </div>
