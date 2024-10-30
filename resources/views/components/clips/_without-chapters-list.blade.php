@@ -7,17 +7,17 @@
             <ul class="w-full pt-3">
                 @forelse($clips as $clip)
                     <li class="flex flex-col lg:flex-row content-center items-center rounded mb-4
-                        @if($clip->is_public) bg-gray-300 dark:bg-gray-700  @else bg-gray-500 dark:bg-blue-700  @endif
-                         p-2 text-center text-lg dark:text-white">
-                        <div class="w-4 md:w-full mb-2 md:mb-0">
+                @if($clip->is_public) bg-gray-300 dark:bg-gray-700 @else bg-gray-500 dark:bg-blue-700 @endif
+                p-2 text-center text-lg dark:text-white w-full">
+                        <div class="w-full lg:w-4  md:mb-0 mx-8">
                             @if ($reorder)
                                 <label class="flex flex-col sm:flex-row items-center">
                                     <input class="w-full sm:w-1/2 dark:text-black" type="number"
                                            name="episodes[{{ $clip->id }}]"
                                            value="{{ $loop->index + 1 }}"
                                     >
-                                    <div class="col-start-2 col-end-6 mt-2 sm:mt-0 sm:ml-2">
-                                        <p class="w-full text-sm text-green-500 dark:text-green-200">
+                                    <div class="mt-2 sm:mt-0 sm:ml-2">
+                                        <p class="text-sm text-green-500 dark:text-green-200">
                                             {{ __('series.backend.actual episode') }} {{ $clip->episode }}
                                         </p>
                                     </div>
@@ -29,27 +29,26 @@
                                 {{ $clip->episode }}
                             @endif
                         </div>
-                        <div class="w-2/12 md:w-full mb-2 md:mb-0">
-                            <div class="relative h-full w-48 ">
+                        <div class="w-full lg:w-2/12 mb-2 md:mb-0">
+                            <div class="relative h-full w-full lg:w-48">
                                 <a href="@if(str_contains(url()->current(), 'admin')){{ route('clips.edit', $clip) }}@else{{ route('frontend.clips.show', $clip) }}@endif">
                                     <img src="{{ fetchClipPoster($clip->latestAsset()?->player_preview) }}"
                                          alt="preview image"
                                          class="w-full"
                                     >
                                 </a>
-                                <divc
-                                        class="absolute w-full py-2.5 bottom-0 inset-x-0 bg-blue-600  text-white
-                                            text-md text-right pr-2 pb-2 leading-4 ">
+                                <div class="absolute w-full py-2.5 bottom-0 inset-x-0 bg-blue-600 text-white
+                                    text-md text-right pr-2 pb-2 leading-4">
                                     {{ is_null($clip->latestAsset()) ? '00:00:00' : gmdate('H:i:s', $clip->latestAsset()->duration) }}
-                                </divc>
+                                </div>
                             </div>
                         </div>
-                        <div class="w-3/12 md:w-full mb-2 sm:mb-0 mx-2"> {{ $clip->title }}</div>
-                        <div class="w-1/12 sm:w-full mb-2 sm:mb-0">
+                        <div class="w-full lg:w-3/12 mb-2 sm:mb-0 mx-2">{{ $clip->title }}</div>
+                        <div class="w-full lg:w-1/12 mb-2 sm:mb-0">
                             {{ $clip->recording_date->format('Y-m-d') }}
                         </div>
-                        <div class="w-2/12 sm:w-full mb-2 sm:mb-0">{{ $clip->semester }}</div>
-                        <div class="w-2/12 md:w-full flex justify-center items-center mb-2 sm:mb-0">
+                        <div class="w-full lg:w-2/12 mb-2 sm:mb-0">{{ $clip->semester }}</div>
+                        <div class="w-full lg:w-2/12 flex justify-center items-center mb-2 sm:mb-0">
                             <div class="pr-2">
                                 {{ ($clip->acls->isEmpty()) ? Acl::PUBLIC->lower() : $clip->acls->pluck('name')->implode(',') }}
                             </div>
@@ -58,18 +57,18 @@
                                     @can('watch-video', $clip)
                                         <x-heroicon-o-lock-open class="h-4 w-4 text-green-500" />
                                         <span class="sr-only">
-                                            {{ __('common.unlocked') }} clip
-                                        </span>
+                                    {{ __('common.unlocked') }} clip
+                                </span>
                                     @else
                                         <x-heroicon-o-lock-closed class="h-4 w-4 text-red-700" />
                                         <span class="sr-only">
-                                            {{ __('common.locked') }} clip
-                                        </span>
+                                    {{ __('common.locked') }} clip
+                                </span>
                                     @endcan
                                 </div>
                             @endif
                         </div>
-                        <div class="w-1/12 sm:w-full">
+                        <div class="w-full lg:w-1/12">
                             @if($dashboardAction && Request::segment(1) === 'admin')
                                 <a href="{{ route('clips.edit', $clip) }}">
                                     <x-button class="bg-blue-600 hover:bg-blue-700">
@@ -80,8 +79,8 @@
                                 <form method="GET" action="{{ route('frontend.clips.show', $clip) }}">
                                     <button type="submit"
                                             class="focus:outline-none text-white text-sm py-1.5 px-5 rounded-md
-                                                bg-blue-700 dark:bg-white hover:bg-blue-500 dark:hover:bg-gray-600
-                                                hover:shadow-lg"
+                                            bg-blue-700 dark:bg-white hover:bg-blue-500 dark:hover:bg-gray-600
+                                            hover:shadow-lg"
                                     >
                                         <x-heroicon-o-play class="h-6 w-6 dark:text-gray-900" />
                                     </button>
@@ -106,7 +105,9 @@
                             {{ __('common.forms.go back') }}
                         </x-back-button>
                     </div>
+                @endif
             </ul>
+            @if($reorder)
         </form>
     @endif
 </div>

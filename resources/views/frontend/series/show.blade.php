@@ -27,11 +27,9 @@
                 </div>
             @endcan
         </div>
-
-
         @if($series->description !== '')
-            <div class="prose-lg dark:prose-invert dark:text-white mt-4 sm:mt-6">
-                <p class="leading-loose">
+            <div class="w-full  dark:prose-invert dark:text-white mt-4 sm:mt-6">
+                <p class="break-words">
                     {!! $series->description !!}
                 </p>
             </div>

@@ -1,31 +1,33 @@
-<div class="grid grid-cols-12 content-center items-center gap-4">
-    <div class=" {{ $labelClass }} ">
+<div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-4">
+    <!-- Label Section -->
+    <div class="{{ $labelClass }} sm:col-span-4">
         <label for="{{ $fieldName }}"
-               class="mr-6 block py-2 font-bold text-gray-700 text-md dark:text-white"
-        >
+               class="block py-2 font-bold text-gray-700 text-md dark:text-white">
             {{ $label }}
         </label>
     </div>
-    <div class="">
-        <div class="w-full bg-none" x-data="{ checked: {{ ($value ? 'true' : 'false') }} }">
-            <div class="relative h-6 w-12 select-none bg-none transition duration-200 ease-in dark:text-white">
+
+    <!-- Toggle Button Section -->
+    <div class="sm:col-span-8">
+        <div class="w-full bg-none" x-data="{ checked: {{ $value ? 'true' : 'false' }} }">
+            <div class="relative inline-block w-12 h-6 rounded-full transition duration-200 ease-in"
+                 :class="checked ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'">
+                <!-- Toggle Dot -->
                 <label for="{{ $fieldName }}"
-                       class="absolute left-0  border-2 mb-2 w-6 h-6
-                               rounded-full transition transform  bg-blue-500
-                            duration-100 ease-linear cursor-pointer"
-                       :class="checked ? 'translate-x-full bg-blue bg-none ' : 'translate-x-0 border-gray-400'"
-                ></label>
-                <input type="checkbox"
-                       id="{{ $fieldName }}"
-                       name="{{ $fieldName }}"
-                       class="mb-1 h-full w-full rounded-full bg-none focus:outline-none active:outline-none"
-                       x-model="checked"
-                >
+                       class="absolute left-0 w-6 h-6 bg-white border-2 rounded-full transition transform cursor-pointer
+                              duration-100 ease-linear"
+                       :class="checked ? 'translate-x-full border-blue-500' : 'translate-x-0 border-gray-400'">
+                </label>
+                <!-- Hidden Checkbox -->
+                <input type="checkbox" id="{{ $fieldName }}" name="{{ $fieldName }}"
+                       class="sr-only" x-model="checked">
             </div>
         </div>
     </div>
+
+    <!-- Error Message -->
     @error($fieldName)
-    <div class="col-span-8">
+    <div class="col-span-1 sm:col-span-8">
         <p class="mt-2 w-full text-xs text-red-500">{{ $message }}</p>
     </div>
     @enderror

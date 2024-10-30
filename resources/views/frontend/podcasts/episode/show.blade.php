@@ -3,11 +3,12 @@
 @extends('layouts.frontend')
 
 @section('content')
+    <div class="w-full md:container py-10 mx-auto">
+        @include('frontend.search._searchbar')
+    </div>
+    @include('layouts.breadcrumbs')
     <main class="container mx-auto mt-6 md:mt-12">
-        <div class="pb-10">
-            @include('frontend.search._searchbar')
-        </div>
-        @include('layouts.breadcrumbs')
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Podcast Information -->
             <div class="p-6 rounded-lg  h-200 dark:text-white">

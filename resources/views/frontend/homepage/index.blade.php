@@ -5,14 +5,13 @@
     <section class="bg-white dark:bg-slate-600">
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl
-                lg:text-6xl dark:text-white"
-            >
+                lg:text-6xl dark:text-white">
                 {{ __('homepage.jumbotron heading') }}
             </h1>
             <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
                 {{ __('homepage.jumbotron subheading') }}
             </p>
-            <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 space-x-2">
+            <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 space-x-0 sm:space-x-2">
                 <a href="{{route('frontend.series.index')}}"
                    class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white
                     rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
@@ -38,15 +37,29 @@
             </div>
         </div>
     </section>
-    <main class="sm:container sm:mx-auto sm:mt-16">
+
+    <main class="container sm:mx-auto sm:mt-16">
         @include('frontend.search._searchbar')
-        @auth()
+        @auth
             @if(auth()->user()->settings->data['show_subscriptions_to_home_page'])
-                <div class="flex w-full items-end border-b-2 border-black dark:border-white justify-content-between">
-                    <div class="flex w-full items-end justify-between pb-2 border-b-2 border-black dark:border-white">
-                        <div class="text-2xl"> {{ __('homepage.series.Your series subscriptions') }}</div>
-                        <a href="{{ route('frontend.series.index') }}"
-                           class="text-sm underline">{{__('homepage.series.more series') }}</a>
+                <div class="w-full border-b-2 pb-4 border-black dark:border-white">
+                    <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end pb-2">
+                        <div class="text-2xl dark:text-white font-bold">
+                            {{ __('homepage.series.Your series subscriptions') }}
+                        </div>
+                        <div class="mt-4 sm:mt-0">
+                            <a href="{{ route('frontend.series.index') }}"
+                               class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
+                                      rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                                {{__('homepage.series.more clips') }}
+                                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-8">
@@ -62,26 +75,26 @@
                     @endforelse
                 </div>
             @endif
+
             @if($portalSeries->isNotEmpty())
-                <div class="flex w-full items-end border-b justify-content-between pb-4
-            border-b-2 border-black dark:border-white"
-                >
-                    <div class="flex w-full items-end justify-between pb-2">
+                <div class="w-full border-b-2 pb-4 border-black dark:border-white">
+                    <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end pb-2">
                         <div class="text-2xl dark:text-white font-bold">
                             {{  __('homepage.series.Recently added!') }} Portal
                         </div>
-                        <a href="{{ route('frontend.series.index') }}"
-                           class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
-                    rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                            {{__('homepage.series.more series') }}
-                            <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
-                                 xmlns="http://www.w3.org/2000/svg"
-                                 fill="none" viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
+                        <div class="mt-4 sm:mt-0">
+                            <a href="{{ route('frontend.series.index') }}"
+                               class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
+                                      rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                                {{__('homepage.series.more clips') }}
+                                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -100,15 +113,13 @@
             @endif
         @endauth
 
-        <div class="flex w-full items-end border-b justify-content-between pb-4 pt-10
-            border-b-2 border-black dark:border-white"
-        >
-            <div class="flex w-full items-end justify-between pb-2">
-                <div class="text-2xl dark:text-white font-bold">  {{  __('homepage.series.Recently added!') }} </div>
-                <div>
+        <div class="w-full border-b-2 pb-4 pt-10 border-black dark:border-white">
+            <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end pb-2">
+                <div class="text-2xl dark:text-white font-bold">{{ __('homepage.series.Recently added!') }}</div>
+                <div class="mt-4 sm:mt-0">
                     <a href="{{ route('frontend.series.index') }}"
                        class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
-                    rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                              rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                         {{__('homepage.series.more series') }}
                         <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +134,6 @@
 
         <div class="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-8">
             @forelse($series as $single)
-
                 @include('backend.series._card',[
                         'series'=> $single,
                         'route' => 'admin'
@@ -135,26 +145,25 @@
             @endforelse
         </div>
 
-
-        <div class="flex w-full items-end border-b justify-content-between py-4
-            border-b-2 border-black dark:border-white"
-        >
-            <div class="flex w-full items-end justify-between pb-2">
-                <div class="text-2xl dark:text-white font-bold"> {{  __('homepage.clips.Recently added!') }}</div>
-                <a href="{{ route('frontend.clips.index') }}"
-                   class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
-                    rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                    {{__('homepage.clips.more clips')}}
-                    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
-                         xmlns="http://www.w3.org/2000/svg"
-                         fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg>
-                </a>
+        <div class="w-full border-b-2 py-4 border-black dark:border-white">
+            <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end pb-2">
+                <div class="text-2xl dark:text-white font-bold">{{ __('homepage.clips.Recently added!') }}</div>
+                <div class="mt-4 sm:mt-0">
+                    <a href="{{ route('frontend.clips.index') }}"
+                       class="inline-flex justify-center items-center py-2 px-5 text-base font-medium text-center text-white
+                              rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                        {{__('homepage.clips.more clips')}}
+                        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-
         </div>
+
         <ul class="flex-row">
             <div class="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-8">
                 @forelse($clips as $clip)
@@ -168,7 +177,6 @@
                     <div class="dark:text-white text-2xl">
                         {{ __('homepage.clips.no clips found' )}}
                     </div>
-
                 @endforelse
             </div>
         </ul>
