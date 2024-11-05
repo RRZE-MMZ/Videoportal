@@ -39,8 +39,18 @@ class OpenSearchServiceProvider extends ServiceProvider
                     $this->settingsData['username'],
                     $this->settingsData['password'],
                 ],
+                'timeout' => '10',
+                'connect_timeout' => '10',
             ]);
         });
+    }
+
+    /**
+     * Bootstrap services.
+     */
+    public function boot(): void
+    {
+        //
     }
 
     private function getConfig()
@@ -51,13 +61,5 @@ class OpenSearchServiceProvider extends ServiceProvider
         );
 
         return $setting->data;
-    }
-
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
     }
 }

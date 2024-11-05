@@ -57,17 +57,19 @@ function fetchDropZoneFiles($ffmpegCheck = true): Collection
      *  Use Storage instead of File Facade. That way although hidden files will be fetched,
      * it's easy to mock and create the test. The hidden files will be filtered.
      */
-    return
-        collect(Storage::disk('video_dropzone')->files())
-            ->filter(function ($file) {
-                /*
-                 * filter hidden files
-                 */
-                return $file[0] !== '.';
-            })
-            ->mapWithKeys(function ($file) use ($ffmpegCheck) {
-                return prepareFileForUpload($file, true, $ffmpegCheck);
-            })->sortByDesc('date_modified');
+    $files = collect(Storage::disk('video_dropzone')->files())
+        ->filter(function ($file) {
+            /*
+             * filter hidden files
+             */
+            return $file[0] !== '.';
+        })
+        ->mapWithKeys(function ($file) use ($ffmpegCheck) {
+            return prepareFileForUpload($file, true, $ffmpegCheck);
+        })->sortByDesc('date_modified');
+
+    return $files;
+
 }
 
 /**
@@ -217,8 +219,11 @@ function findUserByOpencastRole(string $opencastRole): User|string
     }
 }
 
-function getProtectedUrl(string $filePath): string
+function getProtectedUrl(?string $filePath): string
 {
+    if (is_null($filePath)) {
+        return '';
+    }
     $settingsData = Setting::streaming();
     $filePath = '/'.$filePath;
     $secret = $settingsData->data['cdn']['server1']['secret'];
@@ -248,7 +253,13 @@ function humanFileSizeFormat(?string $bytes, $dec = 2): string
 function zuluToCEST($zuluTime): string
 {
     $carbon = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $zuluTime)
-        ->add('2 hours');
+        ->setTimezone('Europe/Berlin');
+
+    if ($carbon->isDST()) {
+        $carbon->addHours(2); // Summer time (DST), add 2 hours
+    } else {
+        $carbon->addHour();   // Winter time (standard time), add 1 hour
+    }
 
     return $carbon->format('Y-m-d H:i:s');
 }

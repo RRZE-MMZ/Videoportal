@@ -7,7 +7,7 @@
         <div class="flex text-2xl">
             Images Index
         </div>
-        @can('administrate-portal-pages')
+        @can('administrate-assistant-pages')
             <div class="flex">
                 <div>
                     <a href="{{ route('images.create') }}">

@@ -30,6 +30,8 @@ class StreamingServiceProvider extends ServiceProvider
                     $settingsData['wowza']['server1']['api_password'],
                     $authType,
                 ],
+                'timeout' => '5',
+                'connect_timeout' => '5',
             ]);
         });
     }

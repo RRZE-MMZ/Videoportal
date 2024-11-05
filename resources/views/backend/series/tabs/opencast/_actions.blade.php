@@ -1,5 +1,5 @@
-@can('administrate-admin-portal-pages')
-    <div class="flex flex-col font-normal py-4">
+@can('administrate-assistant-pages')
+    <div id="opencast-series-actions" class="flex flex-col font-normal py-4">
         <h4 class="mt-4 mb-4 text-green-700  dark:text-green-400">
             <span class="text-xl font-bold">
                 {{ __('opencast.backend.actions.Opencast actions') }}

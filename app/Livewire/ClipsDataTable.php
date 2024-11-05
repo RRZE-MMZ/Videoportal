@@ -78,7 +78,7 @@ class ClipsDataTable extends Component
 
     protected function adminOrDefaultQuery($search)
     {
-        if (auth()->user()->can('administrate-portal-pages')) {
+        if (auth()->user()->can('administrate-assistant-pages')) {
             $query = Clip::search($search);
             // First, filter the clips that have assets
             if ($this->withAssets) {

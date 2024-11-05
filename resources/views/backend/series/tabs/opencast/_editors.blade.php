@@ -1,5 +1,5 @@
-@can('administrate-admin-portal-pages')
-    <div class="flex flex-col font-normal py-4">
+@can('administrate-assistant-pages')
+    <div id="opencast-editors" class="flex flex-col font-normal py-4">
         <h4 class="mt-4 mb-4 text-green-700  dark:text-green-400">
             <span class="text-xl font-bold">{{ __('opencast.backend.Opencast access policy') }}</span>
         </h4>
@@ -93,6 +93,9 @@
         </h4>
         <form action="{{route('series.opencast.updateSeriesAcl', $series)}}"
               method="POST"
+              @cannot('administrate-admin-portal-pages')
+                  disabled
+              @endcannot
               class="flex flex-1 items-center"
         >
             @csrf
@@ -104,6 +107,9 @@
             </label>
             <select name="username"
                     id="username"
+                    @cannot('administrate-admin-portal-pages')
+                        disabled
+                    @endcannot
                     class="mr-4 rounded-md text-md focus:border-blue-500 focus:bg-white focus:outline-none">
                 @foreach($availableAssistants as $user)
                     <option value="{{$user->username}}">{{ $user->getFullNameAttribute() }}</option>

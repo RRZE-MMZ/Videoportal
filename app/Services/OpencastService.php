@@ -38,9 +38,10 @@ class OpencastService
     public function getSeriesInfo(Series $series): Collection
     {
         $opencastSeriesInfo = collect();
-        if ($health = $this->getHealth()->contains('pass')) {
-            $opencastSeriesInfo->put('health', $health)
-                ->put('metadata', $this->getSeries($series))
+        $health = $this->getHealth();
+        $opencastSeriesInfo->put('health', $health);
+        if ($health->contains('pass')) {
+            $opencastSeriesInfo->put('metadata', $this->getSeries($series))
                 ->put(
                     OpencastWorkflowState::RECORDING->lower(),
                     $this->getEventsByStatus(OpencastWorkflowState::RECORDING, $series)

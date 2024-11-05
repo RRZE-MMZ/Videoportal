@@ -75,7 +75,7 @@ class SeriesDataTable extends Component
 
     protected function adminOrDefaultQuery($search)
     {
-        if (auth()->user()->can('administrate-portal-pages')) {
+        if (auth()->user()->can('administrate-assistant-pages')) {
             $query = Series::query()->withLastPublicClip();
             $query->with(['presenters'])
                 ->where(function ($q) use ($search) {

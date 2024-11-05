@@ -74,7 +74,7 @@ it('fetches opencast series info  with all workflows for a given series', functi
     $seriesInfo = $this->opencastService->getSeriesInfo($series);
 
     expect($seriesInfo->isNotEmpty())->toBeTrue();
-    expect($seriesInfo['health'])->toBeTrue();
+    expect($seriesInfo)->toHaveKey('health');
     expect($seriesInfo)->toHaveKey('metadata');
     expect($seriesInfo)->toHaveKey(OpencastWorkflowState::RECORDING->lower());
     expect($seriesInfo)->toHaveKey(OpencastWorkflowState::RUNNING->lower());
@@ -180,7 +180,7 @@ it('fetches an empty collection for opencast series info if no opencast server i
 
     $seriesInfo = $this->opencastService->getSeriesInfo($series);
 
-    expect($seriesInfo->isEmpty())->toBeTrue();
+    expect($seriesInfo->get('health')->get('status'))->toBe('failed');
 });
 
 it('creates an opencast series', function () {

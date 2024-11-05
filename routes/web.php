@@ -27,8 +27,8 @@ use App\Http\Controllers\Backend\SearchSettingsController;
 use App\Http\Controllers\Backend\SeriesClipsController;
 use App\Http\Controllers\Backend\SeriesController;
 use App\Http\Controllers\Backend\SeriesMembershipController;
-use App\Http\Controllers\Backend\SeriesOpencastController;
 use App\Http\Controllers\Backend\SeriesOwnership;
+use App\Http\Controllers\Backend\SeriesVideoWorkflowController;
 use App\Http\Controllers\Backend\StatisticsController;
 use App\Http\Controllers\Backend\StreamingSettingsController;
 use App\Http\Controllers\Backend\SystemsCheckController;
@@ -359,15 +359,15 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         Route::resource('articles', ArticlesController::class)->except(['show']);
 
         //Series Opencast routes
-        Route::post('/series/{series}/createOpencastSeries/', [SeriesOpencastController::class, 'createSeries'])
+        Route::post('/series/{series}/createOpencastSeries/', [SeriesVideoWorkflowController::class, 'createSeries'])
             ->name('series.opencast.createSeries');
-        Route::post('/series/{series}/updateOpencastSeriesAcl}', [SeriesOpencastController::class, 'updateAcl'])
+        Route::post('/series/{series}/updateOpencastSeriesAcl}', [SeriesVideoWorkflowController::class, 'updateAcl'])
             ->name('series.opencast.updateSeriesAcl');
         Route::post('/series/{series}/updateScheduledEventsTitle', [
-            SeriesOpencastController::class, 'updateEventsTitle',
+            SeriesVideoWorkflowController::class, 'updateEventsTitle',
         ])->name('series.opencast.updateEventsTitle');
         Route::post('/series/{series}/addScheduledEventsAsClips', [
-            SeriesOpencastController::class, 'addScheduledEventsAsClips',
+            SeriesVideoWorkflowController::class, 'addScheduledEventsAsClips',
         ])->name('series.opencast.addScheduledEventsAsClips');
 
         Route::get('/clips/{clip}/triggerSmilFiles', TriggerSmilFilesController::class)
@@ -375,7 +375,7 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
     });
 
     //Admin and portal assistants routes
-    Route::middleware('can:administrate-portal-pages')->group(function () {
+    Route::middleware('can:administrate-assistant-pages')->group(function () {
         Route::get('/activities', function () {
             return view('backend.activities.index', [
                 'activities' => Activity::paginate(20),

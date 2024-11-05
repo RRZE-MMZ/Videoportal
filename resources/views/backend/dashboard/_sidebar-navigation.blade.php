@@ -77,7 +77,7 @@
     </div>
 </a>
 
-@can('administrate-portal-pages')
+@can('administrate-assistant-pages')
     <a
             href="{{ route('presenters.index') }}"
             class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4

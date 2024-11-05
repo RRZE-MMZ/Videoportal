@@ -40,7 +40,7 @@
                 @include('backend.dashboard._opencast-workflows',['opencastEvents' => $opencastEvents])
             @endif
         </div>
-        @can('administrate-portal-pages')
+        @can('administrate-assistant-pages')
             @if($dropBoxFilesCheck)
                 <div class="w-1/3 pl-4">
                     @include('backend.dashboard._dropzone-files')

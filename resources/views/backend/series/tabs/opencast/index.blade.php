@@ -11,5 +11,5 @@
     @else
         @include('backend.series.tabs.opencast._create-series-button')
     @endif
-
+    @include('backend.series.tabs.opencast._themes-actions')
 </div>

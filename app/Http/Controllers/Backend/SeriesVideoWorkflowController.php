@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 
 use function PHPUnit\Framework\isEmpty;
 
-class SeriesOpencastController extends Controller
+class SeriesVideoWorkflowController extends Controller
 {
     /**
      * Creates an Openast series for the given tides series

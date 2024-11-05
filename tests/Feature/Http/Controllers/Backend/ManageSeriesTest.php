@@ -572,9 +572,10 @@ it('it updates opencast series title when title is changed', function () {
 
 });
 
-it('shows create oc series button if no series exist in opencast', function () {
-    $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))
-        ->create();
+it('shows create oc series button if no series exist in opencast for portal admins', function () {
+
+    $series = SeriesFactory::create();
+    signInRole(Role::ASSISTANT);
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockNoResultsResponse(), // seriesInfo
