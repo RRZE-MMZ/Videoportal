@@ -361,8 +361,11 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         //Series Opencast routes
         Route::post('/series/{series}/createOpencastSeries/', [SeriesVideoWorkflowController::class, 'createSeries'])
             ->name('series.opencast.createSeries');
-        Route::post('/series/{series}/updateOpencastSeriesAcl}', [SeriesVideoWorkflowController::class, 'updateAcl'])
+        Route::post('/series/{series}/updateOpencastSeriesAcl', [SeriesVideoWorkflowController::class, 'updateAcl'])
             ->name('series.opencast.updateSeriesAcl');
+        Route::put('/series/{series}/updateOpencastSeriesTheme', [
+            SeriesVideoWorkflowController::class, 'updateSeriesTheme'])
+            ->name('series.opencast.updateSeriesTheme');
         Route::post('/series/{series}/updateScheduledEventsTitle', [
             SeriesVideoWorkflowController::class, 'updateEventsTitle',
         ])->name('series.opencast.updateEventsTitle');
@@ -397,6 +400,8 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
             ->name('settings.workflow.show');
         Route::put('/settings/workflow', [VideoWorkflowSettingsController::class, 'update'])
             ->name('settings.workflow.update');
+        Route::get('/settings/workflow/fetchAndSaveOpencastThemes', [VideoWorkflowSettingsController::class, 'fetchAndSaveOpencastThemes'])
+            ->name('settings.workflow.fetchAndSaveOpencastThemes');
         Route::get('/settings/streaming', [StreamingSettingsController::class, 'show'])
             ->name('settings.streaming.show');
         Route::put('/settings/streaming', [StreamingSettingsController::class, 'update'])

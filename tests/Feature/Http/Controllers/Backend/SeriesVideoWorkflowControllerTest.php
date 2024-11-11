@@ -25,11 +25,13 @@ beforeEach(function () {
 });
 
 it('shows certain opencast actions to moderator', function () {
+
     $this->series->owner_id = signInRole(Role::MODERATOR)->id;
     $this->series->save();
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($this->series),
+        $this->mockgetSeriesTheme(), //Themes response
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -51,6 +53,7 @@ it('shows all opencast actions for portal admins', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($this->series),
+        $this->mockgetSeriesTheme(), //Themes response
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -84,6 +87,7 @@ it('allows create opencast series only for portal admins', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockNoResultsResponse(), // seriesInfo
+        $this->mockNoResultsResponse(), // seriesTheme
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -104,6 +108,7 @@ it('updates opencast series id for the given series', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockNoResultsResponse(), // seriesInfo
+        $this->mockNoResultsResponse(), // seriesTheme
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -121,6 +126,7 @@ it('does not update an opencast series acl if series has a running workflow', fu
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockNoResultsResponse(), // seriesInfo
+        $this->mockNoResultsResponse(), // seriesTheme
         $this->mockNoResultsResponse(), //recording
         $this->mockEventResponse($this->series, OpencastWorkflowState::RUNNING), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -154,6 +160,7 @@ test('it validates opencast update acl form data for a series', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockNoResultsResponse(), // seriesInfo
+        $this->mockNoResultsResponse(), // seriesTheme
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -172,6 +179,7 @@ it('updates opencast series acl for a specific series', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($this->series), // seriesInfo
+        $this->mockgetSeriesTheme(), //Themes response
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -195,6 +203,7 @@ it('does not update the acl if server is not available', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($this->series), // seriesInfo
+        $this->mockgetSeriesTheme(), //Themes response
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled

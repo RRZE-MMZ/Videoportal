@@ -30,14 +30,30 @@ class UpdateVideoWorkflowSettings extends FormRequest
             'password' => ['required', Password::min(6)],
             'default_workflow_id' => ['required', 'string'],
             'upload_workflow_id' => ['required', 'string'],
-            'theme_id_top_right' => ['required', 'numeric'],
-            'theme_id_top_left' => ['required', 'numeric'],
-            'theme_id_bottom_left' => ['required', 'numeric'],
-            'theme_id_bottom_right' => ['required', 'numeric'],
             'archive_path' => ['required', 'string'],
             'assistants_group_name' => ['required', 'string'],
             'opencast_purge_end_date' => ['required', 'date'],
             'opencast_purge_events_per_minute' => ['required', 'numeric'],
+            'enable_themes_support' => ['required', 'boolean'],
+            'available_themes' => ['nullable', 'array'],  // Allow empty array
+            'available_themes.*.id' => ['required_with:enable_themes_support', 'numeric'],
+            'available_themes.*.name' => ['required_with:enable_themes_support', 'string'],
+            'available_themes.*.watermarkPosition' => ['nullable', 'string'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        // Only set available_themes to an empty array if it's null or not an array
+        if (! $this->has('available_themes') || ! is_array($this->input('available_themes'))) {
+            $this->merge([
+                'available_themes' => [],
+                'enable_themes_support' => $this->enable_themes_support === 'on',
+            ]);
+        } else {
+            $this->merge([
+                'enable_themes_support' => $this->enable_themes_support === 'on',
+            ]);
+        }
     }
 }

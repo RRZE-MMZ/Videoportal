@@ -148,6 +148,11 @@ trait WorksWithOpencastClient
         ]));
     }
 
+    public function mockgetSeriesTheme()
+    {
+        return new Response(201, [], json_encode(['100' => 'Default Facutly Intro-Outro TR']));
+    }
+
     /**
      * Opencast single event metadata response
      */

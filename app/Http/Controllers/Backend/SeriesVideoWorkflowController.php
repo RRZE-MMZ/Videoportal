@@ -13,6 +13,7 @@ use App\Models\Setting;
 use App\Services\OpencastService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -134,6 +135,21 @@ class SeriesVideoWorkflowController extends Controller
             }
         });
         session()->flash('flashMessage', "{$events->count()} Clips created");
+
+        return to_route('series.edit', $series);
+    }
+
+    public function updateSeriesTheme(Series $series, Request $request, OpencastService $opencastService)
+    {
+        $opencastSettings = Setting::opencast();
+        $validated = $request->validate([
+            'faculty' => ['required', 'string'],
+            'position' => ['required', 'integer'],
+        ]);
+        //actually position is the themeID
+        $opencastService->updateSeriesTheme($series, $validated['position']);
+
+        session()->flash('flashMessage', 'Video workflow updated successfully');
 
         return to_route('series.edit', $series);
     }

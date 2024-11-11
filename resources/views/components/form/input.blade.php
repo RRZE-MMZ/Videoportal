@@ -33,7 +33,7 @@
     </div>
     @error($fieldName)
     <div class="col-start-2 col-end-6">
-        <p class="mt-2 w-full text-red-500 dark:text-red-200">{{ $message }}</p>
+        <p class="mt-2 w-full text-red-500 dark:text-red-200 dark:text-white">{{ $message }}</p>
     </div>
     @enderror
 </div>

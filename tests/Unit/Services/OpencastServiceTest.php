@@ -400,6 +400,7 @@ it('updates an Opencast ACL for a given series', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($series), // seriesInfo
+        $this->mockNoResultsResponse(), // getSeriesTheme
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled

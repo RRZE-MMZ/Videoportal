@@ -318,3 +318,36 @@ function check_valid_statistic_insert($numIP, $requestMethod, $userAgent): bool
         default => true,
     };
 }
+
+function getUniqueFacultiesWithPositionsFromOpencastThemes(Collection $collection, string $keywordToRemove): array
+{
+    return $collection->map(function ($id, $item) use ($keywordToRemove) {
+        // Extract the faculty name and position using regex
+        $pattern = '/\s'.preg_quote($keywordToRemove, '/').'\s?(BR|BL|TR|TL|logo.*)?$/';
+        if (preg_match($pattern, $item, $matches)) {
+            $facultyName = preg_replace($pattern, '', $item);
+            $position = $matches[1] ?? 'no position';
+
+            return [
+                'faculty' => $facultyName,
+                'position' => $position,
+                'id' => $id,
+            ];
+        }
+
+        return null;
+    })->filter()->groupBy('faculty')->map(function ($items) {
+        // Extract all unique positions for each faculty with their IDs
+        $positions = $items->map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'position' => $item['position'],
+            ];
+        })->unique('position')->values()->all();
+
+        return [
+            'faculty' => $items->first()['faculty'],
+            'positions' => $positions,
+        ];
+    })->values()->toArray();
+}

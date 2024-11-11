@@ -457,6 +457,7 @@ test('edit series should display opencast running events if any', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($series), // seriesInfo
+        $this->mockNoResultsResponse(), // seriesThemes
         $this->mockNoResultsResponse(), //recording
         $runningWorkflow = $this->mockEventResponse($series, OpencastWorkflowState::RUNNING), //running
         $this->mockNoResultsResponse(), //scheduled
@@ -479,6 +480,7 @@ test('edit series should display opencast failed events if any', function () {
     $this->mockHandler->append(
         $this->mockHealthResponse(), //health
         $this->mockSeriesMetadata($series), // seriesInfo
+        $this->mockNoResultsResponse(), // seriesThemes
         $this->mockNoResultsResponse(), //recording
         $this->mockNoResultsResponse(), //running
         $this->mockNoResultsResponse(), //scheduled

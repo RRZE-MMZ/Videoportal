@@ -16,7 +16,7 @@
             @method('PUT')
             <div class="bg-gray-200 border-2 rounded-2xl p-4 my-4 dark:bg-slate-800 dark:border-indigo-950 space-y-4">
                 <div
-                    class="flex border-b border-black pb-1 text-xl font-semibold text-indigo-800
+                        class="flex border-b border-black pb-1 text-xl font-semibold text-indigo-800
                     dark:text-indigo-400 dark:border-white mb-4 ">
                     Opencast Settings
                 </div>
@@ -50,32 +50,8 @@
                               label="Upload workflow ID"
                               :fullCol="true"
                               :required="true" />
-                <x-form.input field-name="theme_id_top_right"
-                              input-type="number"
-                              :value="$setting['theme_id_top_right']"
-                              label="Theme ID top right"
-                              :fullCol="false"
-                              :required="true" />
-                <x-form.input field-name="theme_id_top_left"
-                              input-type="number"
-                              :value="$setting['theme_id_top_left']"
-                              label="Theme ID top left"
-                              :fullCol="false"
-                              :required="true" />
-                <x-form.input field-name="theme_id_bottom_right"
-                              input-type="number"
-                              :value="$setting['theme_id_bottom_right']"
-                              label="Theme ID bottom right"
-                              :fullCol="false"
-                              :required="true" />
-                <x-form.input field-name="theme_id_bottom_left"
-                              input-type="number"
-                              :value="$setting['theme_id_bottom_left']"
-                              label="Theme ID top right"
-                              :fullCol="false"
-                              :required="true" />
                 <div
-                    class="mb-5 border-b border-black py-4 pb-2 text-base font-medium dark:text-white
+                        class="mb-5 border-b border-black py-4 pb-2 text-base font-medium dark:text-white
                     dark:border-white"
                 >
                     Opencast Archive Settings
@@ -93,7 +69,7 @@
                               :fullCol="true"
                               :required="true" />
                 <div
-                    class="mb-5 border-b border-black py-4 pb-2 text-base font-medium dark:text-white
+                        class="mb-5 border-b border-black py-4 pb-2 text-base font-medium dark:text-white
                     dark:border-white"
                 >
                     Opencast purge old events
@@ -108,9 +84,56 @@
                               label="Events per minute"
                               :full-col="true"
                               :required="false" />
+                <div
+                        class="mb-5 border-b border-black py-4 pb-2 text-base font-medium dark:text-white
+                    dark:border-white"
+                >
+                    Opencast Themes
+                </div>
+                <div class="flex w-1/3">
+                    <x-form.toggle-button :value="old('enable_themes_support', $setting['enable_themes_support'])"
+                                          label="Enable themes support"
+                                          field-name="enable_themes_support"
+                    />
+                </div>
+                @if ($setting['enable_themes_support'])
+                    <div class="grid grid-cols-1 gap-2">
+                        @forelse ($setting['available_themes'] as $theme)
+                            <div class="pt-4">
+                                <x-form.input field-name="available_themes[{{ $loop->index }}][name]"
+                                              input-type="text"
+                                              :value="old('available_themes.'.$loop->index.'.name', $theme['name'])"
+                                              label="Theme Name"
+                                              :full-col="true"
+                                              :disabled="true"
+                                              :required="false" />
+
+                                <x-form.input field-name="available_themes[{{ $loop->index }}][watermarkPosition]"
+                                              input-type="text"
+                                              :value="old('available_themes.'.$loop->index.'.watermarkPosition', $theme['watermarkPosition'])"
+                                              label="Watermark Position"
+                                              :full-col="true"
+                                              :disabled="true"
+                                              :required="false" />
+                                <x-form.input field-name="available_themes[{{ $loop->index }}][id]"
+                                              input-type="number"
+                                              :value="old('available_themes.'.$loop->index.'.id', $theme['id'])"
+                                              label="Theme ID"
+                                              :full-col="true"
+                                              :disabled="true"
+                                              :required="false" />
+                            </div>
+
+                        @empty
+                            <div class="text-md italic dark:text-white">
+                                No themes found
+                            </div>
+                        @endforelse
+                    </div>
+                @endif
 
             </div>
-            <div class="mt-10 space-x-4 pt-10">
+            <div class="mt-10 space-x-4 pt-10 ">
                 <x-button class="bg-blue-600 hover:bg-blue-700">
                     Update
                 </x-button>
@@ -121,7 +144,17 @@
                         Cancel
                     </x-button>
                 </a>
+                @if($setting['enable_themes_support'])
+                    <a href="{{ route('settings.workflow.fetchAndSaveOpencastThemes') }}" class="pl-10">
+                        <x-button type="button"
+                                  class="bg-green-600 hover:bg-green-700"
+                        >
+                            Fetch all available Opencast themes
+                        </x-button>
+                    </a>
+                @endif
             </div>
         </form>
+        g
     </div>
 @endsection
