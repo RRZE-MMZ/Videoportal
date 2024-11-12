@@ -140,7 +140,7 @@
                             {{ __('series.common.actions') }}
                         </a>
                     </li>
-                    @if(isset($opencastSeriesInfo['health']) && $opencastSeriesInfo['health'])
+                    @if ($opencastSeriesInfo->get('health')->get('status') === 'pass')
                         <li class="me-2">
                             <a href="#opencast"
                                x-on:click="activeTab = 2"
@@ -173,10 +173,11 @@
                 <div x-show="activeTab === 1" id="clips" class="w-full ">
                     @include('backend.clips.list')
                 </div>
-                <div x-show="activeTab === 2" id="opencast">
-                    @include('backend.series.tabs.opencast.index')
-
-                </div>
+                @if ($opencastSeriesInfo->get('health')->get('status') === 'pass')
+                    <div x-show="activeTab === 2" id="opencast">
+                        @include('backend.series.tabs.opencast.index')
+                    </div>
+                @endif
                 <div x-show="activeTab === 3" id="actions">
                     @include('backend.series.buttons.actions')
                 </div>

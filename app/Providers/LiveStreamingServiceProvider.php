@@ -31,6 +31,8 @@ class LiveStreamingServiceProvider extends ServiceProvider
                     $settingsData['wowza']['server2']['api_password'],
                     $authType,
                 ],
+                'timeout' => '10',
+                'connect_timeout' => '10',
             ]);
         });
     }

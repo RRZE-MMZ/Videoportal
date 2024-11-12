@@ -29,10 +29,18 @@ class WowzaService
 
     private Setting $streamingSettings;
 
+    private StreamingClient $streamingClient;
+
+    private LiveStreamingClient $liveStreamingClient;
+
+    private array $clients;
+
     public function __construct(
-        private StreamingClient $streamingClient,
-        private LiveStreamingClient $liveStreamingClient
+        StreamingClient $streamingClient,
+        LiveStreamingClient $liveStreamingClient
     ) {
+        $this->streamingClient = $streamingClient;
+        $this->liveStreamingClient = $liveStreamingClient;
         $this->clients = [
             'stream' => $streamingClient,
             'livestream' => $liveStreamingClient,

@@ -48,7 +48,7 @@
                                 Clips
                             </label>
                         </div>
-                        @can('administrate-portal-pages')
+                        @can('administrate-assistant-pages')
                             <div class="flex items-center">
                                 <input type="checkbox" id="search-channels-checkbox"
                                        class="form-checkbox h-5 w-5 text-blue-600"

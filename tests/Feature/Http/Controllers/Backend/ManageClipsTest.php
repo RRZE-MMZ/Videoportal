@@ -656,7 +656,7 @@ it('shows clip activities in clip edit page', function () {
 it('load the video player if clip has assets', function () {
     $clip = ClipFactory::withAssets(2)->ownedBy(signInRole(Role::MODERATOR))->create();
 
-    get(route('clips.edit', $clip))->assertSee('video id="target"', false);
+    get(route('clips.edit', $clip))->assertSee('mediaPlayer id="target"', false);
 });
 
 it('loads the video player if clip is a livestream', function () {

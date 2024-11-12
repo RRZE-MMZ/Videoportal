@@ -230,11 +230,14 @@ it('clip public page should display clip presenters if any', function () {
 });
 
 it('clip public page should have navigate to previous and next clips if a clip belongs to a series', function () {
-    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
     SeriesFactory::withClips(3)->withAssets(2)->create();
     $clip = Clip::find(3);
     $previousClip = Clip::find(2);
     $nextClip = Clip::find(4);
+    $this->mockHandler->append(
+        $this->mockCheckApiConnection(),
+        $this->mockVodSecureUrls()
+    );
 
     get(route('frontend.clips.show', $clip))
         ->assertSee(__('common.previous'))

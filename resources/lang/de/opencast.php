@@ -32,5 +32,11 @@ return [
         'series in opencast has no video portal editors' => 'Serie in Opencast hat keine Videoportal-Editoren',
         'available assistants' => 'Verfügbare Assistenten',
         'Add assistant to opencast series' => 'Assistent zur Opencast-Serie hinzufügen',
+        'themes info text' => 'Nach dem Hochladen ins fau.tv wird jedem Video automatisch ein FAU Vor- und Abspann 
+            sowie das FAU-Logo als Wasserzeichen hinzugefügt. Bitte wählen Sie, ob Sie einen fakultätsspezifischen 
+            Vor- und Abspann oder einen FAU allgemeinen haben möchten (eine Übersicht über die verfügbaren Varianten 
+            finden Sie hier) Ferner können Sie die Position des Wasserzeichens wählen, damit keine wichtigen Elemente 
+            im Video verdeckt werden. Standardmäßig werden der FAU allgemeine Vor- und Abspann sowie das Wasserzeichen 
+            rechts oben gewählt.',
     ],
 ];

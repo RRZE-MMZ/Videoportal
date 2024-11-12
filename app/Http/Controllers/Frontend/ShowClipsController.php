@@ -17,9 +17,6 @@ class ShowClipsController extends Controller
      */
     public function index(): View
     {
-        //        $clips = Clip::Public()->Single()->orderByDesc('updated_at')->paginate(12);
-        //
-        //        return view('frontend.clips.index', compact('clips'));
         return view('frontend.clips.index');
     }
 
@@ -47,7 +44,11 @@ class ShowClipsController extends Controller
             });
 
         $wowzaStatus = $wowzaService->getHealth();
-        $urls = ($wowzaStatus) ? $wowzaService->getDefaultPlayerURL($clip) : collect([]);
+        $urls = ($wowzaStatus->has('status') && $wowzaStatus->get('status') !== 'failed')
+            ? $wowzaService->getDefaultPlayerURL($clip)
+            : collect([
+                'defaultPlayerUrl' => getProtectedUrl($clip->assets()->formatVideo()->first()?->path),
+            ]);
 
         return view('frontend.clips.show', [
             'clip' => $clip,

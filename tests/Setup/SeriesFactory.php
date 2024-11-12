@@ -2,6 +2,7 @@
 
 namespace Tests\Setup;
 
+use App\Enums\Content;
 use App\Models\Asset;
 use App\Models\Chapter;
 use App\Models\Clip;
@@ -137,6 +138,10 @@ class SeriesFactory
                 if ($this->assetsCount > 0) {
                     $series->clips()->each(function ($clip) {
                         $assets = Asset::factory($this->assetsCount)->create();
+                        $assets->add(Asset::factory()->create([
+                            'type' => Content::SMIL,
+                            'original_file_name' => 'composite.smil',
+                        ]));
                         $assets->each(function ($asset) use ($clip) {
                             $clip->addAsset($asset);
                         });

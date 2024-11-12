@@ -93,7 +93,7 @@
                                             </form>
                                         </div>
                                     @else
-                                        @can('administrate-portal-pages')
+                                        @can('administrate-assistant-pages')
                                             <div class="flex flex-col space-y-4 dark:text-white w-full ">
                                                 <form action="{{ route('livestreams.makeReservation') }}"
                                                       method="POST"

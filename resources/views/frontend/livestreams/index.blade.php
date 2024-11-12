@@ -34,7 +34,7 @@
                 </ul>
             @endif
             @if($hiddenLivestreams->count() > 0)
-                @can('administrate-portal-pages')
+                @can('administrate-assistant-pages')
                     <div class="flex items-center border-b-2 border-black dark:border-white pt-10 pb-2 ">
                         <div class="flex-grow">
                             <h2 class="text-2xl font-bold dark:text-white">

@@ -19,7 +19,7 @@ class ManageLivestreamRoom extends Controller
      */
     public function reserve(Request $request, OpencastService $opencastService, WowzaService $wowzaService)
     {
-        $this->authorize('administrate-portal-pages');
+        $this->authorize('administrate-assistant-pages');
         // Get all inputs
         $inputs = $request->all();
 

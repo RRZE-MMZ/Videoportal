@@ -38,9 +38,11 @@ class OpencastService
     public function getSeriesInfo(Series $series): Collection
     {
         $opencastSeriesInfo = collect();
-        if ($health = $this->getHealth()->contains('pass')) {
-            $opencastSeriesInfo->put('health', $health)
-                ->put('metadata', $this->getSeries($series))
+        $health = $this->getHealth();
+        $opencastSeriesInfo->put('health', $health);
+        if ($health->contains('pass')) {
+            $opencastSeriesInfo->put('metadata', $this->getSeries($series))
+                ->put('theme', $this->getSeriesTheme($series))
                 ->put(
                     OpencastWorkflowState::RECORDING->lower(),
                     $this->getEventsByStatus(OpencastWorkflowState::RECORDING, $series)
@@ -115,6 +117,35 @@ class OpencastService
         }
 
         return $seriesInfo;
+    }
+
+    public function getSeriesTheme(Series $series): Collection
+    {
+        $seriesTheme = collect();
+
+        try {
+            $this->response = $this->client->get("admin-ng/series/{$series->opencast_series_id}/theme.json");
+            $seriesTheme = collect(json_decode((string) $this->response->getBody(), true));
+        } catch (GuzzleException $exception) {
+            Log::error($exception->getMessage());
+        }
+
+        return $seriesTheme;
+    }
+
+    public function getThemes(): Collection
+    {
+        $themes = collect();
+
+        try {
+            $this->response = $this->client->get('admin-ng/themes/themes.json');
+            $themesArr = json_decode((string) $this->response->getBody(), true);
+            $themes = collect($themesArr['results']);
+        } catch (GuzzleException $exception) {
+            Log::error($exception->getMessage());
+        }
+
+        return $themes;
     }
 
     /**
@@ -305,6 +336,29 @@ class OpencastService
         }
 
         return $this->response;
+    }
+
+    public function updateSeriesTheme(Series $series, $themeID)
+    {
+        try {
+            $this->response =
+                $this->client->put(
+                    "admin-ng/series/{$series->opencast_series_id}/theme",
+                    [
+                        'headers' => [
+                            'Content-Type' => 'application/x-www-form-urlencoded',
+                        ],
+                        'form_params' => [
+                            'themeId' => $themeID,
+                        ],
+                    ]
+                );
+        } catch (GuzzleException $exception) {
+            Log::error($exception->getMessage());
+        }
+
+        return $this->response;
+
     }
 
     /**

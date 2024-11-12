@@ -29,6 +29,8 @@ class OpencastServiceProvider extends ServiceProvider
                     $settingData['username'],
                     $settingData['password'],
                 ],
+                'timeout' => '10',
+                'connect_timeout' => '10',
             ]);
         });
     }

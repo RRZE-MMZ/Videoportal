@@ -32,5 +32,12 @@ return [
         'series in opencast has no video portal editors' => 'Series in opencast has no video portal editors',
         'available assistants' => 'Available assistants',
         'Add assistant to opencast series' => 'Add assistant to opencast series',
+        'themes info text' => 'After uploading to fau.tv, each video will automatically have an FAU intro and outro, 
+                as well as the FAU logo as a watermark. Please select whether you would like a faculty-specific intro 
+                and outro or a general FAU version (an overview of the available options can be found here). You can 
+                also choose the position of the watermark to ensure that no important elements in the video are 
+                covered. By default, the general FAU intro and outro, as well as the watermark in the top right corner,
+                 are selected.',
+
     ],
 ];
