@@ -68,6 +68,7 @@ class SeriesVideoWorkflowController extends Controller
 
         if ($opencastAcls->isNotEmpty()) {
             session()->flash('flashMessage', 'Opencast acls updated successfully');
+            $series->recordActivity("Allow user:{$validated['username']} to edit the recording in opencast");
         } else {
             session()->flash('flashMessage', 'There was a problem updating Opencast Acls');
         }
@@ -134,6 +135,7 @@ class SeriesVideoWorkflowController extends Controller
                 }
             }
         });
+        $series->recordActivity("Update {$events->count()} scheduled events to series as clips");
         session()->flash('flashMessage', "{$events->count()} Clips created");
 
         return to_route('series.edit', $series);
@@ -141,7 +143,6 @@ class SeriesVideoWorkflowController extends Controller
 
     public function updateSeriesTheme(Series $series, Request $request, OpencastService $opencastService)
     {
-        $opencastSettings = Setting::opencast();
         $validated = $request->validate([
             'faculty' => ['required', 'string'],
             'position' => ['required', 'integer'],
@@ -149,6 +150,7 @@ class SeriesVideoWorkflowController extends Controller
         //actually position is the themeID
         $opencastService->updateSeriesTheme($series, $validated['position']);
 
+        $series->recordActivity("Update Theme to : {$validated['faculty']} with ID:{$validated['position']}");
         session()->flash('flashMessage', 'Video workflow updated successfully');
 
         return to_route('series.edit', $series);

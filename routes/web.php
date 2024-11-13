@@ -277,7 +277,9 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         ->name('series.membership.removeUser');
     // Series Images
     Route::put('/series/{series}/updateImage/', UpdateSeriesImage::class)->name('update.series.image');
-
+    Route::put('/series/{series}/updateOpencastSeriesTheme', [
+        SeriesVideoWorkflowController::class, 'updateSeriesTheme'])
+        ->name('series.opencast.updateSeriesTheme');
     //Clip routes
     Route::resource('clips', ClipsController::class)->except(['show']);
 
@@ -363,9 +365,6 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
             ->name('series.opencast.createSeries');
         Route::post('/series/{series}/updateOpencastSeriesAcl', [SeriesVideoWorkflowController::class, 'updateAcl'])
             ->name('series.opencast.updateSeriesAcl');
-        Route::put('/series/{series}/updateOpencastSeriesTheme', [
-            SeriesVideoWorkflowController::class, 'updateSeriesTheme'])
-            ->name('series.opencast.updateSeriesTheme');
         Route::post('/series/{series}/updateScheduledEventsTitle', [
             SeriesVideoWorkflowController::class, 'updateEventsTitle',
         ])->name('series.opencast.updateEventsTitle');
