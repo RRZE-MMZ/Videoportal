@@ -33,6 +33,7 @@ class StoreSeriesRequest extends FormRequest
             'slug' => ['required'],
             'password' => ['nullable', Password::min(8)->mixedCase()],
             'is_public' => ['boolean'],
+            'allow_comments' => ['boolean'],
             'image_id' => ['required', 'exists:App\Models\Image,id'],
         ];
     }
@@ -44,6 +45,7 @@ class StoreSeriesRequest extends FormRequest
         $this->merge([
             'slug' => Str::slug($this->title),
             'is_public' => $this->is_public === 'on',
+            'allow_comments' => $this->allow_comments === 'on',
             'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if presenters array is empty
             'image_id' => (isset($this->image_id)) ? $this->image_id : $settingData['default_image_id'],
         ]);

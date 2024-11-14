@@ -129,7 +129,7 @@
                                  :full-col="true"
                 />
 
-                <x-form.toggle-button :value="true"
+                <x-form.toggle-button :value="$series->allow_comments"
                                       label="Allow comments"
                                       field-name="allow_comments"
                 />

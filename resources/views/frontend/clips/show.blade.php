@@ -90,7 +90,7 @@
                 </div>
             </div>
         @endif
-        @can('view-comments', $clip)
+        @can('view-clips-comments', $clip)
             <div class="flex flex-col pt-6 sm:pt-10">
                 <h2 class="border-b-2 border-black pb-2 text-lg sm:text-2xl font-semibold dark:text-white dark:border-white">
                     {{ __('clip.frontend.comments') }}

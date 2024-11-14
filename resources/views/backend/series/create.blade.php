@@ -57,6 +57,11 @@
                                       label="{{ __('common.forms.public available') }}"
                                       field-name="is_public"
                 />
+                
+                <x-form.toggle-button :value="false"
+                                      label="{{ __('common.metadata.allow comments') }}"
+                                      field-name="allow_comments"
+                />
 
                 <div class="flex content-center items-center mb-6">
                 </div>

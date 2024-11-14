@@ -9,15 +9,6 @@ use Illuminate\Validation\Rules\Password;
 
 class UpdateSeriesRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'slug' => Str::slug($this->title),
-            'is_public' => $this->is_public === 'on',
-            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if select2 presenters is empty
-        ]);
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -43,6 +34,17 @@ class UpdateSeriesRequest extends FormRequest
             'opencast_series_id' => ['null', 'uuid'],
             'password' => ['nullable', Password::min(8)->mixedCase()],
             'is_public' => ['boolean'],
+            'allow_comments' => ['boolean'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->title),
+            'is_public' => $this->is_public === 'on',
+            'allow_comments' => $this->allow_comments === 'on',
+            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if select2 presenters is empty
+        ]);
     }
 }

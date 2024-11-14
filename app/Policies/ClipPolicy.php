@@ -6,32 +6,21 @@ use App\Enums\Acl;
 use App\Models\Clip;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class ClipPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Check whether the current user can view all clips in index
-     */
     public function index(User $user): bool
     {
         return auth()->check() && ($user->isAdmin() || $user->isAssistant());
     }
 
-    /**
-     * Check whether the current user can create a clip
-     */
     public function create(User $user): bool
     {
         return auth()->check() && ($user->isModerator() || $user->isAssistant() || $user->isAdmin());
     }
 
-    /**
-     * Check whether the given user can edit the given clip
-     */
     public function edit(User $user, Clip $clip): bool
     {
         return $user->is($clip->owner) || $user->is($clip->series->owner) || ($user->isAdmin() || $user->isAssistant());
@@ -50,9 +39,6 @@ class ClipPolicy
         }
     }
 
-    /**
-     * Check whether the current user can view the given clip comments
-     */
     public function viewComments(?User $user, Clip $clip): bool
     {
         return auth()->check() && $clip->allow_comments;
@@ -64,10 +50,6 @@ class ClipPolicy
             ($user->is($clip->owner));
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function canWatchVideo(?User $user, Clip $clip): bool
     {
         return $clip->checkAcls();
