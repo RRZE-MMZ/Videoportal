@@ -51,6 +51,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('edit-series', [SeriesPolicy::class, 'edit']);
         Gate::define('update-series', [SeriesPolicy::class, 'update']);
         Gate::define('view-series', [SeriesPolicy::class, 'view']);
+        Gate::define('view-series-comments', [SeriesPolicy::class, 'viewComments']);
         Gate::define('delete-series', [SeriesPolicy::class, 'delete']);
         Gate::define('change-series-owner', [SeriesPolicy::class, 'changeOwner']);
 
@@ -59,7 +60,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-clips', [ClipPolicy::class, 'create']);
         Gate::define('edit-clips', [ClipPolicy::class, 'edit']);
         Gate::define('view-clips', [ClipPolicy::class, 'view']);
-        Gate::define('view-comments', [ClipPolicy::class, 'viewComments']);
+        Gate::define('view-clips-comments', [ClipPolicy::class, 'viewComments']);
         Gate::define('view-video', [ClipPolicy::class, 'viewVideo']);
         Gate::define('watch-video', [ClipPolicy::class, 'canWatchVideo']);
         Gate::define('edit-assets', [AssetPolicy::class, 'edit']);

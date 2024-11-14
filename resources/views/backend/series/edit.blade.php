@@ -66,6 +66,11 @@
                                       label="{{__('common.forms.public available')}}"
                                       field-name="is_public"
                 />
+
+                <x-form.toggle-button :value="$series->allow_comments"
+                                      label="{{__('common.metadata.allow comments')}}"
+                                      field-name="allow_comments"
+                />
             </div>
             @can('update-series', $series)
                 <div class="pt-10">

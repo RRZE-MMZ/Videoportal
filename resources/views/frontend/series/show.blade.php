@@ -101,14 +101,14 @@
         </div>
 
 
-        @auth()
+        @can('view-series-comments', $series)
             <div class="flex flex-col pt-10">
                 <h2 class="border-b-2 border-black dark:border-white pb-2 text-2xl font-semibold">
                     {{ __('clip.frontend.comments') }}
                 </h2>
                 <livewire:comments-section :model="$series" :type="'frontend'" />
             </div>
-        @endauth
+        @endcan
 
         @include('backend.clips.list')
     </div>

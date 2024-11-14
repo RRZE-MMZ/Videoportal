@@ -11,17 +11,11 @@ class SeriesPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Check whether the current user can view all series in index
-     */
     public function index(User $user): bool
     {
         return auth()->check() && ($user->isAdmin() || $user->isAssistant());
     }
 
-    /**
-     * Check whether the current user can create a series.
-     */
     public function create(User $user): bool
     {
         return auth()->check() && ($user->isModerator() || $user->isAdmin() || $user->isAssistant());
@@ -47,9 +41,11 @@ class SeriesPolicy
             : Response::deny('You do not own this series');
     }
 
-    /**
-     * Check whether the given user can edit the given series
-     */
+    public function viewComments(?User $user, Series $series): bool
+    {
+        return auth()->check() && $series->allow_comments;
+    }
+
     public function edit(User $user, Series $series): Response
     {
         return (
@@ -62,9 +58,6 @@ class SeriesPolicy
             : Response::deny('You do not own this series');
     }
 
-    /**
-     * Check whether the current user can create a series.
-     */
     public function update(User $user, Series $series): Response
     {
         //assistants are not allowed to update series info
@@ -73,9 +66,6 @@ class SeriesPolicy
             : Response::deny('You do not own this series');
     }
 
-    /**
-     * Check whether the given user can delete the given series
-     */
     public function delete(User $user, Series $series): Response
     {
         return $user->is($series->owner) || $user->isAdmin()

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Http\Controllers\Backend\SeriesController;
 use App\Models\Clip;
 use App\Models\User;
 use Facades\Tests\Setup\ClipFactory;
@@ -11,6 +12,7 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\patch;
 use function Pest\Laravel\post;
 
+covers(SeriesController::class);
 uses()->group('backend');
 
 it('redirects a non logged in user if tried to add a clip to a series', function () {
