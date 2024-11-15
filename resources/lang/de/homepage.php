@@ -13,7 +13,7 @@ return [
         'Your series subscriptions' => 'Ihre Serienabonnements',
         'You are not subscribed to any series' => 'Sie haben keine Serie abonniert',
         'Recently added!' => 'Letzte Videoreihen',
-        'more clips' => 'mehr Videoreihen',
+        'more series' => 'mehr Videoreihen',
         'no series found' => 'Keine Reihen gefunden',
         'no series subscriptions found' => 'kein Serienabonnement gefunden',
     ],

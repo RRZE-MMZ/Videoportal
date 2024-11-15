@@ -88,6 +88,7 @@ return [
         'main objects' => 'Main objects',
         'portal resources' => 'Portal resources',
         'portal administration' => 'Portal administration',
+        'statistic' => 'Statistic|Statistics',
         'contact' => 'Contact',
         'error report' => 'Reporting errors',
         'imprint' => 'Imprint',
