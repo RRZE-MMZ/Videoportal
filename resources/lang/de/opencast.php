@@ -9,6 +9,7 @@ return [
         'series' => 'Serie',
         'start time' => 'Startzeit',
         'end time' => 'Endzeit',
+        'location' => 'Ort',
         'recording date' => 'Aufnahme Datum',
     ],
     'frontend' => [

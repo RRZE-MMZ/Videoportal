@@ -30,6 +30,10 @@ return [
         'default chapter' => 'Standardkapitel',
         'add clips to chapter' => 'Clips zum Kapitel hinzufügen',
         'clips for this chapter' => 'Clips für dieses Kapitel',
-
+        'delete' => [
+            'modal title' => 'Sind Sie sicher, dass Sie das Kapitel ":chapter_title" löschen möchten?',
+            'modal body' => 'Diese Aktion wird keine Clips löschen, die mit diesem Kapitel verknüpft sind. '.
+                'Wenn dieses Kapitel Clips enthält, werden diese neu geordnet und ohne Kapitelzuordnung zugewiesen.',
+        ],
     ],
 ];

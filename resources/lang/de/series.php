@@ -47,8 +47,12 @@ return [
         'update series owner' => 'Serienbesitzer aktualisieren',
         'Add a series member' => 'Neue Serien-Teilnehmer hinzufügen',
         'actual episode' => 'Aktuelle Episode:',
+        'no user series found' => 'Sie haben noch keine Serie. Bitte erstellen Sie eine!',
         'mass update clip metadata for series' => 'Massenaktualisierung der Clip-Metadaten für die '.
                             'Serie: <span class="pl-2 font-semibold">:seriesTitle</span>',
+        'Series chapter has no clips' => 'Das Kapitel <span class="italic"> :chapterTitle </span> der Serie enthält '.
+                                        'keine Clips',
+        'Select a series for clip' => 'Wählen Sie eine Serie für den Clip: :clip_title',
         'reorder clips for series' => 'Clips für die Serie neu '.
                                 'anordnen:  <span class="pl-2 italic">:series_title</span>',
         'reorder series clips with chapters info' => 'Da deine Serie Kapitel hat, wird die Reihenfolge der Clips auf '.

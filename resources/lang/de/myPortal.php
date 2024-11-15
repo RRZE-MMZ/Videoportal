@@ -57,6 +57,6 @@ return [
         akademischen Gemeinschaft durch Kommentare, um den wissenschaftlichen Austausch und die Wissensvermittlung zu
         fördern. Diese Plattform legt den Schwerpunkt auf Inhaltskuration und Community-Interaktion, anstatt auf
         persönliche Video-Uploads.',
+        'activate button' => 'Persönliche Kanal aktivieren',
     ],
-    'activate button' => 'Persönliche Kanal aktivieren',
 ];
