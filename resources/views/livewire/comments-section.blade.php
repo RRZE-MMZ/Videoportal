@@ -60,13 +60,13 @@
         </div>
     </form>
 
-    <div wire:poll.30s="fetchComments">
+    <div wire:poll.10s="fetchComments">
         @if($comments->count() > 0)
             @foreach ($comments->sortDesc() as $comment)
                 <div class="my-10 flex justify-between">
                     <img class="h-10 w-10 flex-none rounded-full"
-                         @if(auth()->user()->presenter)
-                             src="{{ asset(auth()->user()->presenter->getImageUrl()) }}"
+                         @if($comment->owner->presenter)
+                             src="{{ asset($comment->owner->presenter->getImageUrl()) }}"
                          @else
                              src="{{ URL::asset('/images/none.jpg') }}"
                          @endif

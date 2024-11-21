@@ -102,46 +102,64 @@
         </div>
     </div>
 
-    <div class="border-b-2 border-gray-500 pt-6 sm:pt-8 pb-3 dark:text-white">
-        <div class="flex flex-col lg:grid lg:grid-cols-6 gap-4 text-center lg:text-center">
+    <div class="border-b-2 border-gray-500 pt-20 sm:pt-8 pb-8 dark:text-white">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 text-center">
             @if ($clip->series_id)
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-heroicon-o-academic-cap class="h-5 w-5 flex-shrink-0" />
-                    <a href="{{ route('frontend.series.show', $clip->series) }}" class="underline">
+                    <x-iconoir-graduation-cap class="h-6 w-6 flex-shrink-0" />
+                    <a href="{{ route('frontend.series.show', $clip->series) }}">
                         {{ $clip->series->title }}
                     </a>
                 </div>
             @endif
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-user-group class="h-5 w-5 flex-shrink-0" />
+                <x-iconoir-community class="h-6 w-6 flex-shrink-0" />
                 <span>{{ $clip->presenters->pluck('full_name')->implode(', ') }}</span>
+            </div>
+
+            <div class="flex items-center justify-start lg:justify-center space-x-2">
+                <x-iconoir-card-lock class="h-6 w-6 flex-shrink-0" />
+                <div class="pr-2">
+                    {{ ($clip->acls->isEmpty()) ? Acl::PUBLIC->lower() : $clip->acls->pluck('name')->implode(',') }}
+                </div>
+                @if($clip->acls->doesntContain(Acl::PUBLIC()) && $clip->acls->isNotEmpty())
+                    <div>
+                        @can('watch-video', $clip)
+                            <x-heroicon-o-lock-open class="h-4 w-4 text-green-500" />
+                            <span class="sr-only">{{ __('common.unlocked') }} clip</span>
+                        @else
+                            <x-heroicon-o-lock-closed class="h-4 w-4 text-red-700" />
+                            <span class="sr-only">{{ __('common.locked') }} clip</span>
+                        @endcan
+                    </div>
+                @endif
             </div>
 
             @if($clip->is_livestream)
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-heroicon-o-clock class="h-5 w-5 flex-shrink-0" />
+                    <x-iconoir-play class="h-6 w-6 flex-shrink-0" />
                     <span>LIVESTREAM</span>
                 </div>
             @else
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-heroicon-o-clock class="h-5 w-5 flex-shrink-0" />
+                    <x-iconoir-timer class="h-6 w-6 flex-shrink-0" />
                     <span>{{ $clip->assets()->first()->durationToHours() }} Min</span>
                 </div>
             @endif
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-calendar class="h-5 w-5 flex-shrink-0" />
+                <x-iconoir-calendar class="h-6 w-6 flex-shrink-0" />
                 <span>{{ $clip->created_at->format('Y-m-d') }}</span>
             </div>
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-arrow-up-circle class="h-5 w-5 flex-shrink-0" />
+                <x-iconoir-upload-data-window class="h-6 w-6 flex-shrink-0" />
                 <span>{{ $clip->assets->first()?->updated_at }}</span>
             </div>
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-heroicon-o-eye class="h-5 w-5" />
+                <x-iconoir-database-stats class="h-6 w-6" />
                 <span>{{ __('clip.frontend.show.views', ['numViews' => $clip->views()]) }}</span>
             </div>
         </div>

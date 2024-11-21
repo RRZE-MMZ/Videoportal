@@ -1,13 +1,15 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="flex border-b border-black text-2xl flex-col dark:text-white dark:border-white font-normal">
-        <div class="font-semibold ">
+    <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
+        <div class="font-semibold  text-2xl">
             {{ $series->title }} [ ID : {{ $series->id }}]
         </div>
-        <div>
-     <span
-             class="text-sm font-normal italic"> {{ __('series.common.created at') }} {{$series->created_at }} </span>
+        <div class="py-4">
+         <span class="text-md font-normal italic">
+            -  {{ __('common.metadata.accessible via') }} : {{$series->fetchClipsAcls() }} /
+             {{ __('series.common.created at') }} {{$series->created_at }}
+         </span>
         </div>
     </div>
 

@@ -31,7 +31,7 @@
             @endif
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-between py-4">
+        <div class="flex flex-col sm:flex-row justify-between pt-20">
             @if(!is_null($previousNextClipCollection->get('previousClip')))
                 <a class="flex w-full sm:w-auto flex-row items-center justify-center sm:justify-start mb-2 sm:mb-0"
                    href="{{ route('frontend.clips.show',$previousNextClipCollection->get('previousClip')) }}">

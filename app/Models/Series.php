@@ -231,7 +231,7 @@ class Series extends BaseModel
 
         //iterate every clip and get a unique acl name
         return $clips->map(function ($clip) {
-            return $clip->acls->pluck('name');
+            return ($clip->acls->isEmpty()) ? \App\Enums\Acl::PUBLIC->lower() : $clip->acls->pluck('name');
         })->flatten()->unique()->values()->implode(', ');
     }
 
