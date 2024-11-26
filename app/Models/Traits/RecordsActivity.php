@@ -9,20 +9,15 @@ use Illuminate\Support\Facades\Cache;
 
 trait RecordsActivity
 {
-    /**
-     * The models old attributes
-     */
     public array $oldAttributes = [];
 
+    //a  list for attributes to check in updated event
     public array $checkedAttributes = [
         'title', 'description', 'image_id', 'episode', 'name', 'organization_id', 'language_id', 'context_id',
         'format_id', 'type_id', 'password', 'owner_id',  'allow_comments', 'is_public', 'is_livestream',
         'academic_degree_id', 'first_name', 'last_name', 'username', 'email', 'title_en', 'title_de', 'is_published',
-    ]; //a  list for attributes to check in updated event
+    ];
 
-    /**
-     * Boot the trait
-     */
     public static function bootRecordsActivity(): void
     {
         foreach (self::recordableEvents() as $event) {
@@ -52,14 +47,11 @@ trait RecordsActivity
         return (isset(static::$recordableEvents)) ? static::$recordableEvents : ['created', 'updated', 'deleted'];
     }
 
-    /**
-     * Record activity for the given model
-     */
     public function recordActivity($description, array $changes = []): void
     {
-
         $user = (auth()->user()) ?? $this->owner;
         $changes = (empty($changes['before']) && empty($changes['after'])) ? $this->activityChanges() : $changes;
+
         if (! Cache::has('insert_smil_command')) {
             Activity::create([
                 'user_id' => ($user?->id) ?? 0,
@@ -73,9 +65,6 @@ trait RecordsActivity
         }
     }
 
-    /**
-     * Fetch all activities for a given model
-     */
     public function activities(): Builder
     {
         return Activity::where('object_id', $this->id)->where('content_type', lcfirst(class_basename(static::class)));

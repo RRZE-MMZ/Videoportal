@@ -15,14 +15,14 @@ class InsertSmilAssets extends Command
      *
      * @var string
      */
-    protected $signature = 'smil:insert';
+    protected $signature = 'smil:insert clip{--override : Override existing Smils}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Insert SMIL file paths to database. It does not create smil files';
+    protected $description = 'Insert SMIL file paths to database,optionally overriding existing ones.';
 
     /**
      * Execute the console command.
@@ -32,15 +32,30 @@ class InsertSmilAssets extends Command
      */
     public function handle(WowzaService $wowzaService): int
     {
+        // Retrieve the 'override' option
+        $override = $this->option('override');
+
+        if ($override) {
+            $this->info('Override option enabled. Existing SMILs will be replaced.');
+        } else {
+            $this->info('Override option not enabled. Existing SMILs will be skipped.');
+        }
         Cache::put('insert_smil_command', true);
         $this->info('Counting clips...');
         $bar = $this->output->createProgressBar(Clip::count());
 
         $bar->start();
 
-        Clip::lazy()->each(function ($clip) use ($wowzaService) {
+        Clip::orderBy('id', 'desc')->lazy()->each(function ($clip) use ($wowzaService, $override) {
+            //do not generate smil files if a clip has already
+            if ($override) {
+                if ($clip->assets()
+                    ->formatSmil()
+                    ->count() > 0) {
+                    return;
+                }
+            }
             $wowzaService->createSmilFile($clip);
-
             $this->info("Finish clip ID {$clip->id}");
             $this->newLine(2);
         });

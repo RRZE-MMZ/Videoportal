@@ -69,17 +69,11 @@ class Asset extends BaseModel
         return $this->hasMany(AssetGeoCount::class, 'resourceid');
     }
 
-    /**
-     * Return assets download path
-     */
     public function downloadPath(): string
     {
         return Storage::disk('videos')->path($this->path);
     }
 
-    /**
-     * Scope a query to only include video assets
-     */
     public function scopeFormatVideo($query): mixed
     {
         return $query->where('type', Content::PRESENTER())
@@ -87,11 +81,13 @@ class Asset extends BaseModel
             ->orWhere('type', Content::COMPOSITE());
     }
 
-    /**
-     * Scope a query to only include audio assets
-     */
     public function scopeFormatAudio($query): mixed
     {
         return $query->where('type', Content::AUDIO());
+    }
+
+    public function scopeFormatSmil($query): mixed
+    {
+        return $query->where('type', Content::SMIL);
     }
 }

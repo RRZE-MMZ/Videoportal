@@ -48,3 +48,7 @@ it('has video format scope', function () {
 it('has audio format scope', function () {
     expect(Asset::FormatAudio())->toBeInstanceOf(Builder::class);
 });
+
+it('has smil format scope', function () {
+    expect(Asset::FormatSmil())->toBeInstanceOf(Builder::class);
+});
