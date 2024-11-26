@@ -308,11 +308,21 @@ class Series extends BaseModel
 
     public function scopeCurrentSemester($query): mixed
     {
-        return $query->whereHas('clips', function ($q) {
-            $q->whereHas('semester', function ($q) {
-                $q->current();
-            });
-        })->orWhere('owner_id', auth()->user()?->id);
+        return $query->where(function ($query) {
+            // Include VideoSeries that have clips within the current semester
+            $query->whereHas('clips', function ($q) {
+                $q->whereHas('semester', function ($q) {
+                    $q->current();
+                });
+            })
+                // OR include VideoSeries without clips but created during the current semester
+                ->orWhere(function ($q) {
+                    $currentSemester = Semester::current()->first(); // Get the current semester
+                    if ($currentSemester) {
+                        $q->whereBetween('created_at', [$currentSemester->start_date, $currentSemester->stop_date]);
+                    }
+                });
+        });
     }
 
     public function scopeHasOpencastSeriesID($query): mixed
