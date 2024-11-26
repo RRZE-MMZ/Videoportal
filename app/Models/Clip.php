@@ -394,9 +394,6 @@ class Clip extends BaseModel
         return $query->whereNull('series_id');
     }
 
-    /**
-     *  Scope a query to only include the semester name of the clip
-     */
     public function scopeWithSemester($query)
     {
         return $query->addSelect(
@@ -406,6 +403,13 @@ class Clip extends BaseModel
                     ->take(1),
             ]
         );
+    }
+
+    public function scopeCurrentSemester($query)
+    {
+        return $query->whereHas('semester', function ($q) {
+            $q->current();
+        });
     }
 
     protected function title(): Attribute

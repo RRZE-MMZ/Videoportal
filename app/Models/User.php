@@ -231,7 +231,7 @@ class User extends Authenticatable
 
     public function getAllSeries(): Builder|Series
     {
-        return Series::select('id', 'slug', 'title', 'updated_at', 'owner_id', 'organization_id')
+        return Series::select('id', 'slug', 'title', 'updated_at', 'owner_id', 'organization_id', 'created_at')
             ->whereHas('clips', function ($q) {
                 $q->where('supervisor_id', $this->id);
             })

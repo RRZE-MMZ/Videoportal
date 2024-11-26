@@ -59,7 +59,7 @@
 
                 @else
                     <p class="col-span-4 text-3xl dark:text-white italic items-center">
-                        {!!  __('search.frontend.no clips results found for search term', ['searchTerm' => $search])  !!}
+                        {!!  __('search.frontend.no series results found for search term', ['searchTerm' => $search])  !!}
                     </p>
 
                 @endif

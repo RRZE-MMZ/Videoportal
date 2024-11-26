@@ -6,7 +6,7 @@
         {{ __('dashboard.welcome to personal dashboard', ['fullName' => auth()->user()->getFullNameAttribute() ]) }}
         !
     </div>
-    @if($userSeries->count() == 0)
+    @if($userSeriesCounter == 0)
         <div class="flex flex-col px-2 py-2 dark:text-white font-normal">
             <div>
                 <p class="pt-2">
@@ -33,7 +33,7 @@
     <div class="flex">
         @php $dropBoxFilesCheck = count($files) > 0 && Setting::portal()->data['show_dropbox_files_in_dashboard'];  @endphp
         <div class="@if($dropBoxFilesCheck)) w-2/3 @else w-full @endif">
-            @if($activeLivestreams->count()>0)
+            @if($activeLivestreams->count()>0 && auth()->user()->can('administrate-assistant-pages'))
                 @include('backend.dashboard._active-livestreams',['activeLivestreams' => $activeLivestreams])
             @endif
             @if($opencastEvents->isNotEmpty())
@@ -49,14 +49,29 @@
             @endif
         @endcan
     </div>
-    <div class="flex">
-        <div class="w-full">
-            @include('backend.users.series._layout',[
-            'layoutHeader' => __('dashboard.your last series'),
-            'series'=> $userSeries])
-            @include('backend.users.clips._layout',[
-            'layoutHeader' => __('dashboard.your last clips'),
-            'clips'=> $userClips])
+    @if($userSeriesCounter > 0)
+        <div class="flex flex-col">
+            <div>
+                <div class="border-b border-black pt-5 pb-2 font-semibold font-2xl  dark:text-white dark:border-white">
+                    {{ __('dashboard.your last series') }}
+                </div>
+            </div>
+            <div>
+                <livewire:index-pages-datatable :action-button="'dashboard'" />
+            </div>
+
         </div>
-    </div>
+    @endif
+    @if($userClipsCounter > 0)
+        <div class="flex flex-col">
+            <div>
+                <div class="border-b border-black pt-5 pb-2 font-semibold font-2xl  dark:text-white dark:border-white">
+                    {{ __('dashboard.your last series') }}
+                </div>
+            </div>
+            <div>
+                <livewire:index-pages-datatable :type="'clips'" :action-button="'dashboard'" />
+            </div>
+        </div>
+    @endif
 @endsection

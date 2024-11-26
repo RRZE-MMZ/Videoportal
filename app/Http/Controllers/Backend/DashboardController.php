@@ -86,18 +86,12 @@ class DashboardController
         $livestreams = Livestream::active()->orderBy('clip_id');
 
         return view('backend.dashboard.index', [
-            'userSeries' => auth()->user()
-                ->getAllSeries()
-                ->with('owner')
-                ->withLastPublicClip()
-                ->CurrentSemester()
-                ->orderBy('title')
-                ->paginate(12),
-            'userClips' => auth()->user()->clips()
-                ->whereNull('series_id')
-                ->orderByDesc('updated_at')
-                ->limit(12)
-                ->get(),
+            'userSeriesCounter' => auth()->user()
+                ->getAllSeries()->currentSemester()->count(),
+            'userClipsCounter' => auth()->user()->clips()
+                ->single()
+                ->currentSemester()
+                ->count(),
             'files' => fetchDropZoneFiles(false),
             'opencastEvents' => $opencastEvents,
             'opencastSettings' => $opencastSettings->data,
