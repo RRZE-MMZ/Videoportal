@@ -80,10 +80,10 @@
                     @if(!$clip->acls->contains(Acl::PUBLIC))
                         @can('watch-video', $clip)
                             <x-heroicon-o-lock-open class="h-4 w-4 text-green-500 dark:text-white" />
-                            <span class="sr-only">Unlock clip</span>
+                            <span class="sr-only">{{ __('common.unlocked') }}</span>
                         @else
                             <x-heroicon-o-lock-closed class="h-4 w-4 text-red-700 dark:text-white dark:bg-gray-50" />
-                            <span class="sr-only">Lock clip</span>
+                            <span class="sr-only">{{ __('common.locked') }}</span>
                         @endcan
                     @endif
                 </div>

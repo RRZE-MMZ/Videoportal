@@ -58,7 +58,7 @@
                                     @click="selected !==  1  ? selected = 1 : selected = null">
                                 <div class="flex items-center justify-between">
                                 <span>
-                                  Livestream Info
+                                    {{ __('player.backend.livestream info') }}
                                 </span>
                                     <x-heroicon-o-plus-circle class="h-6 w-6" />
                                 </div>
@@ -74,19 +74,19 @@
                                                     method="POST">
                                                 @csrf
                                                 <div class="mx-4 ">
-                                                    <div class="border-b mb-4">Active livestream room
-                                                        : {{ $clip->livestream->name }}
-                                                        <span class="italic text-sm"
-                                                        >
-                                                                        since {{ $clip->livestream->time_availability_start }}
-                                                                    </span>
+                                                    <div class="border-b mb-4">
+                                                        {!!  __('player.backend.livestream active room', [
+                                                        'livestream_room' => $clip->livestream->name,
+                                                        'livestream_time_availability_start' =>
+                                                                        $clip->livestream->time_availability_start
+                                                        ])  !!}
                                                     </div>
                                                 </div>
                                                 <div class="flex flex-col dark:text-white w-full ">
                                                     <div class="items-center px-4">
                                                         <x-button type="submit"
                                                                   class="bg-blue-600 hover:bg-blue-700 w-full">
-                                                            Stop reservation
+                                                            {{ __('player.backend.livestream stop reservation') }}
                                                         </x-button>
                                                     </div>
                                                 </div>
@@ -102,10 +102,10 @@
                                                     <div class="mx-4 items-center ">
                                                         <div class="flex flex-col border-b">
                                                             <div class="text-lg font-bold">
-                                                                Livestream room reservation options *
+                                                                {{ __('player.backend.livestream info header') }}
                                                             </div>
                                                             <span class="py-1 italic text-sm">
-                                             *If a room is already reserved is not going to be listed
+                                             {{ __('player.backend.livestream info explanation') }}
                                         </span>
                                                         </div>
                                                         <div>
@@ -120,7 +120,7 @@
                                                         <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                         <x-form.select2-single field-name="livestreamID"
-                                                                               label="Room name"
+                                                                               label="{{ __('common.forms.livestream room name') }}"
                                                                                select-class="select2-tides"
                                                                                model="livestream"
                                                                                columns="4"
@@ -137,7 +137,7 @@
                                                             >
                                                                 <x-heroicon-o-arrow-right-circle class="w-6 h-6" />
                                                                 <div class="pl-2">
-                                                                    Livestream reservieren
+                                                                    {{ __('player.backend.actions.reserve livestream') }}
                                                                 </div>
                                                             </x-button>
                                                         </div>

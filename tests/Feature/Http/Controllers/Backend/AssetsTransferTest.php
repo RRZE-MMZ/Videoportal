@@ -183,7 +183,7 @@ it('should show an empty list if no opencast events found', function () {
 
     get(route('admin.clips.opencast.listEvents', ['clip' => $series->clips()->first()]))
         ->assertOk()
-        ->assertSee('no events found for this series');
+        ->assertSee(__('opencast.backend.no processed events found for this series'));
 });
 
 test('opencast transfer view should list all events with event uid', function () {

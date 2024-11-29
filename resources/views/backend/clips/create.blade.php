@@ -2,8 +2,11 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="flex border-b border-black pb-2 font-semibold font-2xl dark:text-white dark:border-white">
-        Creates new clip
+    <div class="mb-5 flex items-center justify-between border-b border-black pb-2 font-semibold font-2xl
+    dark:text-white dark:border-white">
+        <div class="flex text-2xl">
+            {{ __('common.heading.create new clip') }}
+        </div>
     </div>
     <div class="flex px-2 py-2">
         <form action="{{ route('clips.store')}}"
@@ -15,37 +18,37 @@
                 <x-form.input field-name="episode"
                               input-type="number"
                               value="1"
-                              label="Episode"
+                              label="{{ __('common.metadata.episode') }}"
                               :full-col="false"
                               :required="false"
                 />
                 <x-form.datepicker field-name="recording_date"
-                                   label="Recording Date"
+                                   label="{{ __('common.metadata.recording date') }}"
                                    :full-col="false"
                                    :value="now()" />
 
                 <x-form.input field-name="title"
                               input-type="text"
                               :value="old('title')"
-                              label="Title"
+                              label="{{ __('common.metadata.title') }}"
                               :full-col="true"
                               :required="true"
                 />
 
                 <x-form.textarea field-name="description"
                                  :value="old('description')"
-                                 label="Description"
+                                 label="{{ __('common.metadata.description') }}"
                 />
 
                 <x-form.select2-single field-name="organization_id"
-                                       label="Organization"
+                                       label="{{ __('common.metadata.organization') }}"
                                        select-class="select2-tides-organization"
                                        model="organization"
                                        :selectedItem="(old('organization_id'))?? 1 "
                 />
 
                 <x-form.select2-single field-name="language_id"
-                                       label="Language"
+                                       label="{{ __('common.metadata.language') }}"
                                        select-class="select2-tides"
                                        model="language"
                                        :selectedItem="old('language_id', 4)"
@@ -54,46 +57,46 @@
                 <div class="mb-2 border-b border-solid border-b-black pb-2 text-left text-xl font-bold
                             dark:text-white dark:border-white"
                 >
-                    Metadata
+                    {{ __('common.metadata.metadata') }}
                 </div>
 
                 <x-form.select2-single field-name="context_id"
-                                       label="Context"
+                                       label="{{ __('common.metadata.context') }}"
                                        select-class="select2-tides"
                                        model="context"
                                        :selectedItem="old('context_id',0)"
                 />
 
                 <x-form.select2-single field-name="format_id"
-                                       label="Format"
+                                       label="{{ __('common.metadata.format') }}"
                                        select-class="select2-tides"
                                        model="format"
                                        :selectedItem="old('format_id', 11)"
                 />
 
                 <x-form.select2-single field-name="type_id"
-                                       label="Type"
+                                       label="{{ __('common.metadata.type') }}"
                                        select-class="select2-tides"
                                        model="type"
                                        :selectedItem="old('type_id',11)"
                 />
 
                 <x-form.select2-multiple field-name="presenters"
-                                         label="Presenters"
+                                         label="{{trans_choice('common.menu.presenter',2)}}"
                                          select-class="select2-tides-presenters"
                                          :model="null"
                                          :items="[]"
                 />
 
                 <x-form.select2-single field-name="semester_id"
-                                       label="Semester"
+                                       label="{{ __('common.metadata.semester') }}"
                                        select-class="select2-tides"
                                        model="semester"
                                        :selectedItem="old('semester_id',Semester::current()->first()->id)"
                 />
 
                 <x-form.select2-multiple field-name="tags"
-                                         label="Tags"
+                                         label="{{ __('common.metadata.tags') }}"
                                          select-class="select2-tides-tags"
                                          :model="null"
                                          :items="[]"
@@ -102,18 +105,18 @@
                 <div class="mb-2 border-b border-solid border-b-black pb-2 text-left text-xl font-bold
                             dark:text-white dark:border-white"
                 >
-                    Access
+                    {{ __('common.metadata.accessible via') }}
                 </div>
 
                 <x-form.select2-multiple field-name="acls"
-                                         label="Accessible via"
+                                         label="{{ __('common.metadata.accessible via') }}"
                                          :model="null"
                                          select-class="select2-tides"
                 />
 
                 <x-form.password field-name="password"
                                  :value="old('password')"
-                                 label="Password"
+                                 label="{{ __('common.metadata.password') }}"
                                  :full-col="true"
                 />
 
@@ -128,7 +131,7 @@
                 />
 
                 <x-form.toggle-button :value="old('is_livestream', false)"
-                                      label="Livestream clip"
+                                      label="{{ __('common.metadata.livestream clip') }}"
                                       field-name="is_livestream"
                 />
 
@@ -142,7 +145,7 @@
 
                 <div class="col-span-7 w-4/5 pt-8">
                     <x-button class="bg-blue-600 hover:bg-blue-700">
-                        Create clip
+                        {{ __('common.heading.create new clip') }}
                     </x-button>
                 </div>
             </div>

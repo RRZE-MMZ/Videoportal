@@ -1,8 +1,10 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="flex border-b border-black text-2xl flex-col dark:text-white dark:border-white font-normal">
-        {{ __('common.heading.create new podcast') }}
+    <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
+        <div class="font-semibold  text-2xl">
+            {{ __('common.heading.create new podcast') }}
+        </div>
     </div>
     <div class="flex">
         <form action="{{ route('podcasts.episodes.create', $podcast) }}"
@@ -15,13 +17,13 @@
                         <x-form.input field-name="episode_number"
                                       input-type="number"
                                       :value="$podcast->latestEpisode?->episode_number + 1"
-                                      label="Episode"
+                                      label="{{ __('common.metadata.episode') }}"
                                       :full-col="false"
                                       :required="false"
                         />
 
                         <x-form.datepicker field-name="recording_date"
-                                           label="Recording Date"
+                                           label="{{ __('common.metadata.recording date') }}"
                                            :full-col="false"
                                            :value="now()" />
 
@@ -41,30 +43,30 @@
 
                         <x-form.textarea field-name="notes"
                                          :value="old('notes')"
-                                         label="Notes"
+                                         label="{{ __('common.metadata.notes') }}"
                         />
 
                         <x-form.textarea field-name="transcription"
                                          :value="old('transcription')"
-                                         label="Transcript"
+                                         label="{{ __('common.metadata.transcript') }}"
                         />
 
                         <x-form.select2-multiple field-name="hosts"
-                                                 label="Host(s)"
+                                                 label="{{ trans_choice('common.metadata.host', 2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="null"
                                                  :items="[]"
                         />
 
                         <x-form.select2-multiple field-name="guests"
-                                                 label="Guest(s)"
+                                                 label="{{ trans_choice('common.metadata.guest', 2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="null"
                                                  :items="[]"
                         />
 
                         <x-form.toggle-button :value="true"
-                                              label="Is public"
+                                              label="{{ __('common.forms.public available') }}"
                                               field-name="is_published"
                         />
                         <x-form.input field-name="website_url"
@@ -93,28 +95,28 @@
                 <div class="row-span-4">
                     <div class="flex w-full">
                         <img
-                            @if(!is_null($podcast->cover))
-                                src="{{ asset('images/'.$podcast->cover->file_name) }}"
-                            alt="{{ $podcast->cover->description }}"
-                            @else
-                                src="{{ asset('images/') }}"
-                            alt="{{ $podcast->cover->description }}"
-                            @endif
+                                @if(!is_null($podcast->cover))
+                                    src="{{ asset('images/'.$podcast->cover->file_name) }}"
+                                alt="{{ $podcast->cover->description }}"
+                                @else
+                                    src="{{ asset('images/') }}"
+                                alt="{{ $podcast->cover->description }}"
+                                @endif
 
-                            class="w-full h-auto rounded-md py-4">
+                                class="w-full h-auto rounded-md py-4">
                     </div>
                     @if(!is_null($podcast->cover))
                         <div class="text-lg dark:text-white italic">
-                            *inherited from podcast*
+                            {{ __('podcastEpisode.backend.inherited from podcast header') }}
                         </div>
                     @endif
                     <div class="flex flex-col items-center place-content-center text-lg pt-8 pb-4 border-b border-black
                     dark:text-white mb-4">
                         <div class="pb-4">
-                            Upload a new podcast cover
+                            {{ __('podcastEpisode.backend.upload a new podcast cover') }}
                         </div>
                         <div class="italic text-xs">
-                            * please prefer a resolution of 1400x1400px
+                            {{ __('podcastEpisode.backend.please prefer a resolution of 1400x1400px') }}
                         </div>
 
                     </div>
@@ -134,7 +136,7 @@
                 <div class="col-span-3 pt-10">
                     <div class="">
                         <x-button :type="'submit'" class="bg-blue-600 hover:bg-blue-700">
-                            Episode {{ __('common.actions.save') }}
+                            {{ __('podcastEpisode.backend.actions.podcast episode save') }}
                         </x-button>
                         <a href="{{route('podcasts.index')}}">
                             <x-button type="button" class="ml-3 bg-green-600 hover:bg-green-700">

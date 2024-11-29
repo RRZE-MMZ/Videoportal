@@ -36,6 +36,9 @@ return [
          Vielen Dank für Ihre Geduld.',
         'video files in dropzone' => 'Videodateien in der Dropzone',
         'please select one or more audio/video files' => 'Bitte wählen Sie eine oder mehrere Audio-/Videodateien aus',
+        'LMS Test Link' => 'LMS-Testlink',
+        'my clips' => 'Meine Clips',
+        'with video files' => 'Mit Videoanlagen',
         'actions' => [
             'go to clip public page' => 'Zur öffentlichen Clip-Seite gehen',
             'got to clip statistics page' => 'Zur Clip-Statistikseite gehen',

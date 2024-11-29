@@ -16,11 +16,6 @@ return [
 
     ],
     'backend' => [
-        'actions' => [
-            'Opencast actions' => 'Opencast actions',
-            'remove numbers from title' => 'Remove numbers from title',
-            'add all planned recordings as clips' => 'add all planned recordings as clips',
-        ],
         'Opencast metadata' => 'Opencast Metadata',
         'Opencast access policy' => 'Opencast access policy',
         'recording events' => ':counter recording events',
@@ -29,6 +24,8 @@ return [
         'running events' => ':counter recordings in processing',
         'failed events' => ':counter failed recordings',
         'upcoming events' => ':counter upcoming recordings',
+        'processed events' => 'Processed recordings',
+        'no processed events found for this series' => 'No processed events found for this series',
         'series in opencast has no video portal editors' => 'Series in opencast has no video portal editors',
         'available assistants' => 'Available assistants',
         'Add assistant to opencast series' => 'Add assistant to opencast series',
@@ -38,6 +35,10 @@ return [
                 also choose the position of the watermark to ensure that no important elements in the video are 
                 covered. By default, the general FAU intro and outro, as well as the watermark in the top right corner,
                  are selected.',
-
+        'actions' => [
+            'Opencast actions' => 'Opencast actions',
+            'remove numbers from title' => 'Remove numbers from title',
+            'add all planned recordings as clips' => 'add all planned recordings as clips',
+        ],
     ],
 ];

@@ -4,13 +4,13 @@
     <div class="mb-5 flex items-center justify-between border-b border-black pb-2 font-semibold font-2xl
     dark:text-white dark:border-white">
         <div class="flex text-2xl">
-            Podcasts Index
+            {{ __('podcast.common.podcast index') }}
         </div>
         <div class="flex">
             <a href="{{route('podcasts.create')}}">
                 <x-button class="flex items-center bg-blue-600 hover:bg-blue-700">
                     <div class="pr-2">
-                        Create a new podcast
+                        {{ __('podcast.backend.actions.create new podcast') }}
                     </div>
                     <div>
                         <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"

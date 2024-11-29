@@ -177,7 +177,7 @@
                     />
 
                     <x-form.toggle-button :value="old('is_livestream', $clip->is_livestream)"
-                                          label="Livestream clip"
+                                          label="{{ __('common.metadata.livestream clip') }}"
                                           field-name="is_livestream"
                     />
 
