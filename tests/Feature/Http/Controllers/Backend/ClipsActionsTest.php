@@ -56,7 +56,7 @@ it('hides owner if a clip does not have one', function () {
 it('shows a create clip button in clips index if moderator has no clips', function () {
     signInRole(Role::MODERATOR);
 
-    get(route('clips.index'))->assertSee('Create new clip');
+    get(route('clips.index'))->assertSee(__('common.heading.create new clip'));
 });
 
 it('loads trix editor for clip description', function () {
@@ -75,13 +75,13 @@ it('has an upload button in clip edit form', function () {
 it('shows an lms test link if clip has an lms acl and user has an admin role ', function () {
 
     $userClip = ClipFactory::ownedBy(signInRole(Role::MODERATOR))->create();
-    get(route('clips.edit', $userClip))->assertDontSee('LMS Test Link');
+    get(route('clips.edit', $userClip))->assertDontSee(__('clip.backend.LMS Test Link'));
 
     $adminClip = ClipFactory::ownedBy(signInRole(Role::ADMIN))->create();
-    get(route('clips.edit', $adminClip))->assertDontSee('LMS Test Link');
+    get(route('clips.edit', $adminClip))->assertDontSee(__('clip.backend.LMS Test Link'));
 
     $adminClip->addAcls(collect([Acl::LMS()]));
-    get(route('clips.edit', $adminClip))->assertSee('LMS Test Link');
+    get(route('clips.edit', $adminClip))->assertSee(__('clip.backend.LMS Test Link'));
 });
 
 it('has opencast action buttons if opencast server exists', function () {

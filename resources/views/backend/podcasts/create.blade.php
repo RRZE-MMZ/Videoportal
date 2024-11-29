@@ -1,8 +1,10 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="flex border-b border-black text-2xl flex-col dark:text-white dark:border-white font-normal">
-        {{ __('common.heading.create new podcast') }}
+    <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
+        <div class="font-semibold  text-2xl">
+            {{ __('common.heading.create new podcast') }}
+        </div>
     </div>
     <div class="flex">
         <form action="{{ route('podcasts.store') }}"

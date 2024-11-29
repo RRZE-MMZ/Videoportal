@@ -26,6 +26,7 @@ return [
     'changes' => 'Änderungen',
     'subscribe' => 'Abonnieren',
     'unsubscribe' => 'Abbestellen',
+    'publish status' => 'Veröffentlichungsstatus',
     'actions' => [
         'action' => 'Aktion|Aktionen',
         'save' => 'Speichern',
@@ -37,6 +38,7 @@ return [
         'upload' => 'Hochladen',
         'download' => 'Herunterladen',
         'search' => 'Suche',
+        'search for episodes' => 'Nach Episoden suchen',
     ],
     'metadata' => [
         'metadata' => 'Metadaten',
@@ -60,6 +62,11 @@ return [
         'end time' => 'Endzeit',
         'episode' => 'Folge',
         'chapter' => 'Kapitel',
+        'notes' => 'Notizen',
+        'transcript' => 'Transkript',
+        'host' => 'Moderator|Moderatoren',
+        'guest' => 'Gast|Gäste',
+
     ],
     'menu' => [
         'dashboard' => 'Dashboard',
@@ -98,7 +105,9 @@ return [
 
     'heading' => [
         'create new series' => 'Neue Serien anlegen',
+        'create new clip' => 'Neuen Clip erstellen',
         'create new podcast' => 'Neue Podcast anlegen',
+        'please select a recording' => 'Bitte wählen Sie eine Aufnahme aus',
     ],
 
     'forms' => [
@@ -123,6 +132,7 @@ return [
         'go back' => 'Zurückgehen',
         'statistic' => 'Statistik|Statistiken',
         'you cannot change this field' => '(Dieses Feld kann nicht geändert werden)',
+        'livestream room name' => 'Livestream-Raums',
     ],
     'language' => [
         'English' => 'Englisch',

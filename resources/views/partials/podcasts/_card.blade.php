@@ -60,7 +60,7 @@
                 <div class="flex space-x-2">
                     <a href="{{ route('podcasts.edit', $podcast) }}">
                         <x-button class="bg-green-500 hover:bg-green-700 ">
-                            Edit podcast
+                            {{ __('podcast.common.edit podcast') }}
                         </x-button>
                     </a>
                     @if(str_contains(url()->current(), 'admin'))

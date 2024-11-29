@@ -16,12 +16,6 @@ return [
 
     ],
     'backend' => [
-        'actions' => [
-            'Opencast actions' => 'Opencast-Aktionen',
-            'remove numbers from title' => 'Zahlen aus dem Titel entfernen',
-            'add all planned recordings as clips' => 'alle geplanten Aufnahmen als Clips hinzufügen',
-
-        ],
         'Opencast metadata' => 'Opencast-Metadaten',
         'Opencast access policy' => 'Opencast-Zugriffsrichtlinie',
         'recording events' => ':counter laufende Aufzeichnungen',
@@ -30,6 +24,8 @@ return [
         'running events' => ':counter Aufzeichnungen im Bearbeitung',
         'failed events' => ':counter fehlgeschlagene Aufzeichnungen',
         'upcoming events' => ':counter bevorstehende Aufzeichnungen',
+        'processed events' => 'Verarbeitete Aufnahmen',
+        'no processed events found for this series' => 'Keine verarbeiteten Aufnahmen für diese Serie gefunden',
         'series in opencast has no video portal editors' => 'Serie in Opencast hat keine Videoportal-Editoren',
         'available assistants' => 'Verfügbare Assistenten',
         'Add assistant to opencast series' => 'Assistent zur Opencast-Serie hinzufügen',
@@ -39,5 +35,11 @@ return [
             finden Sie hier) Ferner können Sie die Position des Wasserzeichens wählen, damit keine wichtigen Elemente 
             im Video verdeckt werden. Standardmäßig werden der FAU allgemeine Vor- und Abspann sowie das Wasserzeichen 
             rechts oben gewählt.',
+        'actions' => [
+            'Opencast actions' => 'Opencast-Aktionen',
+            'remove numbers from title' => 'Zahlen aus dem Titel entfernen',
+            'add all planned recordings as clips' => 'alle geplanten Aufnahmen als Clips hinzufügen',
+
+        ],
     ],
 ];

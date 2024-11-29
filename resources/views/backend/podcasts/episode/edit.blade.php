@@ -6,24 +6,22 @@
     @if($episode->hasVideoAsset() && ! $episode->getAssetsByType(Content::AUDIO)->first())
         <div>
             <div
-                x-data="{ show: false }"
-                x-init="() => {
+                    x-data="{ show: false }"
+                    x-init="() => {
             setTimeout(() => show = true, 0);
           }"
-                x-show="show"
-                x-description="Notification panel, show/hide based on alert state."
-                x-transition:leave="transition ease-in duration-300"
-                x-transition:leave-start="opacity-100 transform scale-100"
-                x-transition:leave-end="opacity-0 transform scale-90"
-                class="mb-2 flex rounded-md bg-red-500 p-2 items-center py-2">
+                    x-show="show"
+                    x-description="Notification panel, show/hide based on alert state."
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90"
+                    class="mb-2 flex rounded-md bg-red-500 p-2 items-center py-2">
                 <div class="flex-shrink-0">
                     <x-heroicon-o-check-circle class="h-5 w-5 text-white" />
                 </div>
                 <div class="ml-3">
                     <p class="text-lg font-semibold leading-5 text-white">
-                        After migrating old podcast data to the new podcast format, all podcast episodes must include
-                        an audio file to be published. The video portal has detected that this podcast episode contains
-                        only video files. Please convert any video files to audio files and upload them on this page.
+                        {{ __('podcastEpisode.backend.migrate info text') }}
                     </p>
                 </div>
                 <div class="ml-auto pl-3">
@@ -39,8 +37,8 @@
             </div>
         </div>
     @endif
-    <div class="flex border-b border-black text-2xl flex-col dark:text-white dark:border-white font-normal pb-2">
-        <div class="flex w-full items-center">
+    <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
+        <div class="font-semibold  text-2xl">
             <div>
                 {{$episode->episode_number}} - {{ $episode->title }} [ ID : {{ $episode->id }}]
             </div>
@@ -52,9 +50,9 @@
                         @endphp
                         <a href="{{ route('podcasts.episodes.edit',[$podcast,  $previousEpisode]) }}">
                             <x-button
-                                :tooltip="true"
-                                :tooltip-text="$previousEpisode->episode_number.' - '. $previousEpisode->title"
-                                class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
+                                    :tooltip="true"
+                                    :tooltip-text="$previousEpisode->episode_number.' - '. $previousEpisode->title"
+                                    class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
                             >
                                 <div>
                                     <x-heroicon-c-arrow-left class="w-4" />
@@ -68,9 +66,9 @@
                         @endphp
                         <a href="{{ route('podcasts.episodes.edit',[$podcast,  $nextEpisode]) }}">
                             <x-button
-                                :tooltip="true"
-                                :tooltip-text="$nextEpisode->episode_number.' - '. $nextEpisode->title"
-                                class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
+                                    :tooltip="true"
+                                    :tooltip-text="$nextEpisode->episode_number.' - '. $nextEpisode->title"
+                                    class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
                             >
                                 <div>
                                     <x-heroicon-c-arrow-right class="w-4" />
@@ -103,17 +101,17 @@
                         <x-form.input field-name="episode_number"
                                       input-type="number"
                                       :value="$episode->episode_number "
-                                      label="Episode"
+                                      label="{{ __('common.metadata.episode') }}"
                                       :full-col="false"
                                       :required="false"
                         />
 
                         <x-form.datepicker field-name="recording_date"
-                                           label="Recording Date"
+                                           label="{{ __('common.metadata.recording date') }}"
                                            :full-col="false"
                                            :value="$episode->recording_date" />
 
-                        <x-form.input field-name="title"
+                        <x-form.input field-name="{{ __('common.forms.title') }}"
                                       input-type="text"
                                       :value="$episode->title"
                                       label="{{ __('common.forms.title') }}"
@@ -128,30 +126,30 @@
 
                         <x-form.textarea field-name="notes"
                                          :value="$episode->notes"
-                                         label="Notes"
+                                         label="{{ __('common.metadata.notes') }}"
                         />
 
                         <x-form.textarea field-name="transcription"
                                          :value="$episode->transcription"
-                                         label="Transcript"
+                                         label="{{ __('common.metadata.transcript') }}"
                         />
 
                         <x-form.select2-multiple field-name="hosts"
-                                                 label="Host(s)"
+                                                 label="{{ trans_choice('common.metadata.host', 2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="$episode"
                                                  :items="$episode->getPrimaryPresenters()"
                         />
 
                         <x-form.select2-multiple field-name="guests"
-                                                 label="Guest(s)"
+                                                 label="{{ trans_choice('common.guest', 2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="$episode"
                                                  :items="$episode->getPrimaryPresenters(primary: false)"
                         />
 
                         <x-form.toggle-button :value="$episode->is_published"
-                                              label="Is public"
+                                              label="{{ __('common.forms.public') }}"
                                               field-name="is_published"
                         />
                         <x-form.input field-name="website_url"
@@ -184,8 +182,8 @@
                                 <div class="mt-4 dark:text-white ">
                                     <audio id="player" class="w-full" controls>
                                         <source
-                                            src="{{ getProtectedUrl($episode->getAssetsByType(Content::AUDIO)->first()->path) }}"
-                                            type="audio/mp3" />
+                                                src="{{ getProtectedUrl($episode->getAssetsByType(Content::AUDIO)->first()->path) }}"
+                                                type="audio/mp3" />
                                         <source src="/path/to/audio.ogg" type="audio/ogg" />
                                     </audio>
                                 </div>
@@ -196,20 +194,20 @@
 
                     <div class="flex flex-col items-left my-4 py-4 space-y-4">
                         <div class="text-lg dark:text-white border-b border-black dark:border-white pl-4 py-2">
-                            Quick Actions
+                            {{ __('') }}
                         </div>
                         <div class="flex space-x-2">
                             <div>
                                 <a href="{{ route('podcasts.edit', $podcast) }}">
                                     <x-button type="button" class="ml-3 bg-green-600 hover:bg-green-700">
-                                        Edit Podcast
+                                        {{ __('podcast.common.edit podcast') }}
                                     </x-button>
                                 </a>
                             </div>
                             <div>
                                 <a href="{{ route('frontend.podcasts.episode.show', [$podcast, $episode])  }}">
                                     <x-button type="button" class="ml-3 bg-green-600 hover:bg-green-700">
-                                        Go to public episode page
+                                        {{ __('series.backend.actions.go to public page') }}
                                     </x-button>
                                 </a>
                             </div>
@@ -217,10 +215,12 @@
                     </div>
                     <div class="flex-row  pr-4">
                         <div class="text-lg  dark:text-white pt-4 ">
-                            <span class="font-bold">Podcast Owner:</span>
+                            <span class="font-bold">
+                                {{ __('podcastEpisode.backend.podcast owner') }}
+                            </span>
                             <span class="italic">
                                        @if(is_null($episode->owner))
-                                    Podcast has no owner yet
+                                    {{ __('podcastEpisode.backend.no podcast owner') }}
                                 @else
                                     {{$episode->owner?->getFullNameAttribute().'-'.$episode->owner?->username}}
                                 @endif
@@ -232,10 +232,10 @@
                                 <div class="w-full pb-6">
                                     <label>
                                         <select
-                                            class="p-2 w-full select2-tides-users
+                                                class="p-2 w-full select2-tides-users
                                         focus:outline-none focus:bg-white focus:border-blue-500"
-                                            name="owner_id"
-                                            style="width: 100%"
+                                                name="owner_id"
+                                                style="width: 100%"
                                         >
                                         </select>
                                     </label>
@@ -245,28 +245,28 @@
                     </div>
                     <div class="flex w-full">
                         <img
-                            @if(!is_null($episode->cover))
-                                src="{{ asset('images/'.$episode->cover->file_name) }}"
-                            alt="{{ $episode->cover->description }}"
-                            @else
-                                src="{{ asset('images/'.$podcast->cover->file_name) }}"
-                            alt="{{ $podcast->cover->description }}"
-                            @endif
+                                @if(!is_null($episode->cover))
+                                    src="{{ asset('images/'.$episode->cover->file_name) }}"
+                                alt="{{ $episode->cover->description }}"
+                                @else
+                                    src="{{ asset('images/'.$podcast->cover->file_name) }}"
+                                alt="{{ $podcast->cover->description }}"
+                                @endif
 
-                            class="w-full h-auto rounded-md">
+                                class="w-full h-auto rounded-md">
                     </div>
                     @if(is_null($episode->cover))
                         <div class="text-lg dark:text-white italic">
-                            *inherited from podcast*
+                            {{ __('podcastEpisode.backend.inherited from podcast header') }}
                         </div>
                     @endif
                     <div class="flex flex-col items-center place-content-center text-lg pt-8 pb-4 border-b border-black
                     dark:text-white mb-4">
                         <div class="pb-4">
-                            Upload a new episode cover
+                            {{ __('podcastEpisode.backend.upload a new podcast cover') }}
                         </div>
                         <div class="italic text-xs">
-                            * please prefer a resolution of 1400x1400px
+                            {{ __('podcastEpisode.backend.please prefer a resolution of 1400x1400px') }}
                         </div>
 
                     </div>
@@ -286,7 +286,7 @@
                 <div class="col-span-3 pt-10">
                     <div class="">
                         <x-button :type="'submit'" class="bg-blue-600 hover:bg-blue-700">
-                            Episode {{ __('common.actions.update') }}
+                            {{ __('podcastEpisode.backend.actions.podcast episode update') }}
                         </x-button>
                         <a href="{{route('podcasts.edit', $podcast)}}">
                             <x-button type="button" class="ml-3 bg-green-600 hover:bg-green-700">
@@ -300,7 +300,7 @@
     </div>
 
     <div
-        class="pt-10">
+            class="pt-10">
         <div x-data="{
             activeTab:1,
             activeClass: 'inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500',
@@ -338,7 +338,7 @@
                            :class="activeTab === 1 ? activeClass : inactiveClass"
                            aria-current="page"
                         >
-                            Assets
+                            {{ trans_choice('common.menu.asset',2) }}
                         </a>
                     </li>
                     <li class="me-2">
@@ -360,7 +360,7 @@
                                 </div>
                                 @if($count  = $episode->comments()->backend()->count() > 0)
                                     <span
-                                        class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs
+                                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs
                                     font-semibold text-white bg-blue-500 rounded-full">
                                         {{ $count }}
                                     </span>
@@ -374,7 +374,7 @@
                            x-on:click="activeTab = 4"
                            :class="activeTab === 4 ? activeClass : inactiveClass"
                         >
-                            Activities
+                            {{ trans_choice('common.menu.activity', 2) }}
                         </a>
                     </li>
                 </ul>
@@ -406,7 +406,7 @@
                         </div>
                         @enderror
                         <x-button class="bg-blue-600 hover:bg-blue-700">
-                            Upload audio file
+                            {{ __('podcastEpisode.backend.actions.upload audio file') }}
                         </x-button>
 
                     </form>
@@ -415,17 +415,17 @@
                     <div class="flex items-center pt-3 space-x-6 pb-10">
                         <a href="{{route('frontend.podcasts.episode.show', compact('podcast','episode'))}}">
                             <x-button type='button' class="bg-blue-600 hover:bg-blue-700">
-                                Go to public page
+                                {{ __('series.backend.actions.go to public page') }}
                             </x-button>
                         </a>
                         <a href="#">
                             <x-button class="bg-blue-600 hover:bg-blue-700">
-                                Statistics
+                                {{ trans_choice('common.menu.statistic', 2) }}
                             </x-button>
                         </a>
                         <a href="#">
                             <x-button class="bg-blue-600 hover:bg-blue-700">
-                                Generate transcript
+                                {{ __('podcastEpisode.backend.actions.generate transcript') }}
                             </x-button>
                         </a>
                         <x-modals.delete :route="route('podcasts.episodes.destroy', compact('podcast','episode'))">

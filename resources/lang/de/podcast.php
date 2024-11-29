@@ -3,6 +3,8 @@
 return [
     'common' => [
         'edit podcast' => 'Podcast bearbeiten',
+        'no podcast episodes found' => 'Keine Podcast-Episoden gefunden',
+        'podcast index' => 'Podcast-Index',
     ],
     'frontend' => [
         // TODO this need to be dynamic
@@ -15,6 +17,12 @@ return [
         'episode details' => 'Episodendetails',
     ],
     'backend' => [
+        'actions' => [
+            'create new podcast' => 'Einen neuen Podcast erstellen',
+            'add new episode' => 'Neue Episode hinzufügen',
+            'edit metadata of multiple episodes' => 'Metadaten mehrerer Episoden bearbeiten',
+            'reorder podcast episodes' => 'Podcast-Episoden neu anordnen',
+        ],
         'delete' => [
             'modal title' => 'Sind Sie sicher, dass Sie den Podcast mit dem Titel ":podcast_title" löschen möchten?',
             'modal body' => 'Bitte gehen Sie mit Vorsicht vor. Das Löschen dieses Podcasts wird alle zugehörigen'.

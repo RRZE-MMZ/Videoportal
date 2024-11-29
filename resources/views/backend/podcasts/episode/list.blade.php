@@ -9,7 +9,7 @@
                    class="block pt-2 ps-10 text-md text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50
                    focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                   placeholder="Search for episodes"
+                   placeholder="{{ __('common.actions.search for episodes') }}"
             >
         </div>
     </div>
@@ -19,22 +19,22 @@
             <th scope="col" class="px-6 py-3">
             </th>
             <th scope="col" class="px-6 py-3">
-                Title
+                {{ __('common.forms.title') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Description
+                {{ __('common.description') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Hosts
+                {{ trans_choice('common.metadata.host',2) }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Duration
+                {{ __('series.common.duration') }}
             </th>
             <th>
-                Publish status
+                {{ __('common.publish status') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Action
+                {{ __('series.common.actions') }}
             </th>
         </tr>
         </thead>
@@ -48,17 +48,17 @@
                     <div class="flex items-center space-x-2">
                         <div>
                             <img
-                                @if(!is_null($episode->image_id))
-                                    src="{{ asset('images/'.$episode->cover->file_name) }}"
-                                alt="{{$episode->title }} podcast cover"
-                                class="w-24"
-                                @elseif(!is_null($episode->podcast->image_id))
-                                    src="{{ asset('images/'.$episode->podcast->cover->file_name) }}"
-                                alt="{{ $episode->podcast->title }} podcast cover"
-                                class="w-24"
-                                @else
-                                    src="/podcast-files/covers/PodcastDefaultFAU.png" alt="Podcast Cover 3"
-                                @endif
+                                    @if(!is_null($episode->image_id))
+                                        src="{{ asset('images/'.$episode->cover->file_name) }}"
+                                    alt="{{$episode->title }} podcast cover"
+                                    class="w-24"
+                                    @elseif(!is_null($episode->podcast->image_id))
+                                        src="{{ asset('images/'.$episode->podcast->cover->file_name) }}"
+                                    alt="{{ $episode->podcast->title }} podcast cover"
+                                    class="w-24"
+                                    @else
+                                        src="/podcast-files/covers/PodcastDefaultFAU.png" alt="Podcast Cover 3"
+                                    @endif
                             />
                         </div>
                         <div>{{ $episode->title }}</div>
@@ -131,7 +131,7 @@
                 </td>
             </tr>
         @empty
-            <div>no episodes found</div>
+            <div>{{ __('podcast.common.no podcast episodes found') }}</div>
         @endforelse
         </tbody>
     </table>

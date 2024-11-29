@@ -208,7 +208,7 @@ test('a moderator can view the edit clip form and all form fields', function () 
         ->assertSee(trans_choice('common.menu.presenter', 2))
         ->assertSee(__('common.metadata.semester'))
         ->assertSee(__('common.forms.public available'))
-        ->assertSee('Livestream clip')
+        ->assertSee(__('common.metadata.livestream clip'))
         ->assertSee(__('common.metadata.accessible via'))
         ->assertSee(__('common.metadata.time availability'));
 });

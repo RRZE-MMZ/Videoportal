@@ -3,6 +3,8 @@
 return [
     'common' => [
         'edit podcast' => 'Edit podcast',
+        'podcast index' => 'Podcast Index',
+        'no podcast episodes found' => 'No podcast episodes found',
     ],
     'frontend' => [
         'jumbotron heading' => 'Podcasts by Students, Departments, and University Leadership',
@@ -13,6 +15,12 @@ return [
         'episode details' => 'Episode details',
     ],
     'backend' => [
+        'actions' => [
+            'create new podcast' => 'Create new podcast',
+            'add new episode' => 'Add new episode',
+            'edit metadata of multiple episodes' => 'Edit metadata of multiple episodes',
+            'reorder podcast episodes' => 'Reorder podcast episodes',
+        ],
         'delete' => [
             'modal title' => 'Are you certain you wish to delete the podcast titled ":podcast_title"?',
             'modal body' => 'Please proceed with caution. Deleting this podcast will permanently remove all associated'.

@@ -34,6 +34,9 @@ return [
         'opencast video upload description' => 'will start a new video workflow. Thank you for your patience',
         'video files in dropzone' => 'Video files in dropzone',
         'please select one or more audio/video files' => 'Please select on or more audio/video files',
+        'LMS Test Link' => 'LMS Test Link',
+        'my clips' => 'My Clips',
+        'with video files' => 'With video files',
         'actions' => [
             'go to clip public page' => 'Go to clip public page',
             'got to clip statistics page' => 'Got clip statistics page',

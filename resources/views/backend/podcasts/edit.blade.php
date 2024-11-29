@@ -1,8 +1,10 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="flex border-b border-black text-2xl flex-col dark:text-white dark:border-white font-normal pb-2">
-        {{ $podcast->title }} [ PodcastID : {{ $podcast->id }}]
+    <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
+        <div class="font-semibold  text-2xl">
+            {{ $podcast->title }} [ PodcastID : {{ $podcast->id }}]
+        </div>
     </div>
     <div class="flex">
         <form action="{{ route('podcasts.update', $podcast) }}"
@@ -27,21 +29,21 @@
                         />
 
                         <x-form.select2-multiple field-name="hosts"
-                                                 label="Host(s)"
+                                                 label="{{ trans_choice('common.metadata.host',2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="$podcast"
                                                  :items="$podcast->getPrimaryPresenters()"
                         />
 
                         <x-form.select2-multiple field-name="guests"
-                                                 label="Guest(s)"
+                                                 label="{{ trans_choice('common.metadata.guest',2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="$podcast"
                                                  :items="$podcast->getPrimaryPresenters(primary: false)"
                         />
 
                         <x-form.toggle-button :value="$podcast->is_published"
-                                              label="Is public"
+                                              label="{{ __('common.forms.public') }}"
                                               field-name="is_published"
                         />
                         <x-form.input field-name="website_url"
@@ -85,10 +87,10 @@
                                 <div class="w-full pb-6">
                                     <label>
                                         <select
-                                            class="p-2 w-full select2-tides-users
+                                                class="p-2 w-full select2-tides-users
                                         focus:outline-none focus:bg-white focus:border-blue-500 "
-                                            name="owner_id"
-                                            style="width: 100%"
+                                                name="owner_id"
+                                                style="width: 100%"
                                         >
                                         </select>
                                     </label>
@@ -174,7 +176,7 @@
         }
     }" class="w-full">
             <div
-                class="text-lg font-medium text-center text-gray-500 border-b border-gray-200 dark:text-white dark:border-gray-700">
+                    class="text-lg font-medium text-center text-gray-500 border-b border-gray-200 dark:text-white dark:border-gray-700">
                 <ul class="flex flex-wrap -mb-px">
                     <li class="me-2">
                         <a href="#episodes"
