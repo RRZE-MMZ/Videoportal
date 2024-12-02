@@ -37,46 +37,45 @@
             </div>
         </div>
     @endif
-    <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
-        <div class="font-semibold  text-2xl">
-            <div>
+    <div class="flex border-b border-black text-2xl flex-col dark:text-white dark:border-white py-2
+     font-normal">
+        <div class="flex w-full items-center align-middle my-2 ">
+            <div class="text-3xl">
                 {{$episode->episode_number}} - {{ $episode->title }} [ ID : {{ $episode->id }}]
             </div>
-            <div>
-                <div class="flex space-x-2 pl-10">
-                    @if(($previousNextEpisodesCollection->get('previous')))
-                        @php
-                            $previousEpisode = $previousNextEpisodesCollection->get('previous');
-                        @endphp
-                        <a href="{{ route('podcasts.episodes.edit',[$podcast,  $previousEpisode]) }}">
-                            <x-button
-                                    :tooltip="true"
-                                    :tooltip-text="$previousEpisode->episode_number.' - '. $previousEpisode->title"
-                                    class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
-                            >
-                                <div>
-                                    <x-heroicon-c-arrow-left class="w-4" />
-                                </div>
-                            </x-button>
-                        </a>
-                    @endif
-                    @if(($previousNextEpisodesCollection->get('next')))
-                        @php
-                            $nextEpisode = $previousNextEpisodesCollection->get('next');
-                        @endphp
-                        <a href="{{ route('podcasts.episodes.edit',[$podcast,  $nextEpisode]) }}">
-                            <x-button
-                                    :tooltip="true"
-                                    :tooltip-text="$nextEpisode->episode_number.' - '. $nextEpisode->title"
-                                    class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
-                            >
-                                <div>
-                                    <x-heroicon-c-arrow-right class="w-4" />
-                                </div>
-                            </x-button>
-                        </a>
-                    @endif
-                </div>
+            <div class="flex space-x-4 pl-4 pt-1">
+                @if(($previousNextEpisodesCollection->get('previous')))
+                    @php
+                        $previousEpisode = $previousNextEpisodesCollection->get('previous');
+                    @endphp
+                    <a href="{{ route('podcasts.episodes.edit',[$podcast,  $previousEpisode]) }}">
+                        <x-button
+                                :tooltip="true"
+                                :tooltip-text="$previousEpisode->episode_number.' - '. $previousEpisode->title"
+                                class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
+                        >
+                            <div>
+                                <x-heroicon-c-arrow-left class="w-4" />
+                            </div>
+                        </x-button>
+                    </a>
+                @endif
+                @if(($previousNextEpisodesCollection->get('next')))
+                    @php
+                        $nextEpisode = $previousNextEpisodesCollection->get('next');
+                    @endphp
+                    <a href="{{ route('podcasts.episodes.edit',[$podcast,  $nextEpisode]) }}">
+                        <x-button
+                                :tooltip="true"
+                                :tooltip-text="$nextEpisode->episode_number.' - '. $nextEpisode->title"
+                                class="flex items-center bg-blue-600 hover:bg-blue-700 space-x-2  text-sm"
+                        >
+                            <div>
+                                <x-heroicon-c-arrow-right class="w-4" />
+                            </div>
+                        </x-button>
+                    </a>
+                @endif
             </div>
         </div>
     </div>

@@ -133,6 +133,11 @@ class User extends Authenticatable
         return $this->hasMany(Channel::class, 'owner_id');
     }
 
+    public function podcasts(): HasMany
+    {
+        return $this->hasMany(Podcast::class, 'owner_id');
+    }
+
     /*
      * Assign a role to the current use
      *

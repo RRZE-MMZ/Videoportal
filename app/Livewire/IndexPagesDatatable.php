@@ -73,7 +73,7 @@ class IndexPagesDatatable extends Component
 
         if ($this->actionButton === 'dashboard') {
             $query = $this->userSeriesQuery(query: $query, currentSemester: true);
-        } elseif ($this->actionButton === 'assignClip' && ! $this->isAdmin()) {
+        } elseif ($this->actionButton === 'assignClip' && ! auth()->user()->isAdmin()) {
             $query = $this->userSeriesQuery($query);
         } else {
             $query->isPublic()->whereHas('clips.assets');
@@ -97,7 +97,7 @@ class IndexPagesDatatable extends Component
             $query->Single();
         }
 
-        return $this->applySearchFilter($query, $search)->orderBy('updated_at', 'desc');
+        return $this->applySearchFilter($query, $search)->orderBy('id', 'desc');
     }
 
     protected function queryOrganization($search)
@@ -121,7 +121,7 @@ class IndexPagesDatatable extends Component
                 ->withLastPublicClip()->currentSemester();
         }
 
-        if ($this->isAdmin()) {
+        if (auth()->user()->isAdmin()) {
             return $query;
         }
 
@@ -152,10 +152,5 @@ class IndexPagesDatatable extends Component
                 ->orWhereRaw('lower(CONCAT(first_name, " ", last_name)) like ?', ["%{$search}%"])
                 ->orWhereRaw('lower(CONCAT(last_name, " ", first_name)) like ?', ["%{$search}%"]);
         }
-    }
-
-    protected function isAdmin()
-    {
-        return auth()->user()->isAdmin();
     }
 }

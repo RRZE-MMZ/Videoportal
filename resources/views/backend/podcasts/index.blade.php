@@ -27,9 +27,13 @@
     </div>
     {{--    <livewire:series-data-table />--}}
     <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2 grid-cols-2">
-        @foreach($podcasts as $podcast)
+        @forelse($podcasts as $podcast)
             @include('partials.podcasts._card', $podcast)
-        @endforeach
+        @empty
+            <p class="col-span-4 text-3xl dark:text-white italic items-center">
+                {{ __('podcast.frontend.no podcasts available or published') }}
+            </p>
+        @endforelse
     </div>
 @endsection
 
