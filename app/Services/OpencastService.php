@@ -158,7 +158,7 @@ class OpencastService
     ): Collection {
         $events = collect();
 
-        $filter = (is_null($series))
+        $filter = (is_null($series?->opencast_series_id))
             ? 'status:'.$state->value
             : 'status:'.$state->value.',is_part_of:'.$series->opencast_series_id;
         try {
