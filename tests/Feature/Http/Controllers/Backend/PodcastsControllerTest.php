@@ -39,6 +39,24 @@ it('denies access to edit a podcasts to an authenticated student', function () {
     delete(route('podcasts.destroy', $this->podcast))->assertForbidden();
 });
 
+it('shows only users podcast shows if user is a moderator', function () {
+    auth()->logout();
+    $podcast = Podcast::factory()->create();
+
+    signInRole(Role::MODERATOR);
+
+    get(route('podcasts.index'))->assertDontSee($podcast->title);
+
+});
+
+it('shows all podcasts to portal admins', function () {
+    auth()->logout();
+    $podcast = Podcast::factory()->create();
+    signInRole(Role::ASSISTANT);
+
+    get(route('podcasts.index'))->assertSee($podcast->title);
+});
+
 it('denies access to edit page to a moderator without access rights', function () {
     auth()->logout();
 
