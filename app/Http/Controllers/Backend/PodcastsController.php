@@ -18,7 +18,9 @@ class PodcastsController extends Controller
 
     public function index(): View
     {
-        $podcasts = Podcast::all()->sortByDesc('updated_at');
+        $podcasts = (auth()->user()->can('administrate-assistant-pages'))
+            ? Podcast::all()->sortByDesc('updated_at')
+            : auth()->user()->podcasts()->get();
 
         return view('backend.podcasts.index', compact('podcasts'));
     }

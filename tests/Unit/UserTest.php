@@ -25,6 +25,10 @@ it('has many channels', function () {
     expect($this->user->channels())->toBeInstanceOf(HasMany::class);
 });
 
+it('has many podcasta', function () {
+    expect($this->user->podcasts())->toBeInstanceOf(HasMany::class);
+});
+
 it('has many supervised clips', function () {
     expect($this->user->supervisedClips())->toBeInstanceOf(HasMany::class);
 });
