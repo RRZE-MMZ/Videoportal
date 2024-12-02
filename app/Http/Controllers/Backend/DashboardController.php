@@ -48,10 +48,10 @@ class DashboardController
                 ->put(OpencastWorkflowState::TRIMMING->lower(), $opencastService->getEventsWaitingForTrimming());
 
             //if the logged-in user is a moderator then filter all opencast events
-            if (auth()->user()->cannot('administrate-admin-portal-pages')) {
+            if (auth()->user()->isModerator()) {
                 //a collection for all user series opencast ids
-                $series = auth()->user()->accessableSeries();
-                $userOpencastSeriesIDs = $series->get()->pluck('opencast_series_id');
+                $series = auth()->user()->accessableSeries()->get();
+                $userOpencastSeriesIDs = $series->pluck('opencast_series_id');
 
                 //create a new collection with filtered events
                 $opencastEvents = $opencastEvents->map(function ($events, $key) use ($userOpencastSeriesIDs) {
@@ -59,8 +59,7 @@ class DashboardController
                         return $events->filter(function ($event) use ($key, $userOpencastSeriesIDs) {
                             //trimming endpoint results are different from all others
                             if ($key === OpencastWorkflowState::TRIMMING->lower()) {
-                                return isset($event['series']['id'])
-                                    && $userOpencastSeriesIDs->contains($event['series']['id']);
+                                return $userOpencastSeriesIDs->contains($event['series']['id']);
                             } elseif (isset($event['is_part_of'])) {
                                 return $userOpencastSeriesIDs->contains($event['is_part_of']);
                             }
@@ -73,13 +72,16 @@ class DashboardController
                 });
 
                 $upcomingEvents = collect();
-                $series->each(function ($series) use ($upcomingEvents, $opencastService) {
+                $series->filter(function ($singleSeries) {
+                    //check user series  that have an opencast series id
+                    return ! is_null($singleSeries->opencast_series_id);
+                })->each(function ($series) use ($upcomingEvents, $opencastService) {
                     $opencastService->getEventsByStatus(OpencastWorkflowState::SCHEDULED, $series, 3)
                         ->each(function ($event) use ($upcomingEvents) {
                             $upcomingEvents->push($event);
                         });
                 });
-                $opencastEvents->put('upcoming', $upcomingEvents);
+                $opencastEvents->put(OpencastWorkflowState::SCHEDULED->lower(), $upcomingEvents);
             }
         }
 
