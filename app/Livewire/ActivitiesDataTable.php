@@ -85,6 +85,17 @@ class ActivitiesDataTable extends Component
                     ->orderBy('id', 'desc')
                     ->paginate(20);
             }),
+            'podcastEpisode' => call_user_func(function () {
+                return Activity::where('content_type', 'podcastEpisode')
+                    ->where('object_id', $this->objectID)
+                    ->where(function ($query) {
+                        $query->search($this->search);
+                    })->when($this->sortField, function ($query) {
+                        $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+                    })
+                    ->orderBy('id', 'desc')
+                    ->paginate(20);
+            }),
             default => call_user_func(function () {
                 return ($this->series)
                      ? Activity::where('content_type', 'series')
