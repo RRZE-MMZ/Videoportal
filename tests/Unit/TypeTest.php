@@ -10,6 +10,10 @@ beforeEach(function () {
     $this->type = Type::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->type->toArray()))->toBe(['en_name', 'de_name', 'updated_at', 'created_at', 'id']);
+});
+
 it('has many clips', function () {
     expect($this->type->clips())->toBeInstanceOf(HasMany::class);
 });

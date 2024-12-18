@@ -11,6 +11,13 @@ beforeEach(function () {
     $this->organization = Organization::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->organization->toArray()))->toBe([
+        'name', 'parent_org_id', 'orgno', 'shortname', 'staff', 'startdate', 'enddate', 'operationstartdate',
+        'operationenddate', 'created_at', 'updated_at', 'org_id',
+    ]);
+});
+
 it('has many clips', function () {
     expect($this->organization->clips())->toBeInstanceOf(HasMany::class);
 });

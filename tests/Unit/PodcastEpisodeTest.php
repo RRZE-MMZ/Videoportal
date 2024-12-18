@@ -13,6 +13,14 @@ beforeEach(function () {
     $this->podcastEpisode = PodcastEpisode::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->podcastEpisode->toArray()))->toBe([
+        'id', 'episode_number', 'recording_date', 'title', 'slug', 'podcast_id', 'description', 'notes',
+        'transcription', 'image_id', 'is_published', 'website_url', 'spotify_url', 'apple_podcasts_url',
+        'old_episode_id', 'published_at', 'folder_id', 'owner_id', 'created_at', 'updated_at', 'owner', 'podcast',
+    ]);
+});
+
 it('belongs to an owner', function () {
     expect($this->podcastEpisode->owner())->toBeInstanceOf(BelongsTo::class);
 });

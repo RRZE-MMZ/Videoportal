@@ -10,6 +10,10 @@ beforeEach(function () {
     $this->context = Context::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->context->toArray()))->toBe(['de_name', 'en_name', 'updated_at', 'created_at', 'id']);
+});
+
 it('has many clips', function () {
     expect($this->context->clips())->toBeInstanceOf(HasMany::class);
 });

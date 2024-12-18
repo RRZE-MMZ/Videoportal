@@ -13,6 +13,11 @@ beforeEach(function () {
     $this->user = User::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->user->toArray()))->toBe([
+        'first_name', 'last_name', 'username', 'email', 'email_verified_at', 'presenter_id', 'updated_at', 'created_at', 'id',
+    ]);
+});
 it('has many series', function () {
     expect($this->user->series())->toBeInstanceOf(HasMany::class);
 });

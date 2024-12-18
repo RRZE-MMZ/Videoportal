@@ -11,6 +11,12 @@ beforeEach(function () {
     $this->comment = Comment::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->comment->toArray()))->toBe([
+        'content', 'owner_id', 'type', 'commentable_type', 'commentable_id', 'updated_at', 'created_at', 'id',
+    ]);
+});
+
 it('belongs to a clip', function () {
     expect($this->comment->commentable())->toBeInstanceOf(BelongsTo::class);
 });

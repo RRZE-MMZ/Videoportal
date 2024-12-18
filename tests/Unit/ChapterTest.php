@@ -11,6 +11,12 @@ beforeEach(function () {
     $this->chapter = Chapter::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->chapter->toArray()))->toBe([
+        'title', 'position', 'parent_id', 'series_id', 'default', 'updated_at', 'created_at', 'id',  'series',
+    ]);
+});
+
 it('belongs to a series', function () {
     expect($this->chapter->series())->toBeInstanceOf(BelongsTo::class);
 });

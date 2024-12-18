@@ -11,6 +11,13 @@ beforeEach(function () {
     $this->presenter = Presenter::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->presenter->toArray()))->toBe([
+        'academic_degree_id', 'first_name', 'last_name', 'slug', 'username', 'email', 'image_id', 'updated_at',
+        'created_at', 'id', 'academic_degree',
+    ]);
+});
+
 it('belongs to many series', function () {
     expect($this->presenter->series())->toBeInstanceOf(BelongsToMany::class);
 });

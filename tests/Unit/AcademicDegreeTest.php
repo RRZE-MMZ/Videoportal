@@ -10,6 +10,12 @@ beforeEach(function () {
     $this->academicDegree = AcademicDegree::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->academicDegree->toArray()))->toBe([
+        'title', 'updated_at', 'created_at', 'id',
+    ]);
+});
+
 it('belongs to many presenters', function () {
     expect($this->academicDegree->presenters())->toBeInstanceOf(HasMany::class);
 });

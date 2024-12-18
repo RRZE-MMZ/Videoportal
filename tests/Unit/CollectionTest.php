@@ -10,6 +10,11 @@ beforeEach(function () {
     $this->collection = Collection::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->collection->toArray()))->toBe([
+        'title', 'description', 'position', 'is_public', 'updated_at', 'created_at', 'id',
+    ]);
+});
 it('has many clips', function () {
     expect($this->collection->clips())->toBeInstanceOf(BelongsToMany::class);
 });

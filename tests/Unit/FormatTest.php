@@ -10,6 +10,10 @@ beforeEach(function () {
     $this->format = Format::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->format->toArray()))->toBe(['en_name', 'de_name', 'updated_at', 'created_at', 'id']);
+});
+
 it('has many clips', function () {
     expect($this->format->clips())->toBeInstanceOf(HasMany::class);
 });

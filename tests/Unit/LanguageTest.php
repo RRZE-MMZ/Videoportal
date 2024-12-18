@@ -10,6 +10,12 @@ beforeEach(function () {
     $this->language = Language::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->language->toArray()))->toBe([
+        'code', 'name', 'long_code', 'order_int', 'updated_at', 'created_at', 'id',
+    ]);
+});
+
 it('has many clips', function () {
     expect($this->language->clips())->toBeInstanceOf(HasMany::class);
 });

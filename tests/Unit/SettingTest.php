@@ -3,8 +3,16 @@
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Testing\WithFaker;
 
+uses(WithFaker::class);
 uses()->group('unit');
+
+test('to array', function () {
+    $setting = Setting::factory()->create(['name' => $this->faker()->userName]);
+
+    expect(array_keys($setting->toArray()))->toBe(['name', 'data', 'updated_at', 'created_at', 'id']);
+});
 
 it('has an opencast scope', function () {
     expect(Setting::opencast())->toBeInstanceOf(Setting::class);

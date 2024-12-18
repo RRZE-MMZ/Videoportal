@@ -10,6 +10,14 @@ beforeEach(function () {
     $this->device = Device::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->device->toArray()))->toBe([
+        'description', 'comment', 'has_livestream_func', 'opencast_device_name', 'name', 'url', 'telephone_number',
+        'ip_address', 'location_id', 'camera_url', 'power_outlet_url', 'organization_id',  'is_hybrid',
+        'has_recording_func', 'room_url', 'supervisor_id', 'updated_at', 'created_at', 'id',
+    ]);
+});
+
 it('belongs to a location', function () {
     expect($this->device->location())->toBeInstanceOf(BelongsTo::class);
 });

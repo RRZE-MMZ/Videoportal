@@ -25,6 +25,18 @@ beforeEach(function () {
     Storage::fake('thumbnails');
 });
 
+test('to array', function () {
+    $this->clip->fresh();
+    expect(array_keys($this->clip->toArray()))->toBe([
+        'id', 'title', 'owner_id', 'semester_id', 'slug', 'description', 'posterImage', 'series_id', 'episode',
+        'allow_comments', 'is_public', 'created_at', 'updated_at', 'organization_id', 'folder_id', 'recording_date',
+        'acronym', 'opencast_logo_pos', 'uploaded_at', 'is_livestream', 'language_id', 'context_id', 'format_id',
+        'type_id', 'chapter_id', 'supervisor_id', 'image_id', 'has_time_availability', 'time_availability_start',
+        'time_availability_end', 'opencast_event_id', 'has_video_assets', 'owner', 'series', 'semester', 'organization',
+        'language', 'context', 'format', 'type', 'image',
+    ]);
+});
+
 it('has a slug route', function () {
     expect(route('frontend.clips.show', $this->clip))->toBe(route('home').'/clips/'.Str::slug(
         $this->clip->episode.'-'.$this->clip->title.'-'.Semester::current()->get()->first()->acronym

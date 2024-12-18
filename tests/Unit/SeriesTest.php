@@ -25,6 +25,14 @@ beforeEach(function () {
     $this->series = Series::factory()->create();
 });
 
+test('to array', function () {
+    $this->series->fresh();
+    expect(array_keys($this->series->toArray()))->toBe([
+        'title', 'description', 'organization_id', 'slug', 'owner_id', 'opencast_series_id', 'is_public', 'image_id',
+        'updated_at', 'created_at', 'id', 'owner', 'organization', 'image',
+    ]);
+});
+
 it('has a slug route', function () {
     expect(route('frontend.series.show', $this->series))
         ->toEqual(

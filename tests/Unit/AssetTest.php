@@ -14,6 +14,13 @@ beforeEach(function () {
     $this->asset = Asset::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->asset->toArray()))->toBe([
+        'original_file_name', 'disk', 'path', 'width', 'height', 'duration', 'guid', 'type', 'player_preview',
+        'updated_at', 'created_at', 'id',
+    ]);
+});
+
 it('may have many clips', function () {
     expect($this->asset->clips())->toBeInstanceOf(MorphToMany::class);
 });

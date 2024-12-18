@@ -10,6 +10,10 @@ beforeEach(function () {
     $this->document = Document::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->document->toArray()))->toBe(['name', 'save_path',   'updated_at', 'created_at', 'id']);
+});
+
 it('may have many series', function () {
     expect($this->document->series())->toBeInstanceOf(MorphToMany::class);
 });

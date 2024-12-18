@@ -10,6 +10,11 @@ beforeEach(function () {
     $this->deviceLocation = DeviceLocation::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->deviceLocation->toArray()))
+        ->toBe(['name', 'description', 'updated_at', 'created_at', 'id']);
+});
+
 test('a location can have many devices', function () {
     expect($this->deviceLocation->devices())->toBeInstanceOf(HasMany::class);
 });

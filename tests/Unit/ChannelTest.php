@@ -10,6 +10,12 @@ beforeEach(function () {
     $this->channel = Channel::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->channel->toArray()))->toBe([
+        'name', 'owner_id', 'url_handle', 'description', 'updated_at', 'created_at', 'id', 'owner',
+    ]);
+});
+
 it('belongs to a user', function () {
     expect($this->channel->owner())->toBeInstanceOf(BelongsTo::class);
 });

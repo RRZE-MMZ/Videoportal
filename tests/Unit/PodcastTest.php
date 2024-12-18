@@ -11,6 +11,13 @@ beforeEach(function () {
     $this->podcast = Podcast::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->podcast->toArray()))->toBe([
+        'title', 'slug', 'description', 'is_published', 'website_url', 'spotify_url', 'apple_podcasts_url',
+        'old_podcast_id', 'owner_id', 'updated_at', 'created_at', 'id', 'owner',
+    ]);
+});
+
 it('belongs to an user', function () {
     expect($this->podcast->owner())->toBeInstanceOf(BelongsTo::class);
 });

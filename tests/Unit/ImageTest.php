@@ -9,6 +9,13 @@ beforeEach(function () {
     $this->image = Image::factory()->create();
 });
 
+test('to array', function () {
+    expect(array_keys($this->image->toArray()))->toBe([
+        'description', 'file_name', 'file_path', 'thumbnail_path', 'mime_type', 'file_size', 'updated_at', 'created_at',
+        'id',
+    ]);
+});
+
 it('has many series', function () {
     expect($this->image->series())->toBeInstanceOf(HasMany::class);
 });
