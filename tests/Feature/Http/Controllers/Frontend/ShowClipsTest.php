@@ -9,6 +9,7 @@ use App\Models\Presenter;
 use App\Models\Setting;
 use App\Models\User;
 use App\Services\WowzaService;
+use Carbon\Carbon;
 use Facades\Tests\Setup\ClipFactory;
 use Facades\Tests\Setup\SeriesFactory;
 use GuzzleHttp\Psr7\Response;
@@ -66,9 +67,19 @@ it('a guest cannot access frontend clip page if clip is not public', function ()
 });
 
 it('a guest cannot access frontend clip page if clip has no assets', function () {
-    $this->mockHandler->append($this->mockCheckApiConnection());
+    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
 
-    get(route('frontend.clips.show', ClipFactory::withAssets(0)->create()))->assertForbidden();
+    get(route('frontend.clips.show', Clip::factory()->create(['recording_date' => 'now'])))->assertForbidden();
+});
+
+it('a guest can access frontend clip page if clip has no assets but is in the past', function () {
+    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
+    $clip = ClipFactory::withAssets(0)->create();
+    $clip->recording_date = Carbon::now()->subDays(2);
+    $clip->save();
+    $clip->fresh();
+
+    get(route('frontend.clips.show', $clip))->assertOk();
 });
 
 it('a logged in user cannot access frontend clip page if clip has no assets', function () {

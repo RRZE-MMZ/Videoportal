@@ -8,6 +8,7 @@ use App\Models\Clip;
 use App\Models\Presenter;
 use App\Models\Series;
 use Facades\Tests\Setup\SeriesFactory;
+use Illuminate\Support\Carbon;
 
 use function Pest\Laravel\get;
 
@@ -37,11 +38,31 @@ it('lists a livestream clip to visitors', function () {
 
 it('lists all clips with media assets to visitors', function () {
     $series = SeriesFactory::withClips(2)->withAssets(2)->create();
-    $clipWithoutAsset = Clip::factory()->create(['series_id' => $series->id]);
+    $clipWithoutAsset = Clip::factory()->create([
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->addDays(2),
+    ]);
 
     get(route('frontend.series.show', $series))
         ->assertSee($series->first()->title)
         ->assertDontSee($clipWithoutAsset->title);
+});
+
+it('lists also clips without media assets but they are in the past', function () {
+    $series = SeriesFactory::withClips(2)->withAssets(2)->create();
+    $clipWithoutAssetInThePast = Clip::factory()->create([
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(2),
+    ]);
+    $clipWithoutAssetInTheFuture = Clip::factory()->create([
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->addDays(2),
+    ]);
+
+    get(route('frontend.series.show', $series))
+        ->assertSee($series->first()->title)
+        ->assertSee($clipWithoutAssetInThePast->title)
+        ->assertDontSee($clipWithoutAssetInTheFuture->title);
 });
 
 it('shows a series public page even without clips to series owner', function () {

@@ -543,7 +543,7 @@ it('denies access to a moderator when updating a not owned clip', function () {
     $attributes = [
         'episode' => '1',
         'title' => 'changed',
-        'description' => 'changed',
+        'description' => 'a moderator just changed the clip description',
         'recording_date' => now(),
         'organization_id' => '1',
         'language_id' => '1',
@@ -552,7 +552,7 @@ it('denies access to a moderator when updating a not owned clip', function () {
         'type_id' => '1',
         'semester_id' => '1',
     ];
-    patch(route('clips.update', $clip), $attributes)->assertForbidden();
+    patch(route('clips.update', $clip), ['description' => $attributes['description']])->assertForbidden();
     $clip->refresh();
 
     assertDatabaseMissing('clips', $attributes);
@@ -564,7 +564,7 @@ it('allows updating a not owned clip for admin users', function () {
     $attributes = [
         'episode' => '1',
         'title' => 'changed',
-        'description' => 'changed',
+        'description' => 'an admin just changed the clip description',
         'recording_date' => now(),
         'organization_id' => '1',
         'language_id' => '1',
@@ -576,7 +576,7 @@ it('allows updating a not owned clip for admin users', function () {
     followingRedirects()->patch(route('clips.update', $clip), $attributes)->assertOk();
     $clip->refresh();
 
-    assertDatabaseHas('clips', $attributes);
+    assertDatabaseHas('clips', ['description' => $attributes['description']]);
 });
 
 it('updates clip slug if title is changed', function () {

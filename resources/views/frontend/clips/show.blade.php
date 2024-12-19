@@ -30,6 +30,8 @@
         <div class="flex flex-col align-center mt-4">
             @if (!is_null($clip->assets()->first()) || $clip->is_livestream)
                 @include('frontend.clips._player',['asset'=> $clip->assets()])
+            @elseif(auth()->user()?->can('edit-clips', $clip))
+                @include('frontend.clips._info')
             @endif
         </div>
 

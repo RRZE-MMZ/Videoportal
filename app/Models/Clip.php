@@ -234,11 +234,13 @@ class Clip extends BaseModel
             $clipsCollection = $this->series->clips()->orderBy('episode')->get();
         } else {
             $clipsCollection = $this->series->clips->filter(function ($clip) {
-                return ($clip->hasAudioAsset() || $clip->hasVideoAsset()) && $clip->is_public;
-            })->sortBy('episode');
+                return ($clip->hasAudioAsset() || $clip->hasVideoAsset() || $this->hasRecordingDateInPast())
+                    && $clip->is_public;
+            })->sortBy('episode')->values();
         }
 
         $clips = $clipsCollection;
+
         $currentClipIndex = $clips->search(function ($clip) {
             return $this->id == $clip->id;
         });
@@ -378,6 +380,24 @@ class Clip extends BaseModel
     public function format(): BelongsTo
     {
         return $this->BelongsTo(Format::class);
+    }
+
+    /*
+     * check whether a clip belongs to a series
+     */
+    public function isPartOfSeries(): bool
+    {
+        return ! is_null($this->series);
+    }
+
+    /*
+     * Check whether a clip is in the past based on it's recording date
+     */
+    public function hasRecordingDateInPast(): bool
+    {
+        $yesterday = now()->subDay()->endOfDay();
+
+        return $this->recording_date->lessThanOrEqualTo($yesterday);
     }
 
     /**
