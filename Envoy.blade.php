@@ -59,7 +59,7 @@ git clone {{ $repo }} --branch={{ $branch }} --depth=1 -q {{ $currentReleaseDir 
 
 cd {{ $currentReleaseDir }}
 
-~/composer.phar install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader --ignore-platform-reqs
+/usr/local/bin/composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader --ignore-platform-reqs
 @endtask
 
 @task('npm_install')
