@@ -181,6 +181,14 @@ test('clip owner can be null', function () {
     expect($clip->owner_id)->toBeNull();
 });
 
+it('checks whether a clip is a part of a series', function () {
+    expect($this->clip->isPartOfSeries())->toBeBool();
+});
+
+it('checks whether a clip has recording date in the past', function () {
+    expect($this->clip->hasRecordingDateInPast())->toBeBool();
+});
+
 it('resolves also an id in route', function () {
     get('clips/'.$this->clip->id)->assertForbidden();
     get(route('frontend.clips.show', $this->clip->id))->assertStatus(403);

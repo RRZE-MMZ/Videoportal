@@ -9,6 +9,7 @@ use App\Models\Series;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class ShowSeriesController extends Controller
 {
@@ -67,7 +68,9 @@ class ShowSeriesController extends Controller
                 :
                 Clip::select(['id', 'title', 'slug', 'episode', 'is_public', 'recording_date'])
                     ->where(function (Builder $query) {
-                        $query->has('assets')->orWhere('is_livestream', true);
+                        $query->has('assets')
+                            ->orWhere('recording_date', '<', Carbon::yesterday())
+                            ->orWhere('is_livestream', true);
                     })
                     ->where('series_id', $series->id)
                     ->where('is_public', true)

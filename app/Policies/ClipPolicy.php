@@ -32,7 +32,11 @@ class ClipPolicy
             return true;
         } elseif ($clip->is_public &&
             (is_null($clip->series->is_public) || $clip->series->is_public)
-            && ($clip->assets()->count() > 0 || $clip->is_livestream)) {
+            && ($clip->assets()->count() > 0 ||
+                $clip->is_livestream ||
+                ($clip->hasRecordingDateInPast() && $clip->isPartOfSeries())
+            )
+        ) {
             return true;
         } else {
             return false;

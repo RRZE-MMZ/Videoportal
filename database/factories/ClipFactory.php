@@ -10,8 +10,8 @@ use App\Models\Organization;
 use App\Models\Semester;
 use App\Models\Type;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class ClipFactory extends Factory
 {
@@ -32,7 +32,7 @@ class ClipFactory extends Factory
         return [
             'title' => $title = $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'recording_date' => $this->faker->dateTime()->format('d-m-Y H:i:s'),
+            'recording_date' => Carbon::now()->format('d-m-Y H:i:s'),
             'slug' => $title,
             'organization_id' => Organization::factory()->create()->org_id,
             'language_id' => '1', //1 is de, 2 should be  en
