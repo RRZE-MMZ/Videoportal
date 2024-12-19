@@ -97,13 +97,14 @@ class SeriesFactory
 
             $series->each(function ($series) use ($user) {
                 if ($this->clipsCount > 0) {
-                    Clip::factory($this->clipsCount)->create([
-                        'series_id' => $series->id,
-                        'owner_id' => $user,
-                        'language_id' => Arr::random([1, 2]),
-                        'semester_id' => Semester::current()->get()->first()->id,
-                        'image_id' => $series->image_id,
-                    ]);
+                    Clip::factory($this->clipsCount)->sequence(fn ($sequence) => ['episode' => $sequence->index + 1])
+                        ->create([
+                            'series_id' => $series->id,
+                            'owner_id' => $user,
+                            'language_id' => Arr::random([1, 2]),
+                            'semester_id' => Semester::current()->first()->id,
+                            'image_id' => $series->image_id,
+                        ]);
 
                     if ($this->assetsCount > 0) {
                         $series->clips()->each(function ($clip) {

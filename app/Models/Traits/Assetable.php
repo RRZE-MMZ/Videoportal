@@ -47,6 +47,13 @@ trait Assetable
         })->isNotEmpty();
     }
 
+    public function hasAudioAsset(): bool
+    {
+        return $this->assets->filter(function ($asset) {
+            return $asset->type == Content::AUDIO && ! $asset->is_deleted;
+        })->isNotEmpty();
+    }
+
     /**
      * Return caption asset for the clip
      */

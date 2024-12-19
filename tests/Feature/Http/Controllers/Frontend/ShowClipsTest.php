@@ -229,23 +229,68 @@ it('clip public page should display clip presenters if any', function () {
         ->assertSee(Presenter::find(1)->getFullNameAttribute(), Presenter::find(2)->getFullNameAttribute());
 });
 
-it('clip public page should have navigate to previous and next clips if a clip belongs to a series', function () {
-    SeriesFactory::withClips(3)->withAssets(2)->create();
-    $clip = Clip::find(3);
-    $previousClip = Clip::find(2);
-    $nextClip = Clip::find(4);
-    $this->mockHandler->append(
-        $this->mockCheckApiConnection(),
-        $this->mockVodSecureUrls()
-    );
+it('clip public page should have navigate to previous and next clips if a clip belongs to a series and have assets',
+    function () {
+        SeriesFactory::withClips(3)->withAssets(2)->create();
+        $clip = Clip::find(3);
+        $previousClip = Clip::find(2);
+        $nextClip = Clip::find(4);
+        $this->mockHandler->append(
+            $this->mockCheckApiConnection(),
+            $this->mockVodSecureUrls()
+        );
 
-    get(route('frontend.clips.show', $clip))
-        ->assertSee(__('common.previous'))
-        ->assertSee(__('common.next'))
-        ->assertSee(route('frontend.clips.show', $previousClip))
-        ->assertSee(route('frontend.clips.show', $nextClip));
+        get(route('frontend.clips.show', $clip))
+            ->assertSee(__('common.previous'))
+            ->assertSee(__('common.next'))
+            ->assertSee(route('frontend.clips.show', $previousClip))
+            ->assertSee(route('frontend.clips.show', $nextClip));
+    });
+
+it('should hide next clip button if next clip does not have any video assets', function () {
+    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
+    $series = SeriesFactory::withClips(2)->withAssets(2)->create();
+    $thirdClip = Clip::factory()->create([
+        'series_id' => $series->id,
+        'episode' => $series->latestClip()->first()->episode + 1,
+    ]);
+    $series->fresh();
+    $secondClip = $series->clips->slice(1, 1)->first();
+
+    get(route('frontend.clips.show', $secondClip))
+        ->assertOk()
+        ->assertDontSee(route('frontend.clips.show', $thirdClip));
 });
 
+it('should hide next clip button if next clip is not public', function () {
+    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
+    $series = SeriesFactory::withClips(2)->withAssets(2)->create();
+    $thirdClip = Clip::factory()->create([
+        'series_id' => $series->id,
+        'episode' => $series->latestClip()->first()->episode + 1,
+        'is_public' => false,
+    ]);
+    $thirdClip->save();
+    $secondClip = $series->clips->slice(1, 1)->first();
+
+    get(route('frontend.clips.show', $secondClip))
+        ->assertOk()
+        ->assertDontSee(route('frontend.clips.show', $thirdClip));
+});
+
+it('shows previous next buttons for all clips if a user has the right to edit the series', function () {
+    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
+    $series = SeriesFactory::ownedBy($this->signInRole(Role::MODERATOR))->withClips(3)->create();
+    $clips = $series->clips;
+    $firstClip = $clips->first();
+    $lastClip = $clips->last();
+    $secondClip = $clips->slice(1, 1)->first();
+
+    get(route('frontend.clips.show', $secondClip))
+        ->assertOk()
+        ->assertSee(route('frontend.clips.show', $firstClip))->assertSee(route('frontend.clips.show', $lastClip));
+
+});
 it('a signed in user can access frontend clip page if clip has a portal access', function () {
     $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
     $this->clip->addAcls(collect([Acl::PORTAL()]));

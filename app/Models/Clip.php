@@ -230,15 +230,22 @@ class Clip extends BaseModel
 
     public function previousNextClipCollection(): Collection
     {
-        $clipsCollection = $this->series->clips()->orderBy('episode')->get();
+        if (auth()->user()?->can('edit-clips', $this)) {
+            $clipsCollection = $this->series->clips()->orderBy('episode')->get();
+        } else {
+            $clipsCollection = $this->series->clips->filter(function ($clip) {
+                return ($clip->hasAudioAsset() || $clip->hasVideoAsset()) && $clip->is_public;
+            })->sortBy('episode');
+        }
+
+        $clips = $clipsCollection;
+        $currentClipIndex = $clips->search(function ($clip) {
+            return $this->id == $clip->id;
+        });
 
         return collect([
-            'previousClip' => $clipsCollection->filter(function ($value, $key) {
-                return (int) $value->episode == (int) $this->episode - 1;
-            })->first(),
-            'nextClip' => $clipsCollection->filter(function ($value, $key) {
-                return (int) $value->episode == (int) $this->episode + 1;
-            })->first(),
+            'previousClip' => $currentClipIndex > 0 ? $clips->get($currentClipIndex - 1) : null,
+            'nextClip' => $clips->count() > $currentClipIndex + 1 ? $clips->get($currentClipIndex + 1) : null,
         ]);
     }
 

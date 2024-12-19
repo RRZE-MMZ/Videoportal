@@ -11,7 +11,9 @@
                 <h2 id="clip-title"
                     class="text-xl sm:text-2xl font-bold dark:text-white text-center sm:text-left"
                 >
-                    {{ $clip->title }} [ID: {{ $clip->id }}]
+                    @if($clip->series_id)
+                        {{ $clip->episode }} -
+                    @endif {{ $clip->title }} [ID: {{ $clip->id }}]
                 </h2>
             </div>
             @can('edit-clips', $clip)

@@ -25,6 +25,12 @@ function fetchClipPoster(?string $player_preview): string
         $img = $portalSettings->data['clip_generic_poster_image_name'] ?? 'generic_poster_image.png';
 
         return "/images/$img";
+    } elseif (env('APP_ENV') === 'local') {
+        //fetch player previews from cdn server and not from local path
+        $portalSettings = Setting::streaming();
+        $cdnServer = $portalSettings->data['cdn']['server1']['url'];
+
+        return "$cdnServer/Images/previews-ng/$player_preview";
     } else {
         return "/thumbnails/previews-ng/$player_preview";
     }

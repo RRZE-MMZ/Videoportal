@@ -4,9 +4,9 @@ use App\Enums\Content;
 use App\Models\Asset;
 use App\Models\Clip;
 use App\Models\Semester;
-use App\Models\Series;
 use App\Models\User;
 use Facades\Tests\Setup\FileFactory;
+use Facades\Tests\Setup\SeriesFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -143,23 +143,9 @@ it('can add tags', function () {
     expect($this->clip->tags()->count())->toBe(2);
 });
 
-it('can fetch previous and nect clip models if clip belongs to a series', function () {
-    $series = Series::factory()->create();
-    Clip::factory()->create([
-        'title' => 'first clip',
-        'series_id' => $series->id,
-        'episode' => 1,
-    ]);
-    $secondClip = Clip::factory()->create([
-        'title' => 'second clip',
-        'series_id' => $series->id,
-        'episode' => 2,
-    ]);
-    Clip::factory()->create([
-        'title' => 'third clip',
-        'series_id' => $series->id,
-        'episode' => 3,
-    ]);
+it('can fetch previous and next clip models if clip belongs to a series', function () {
+    $series = SeriesFactory::withClips(3)->withAssets(2)->create()->fresh();
+    $secondClip = $series->clips->slice(1, 1)->first();
 
     expect($secondClip->previousNextClipCollection())->toBeInstanceOf(Collection::class);
     expect($secondClip->previousNextClipCollection()->get('previousClip'))->toBeInstanceOf(Clip::class);
