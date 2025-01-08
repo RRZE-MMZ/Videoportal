@@ -116,7 +116,21 @@
                     >
                         {{ __('common.metadata.metadata') }}
                     </div>
-
+                    @can('administrate-superadmin-portal-pages')
+                        <x-form.input field-name="opencast_event_id"
+                                      input-type="text"
+                                      :value="old('opencast_event_id', $clip->opencast_event_id)"
+                                      label="{{ __('common.metadata.opencast_event_id') }}"
+                                      :fullCol="false"
+                                      :required="true" />
+                    @endcannot
+                    <x-form.select2-single field-name="context_id"
+                                           label="{{ __('common.metadata.context') }}"
+                                           select-class="select2-tides"
+                                           model="context"
+                                           @cannot('administrate-superadmin-portal-pages') disabled @endcannot
+                                           :selectedItem="old('context_id', $clip->context_id)"
+                    />
                     <x-form.select2-single field-name="context_id"
                                            label="{{ __('common.metadata.context') }}"
                                            select-class="select2-tides"
@@ -163,7 +177,7 @@
                         <x-form.password field-name="password"
                                          :value="old('password', $clip->password)"
                                          label="{{ __('common.metadata.password') }}"
-                                         :full-col="true"
+                                         :full-col="false"
                         />
                     @endcan
                     <x-form.toggle-button :value="old('allow_comments', $clip->allow_comments)"

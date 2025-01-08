@@ -17,6 +17,7 @@ return [
         'player_article_link_url' => 1,
         'player_article_link_text' => '',
         'player_enable_adaptive_streaming' => true,
+        'player_transcoding_video_file_path' => '/tmp/VideoTranscoding.mp4', // Video to be played if clip has no assets
         'clip_generic_poster_image_name' => 'generic_clip_poster_image.png',
     ],
     'user' => [

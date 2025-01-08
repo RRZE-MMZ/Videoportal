@@ -2,17 +2,21 @@
 
 use App\Enums\Acl;
 use App\Enums\Content;
+use App\Enums\OpencastWorkflowState;
 use App\Enums\Role;
 use App\Models\Asset;
 use App\Models\Clip;
 use App\Models\Presenter;
+use App\Models\Series;
 use App\Models\Setting;
 use App\Models\User;
+use App\Services\OpencastService;
 use App\Services\WowzaService;
-use Carbon\Carbon;
 use Facades\Tests\Setup\ClipFactory;
 use Facades\Tests\Setup\SeriesFactory;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Tests\Setup\WorksWithOpencastClient;
 use Tests\Setup\WorksWithWowzaClient;
 
@@ -32,6 +36,8 @@ beforeEach(function () {
     $this->clip = ClipFactory::withAssets(2)->create();
     $this->mockHandler = $this->swapWowzaClient();
     $this->wowzaService = app(WowzaService::class);
+    $this->opencastMockHandler = $this->swapOpencastClient();
+    $this->opencastService = app(OpencastService::class);
 });
 
 it('a guest cannot manage clips', function () {
@@ -348,7 +354,7 @@ it('redirects to clip page after user login, if a clip has a portal acl', functi
     ])->assertRedirect($protectedPageUrl);
 });
 
-it('displays a ads text if the portal setting is set', function () {
+it('displays an ads text if the portal setting is set', function () {
     $setting = Setting::portal();
     $portalSetting = $setting->data;
     $portalSetting['player_show_article_link_in_player'] = true;
@@ -358,4 +364,42 @@ it('displays a ads text if the portal setting is set', function () {
 
     expect(Setting::portal()->data['player_show_article_link_in_player'])->toBeTrue();
     get(route('frontend.clips.show', $this->clip))->assertSee($portalSetting['player_article_link_text']);
+});
+
+it('displays a text if a clip is in the past and has no assets to visitors', function () {
+    $clip = Clip::factory()->create(['recording_date' => Carbon::now()->subDays(3)]);
+    $this->clip->addAcls(collect([Acl::PUBLIC()]));
+    $this->mockHandler->append($this->mockCheckApiConnection(), $this->mockVodSecureUrls());
+
+    get(route('frontend.clips.show', $clip))
+        ->assertOk()
+        ->assertSeeHtml(__('clip.frontend.clip still without assets warning', [
+            'mail_to' => 'mailto:'.env('SUPPORT_MAIL_ADDRESS'),
+            'mail_address' => env('SUPPORT_MAIL_ADDRESS'),
+        ]));
+});
+
+it('shows a video that the clip is currently transcoding when a running opencast event was found', function () {
+    $eventID = Str::uuid();
+    $portalSettings = Setting::portal();
+    $clip = Clip::factory()->create(
+        [
+            'opencast_event_id' => $eventID,
+            'recording_date' => Carbon::now()->subDays(3),
+            'series_id' => Series::factory()->create()->id,
+        ]);
+    $this->mockHandler->append(
+        $this->mockCheckApiConnection(),
+        $this->mockVodSecureUrls(),
+    );
+    $this->opencastMockHandler->append(
+        $this->mockEventByEventID(
+            eventID: $eventID,
+            state: OpencastWorkflowState::RUNNING,
+        ));
+
+    get(route('frontend.clips.show', $clip))
+        ->assertOk()
+        ->assertSee($portalSettings->data['player_transcoding_video_file_path'])
+        ->assertSeeHtml('mediaPlayer id="target"');
 });

@@ -35,6 +35,7 @@ class UpdatePortalSettings extends FormRequest
             'player_show_article_link_in_player' => ['required', 'boolean'],
             'player_article_link_url' => ['required', 'url'],
             'player_article_link_text' => ['required', 'string'],
+            'player_transcoding_video_file_path' => ['required', 'string'],
             'player_enable_adaptive_streaming' => ['required', 'boolean'],
             'clip_generic_poster_image_name' => ['required', 'string'],
         ];

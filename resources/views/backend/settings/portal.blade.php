@@ -96,6 +96,13 @@
                               :fullCol="true"
                               :required="true" />
 
+                <x-form.input field-name="player_transcoding_video_file_path"
+                              input-type="text"
+                              :value="$setting['player_transcoding_video_file_path']"
+                              label="Transcoding Video file path"
+                              :fullCol="true"
+                              :required="true" />
+
                 <hr class="h-px my-8 border-black border-1 dark:border-white">
 
                 <x-form.toggle-button :value="$setting['player_enable_adaptive_streaming']"

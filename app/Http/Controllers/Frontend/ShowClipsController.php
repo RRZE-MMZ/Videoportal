@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Enums\Content;
+use App\Enums\OpencastWorkflowState;
 use App\Http\Controllers\Controller;
 use App\Models\Clip;
 use App\Models\Setting;
+use App\Services\OpencastService;
 use App\Services\WowzaService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\View\View;
@@ -26,7 +28,7 @@ class ShowClipsController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function show(Clip $clip, WowzaService $wowzaService): View
+    public function show(Clip $clip, WowzaService $wowzaService, OpencastService $opencastService): View
     {
         $this->authorize('view-clips', $clip);
         $assetsResolutions = $clip->assets->map(function ($asset) {
@@ -43,6 +45,10 @@ class ShowClipsController extends Controller
                 return $value !== 'PDF/CC';
             });
 
+        $transcodingVideoUrl = ($clip->opencast_event_id)
+            ? $this->checkForActiveTranscodingJob(clip: $clip, opencastService: $opencastService)
+            : false;
+
         $wowzaStatus = $wowzaService->getHealth();
         $urls = ($wowzaStatus->has('status') && $wowzaStatus->get('status') !== 'failed')
             ? $wowzaService->getDefaultPlayerURL($clip)
@@ -58,6 +64,19 @@ class ShowClipsController extends Controller
             'previousNextClipCollection' => $clip->previousNextClipCollection(),
             'assetsResolutions' => $assetsResolutions,
             'playerSetting' => Setting::portal(),
+            'transcodingVideoUrl' => $transcodingVideoUrl,
         ]);
+    }
+
+    private function checkForActiveTranscodingJob(Clip $clip, OpencastService $opencastService): string|bool
+    {
+        $event = $opencastService->getEventByEventID($clip->opencast_event_id);
+        if ($event->get('status') === OpencastWorkflowState::RUNNING->value) {
+            $settings = Setting::portal();
+
+            return getProtectedUrl($settings->data['player_transcoding_video_file_path']);
+        } else {
+            return false;
+        }
     }
 }

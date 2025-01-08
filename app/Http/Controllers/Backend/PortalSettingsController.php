@@ -29,7 +29,7 @@ class PortalSettingsController extends Controller
      */
     public function update(UpdatePortalSettings $request)
     {
-        //existing setting
+        // existing setting
         $setting = Setting::portal();
         $validated = $request->validated();
 

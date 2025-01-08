@@ -6,7 +6,7 @@
             {{$label}}
         </label>
     </div>
-    <div class="{{($fullCol)?'col-start-2 col-end-4':'w-full'}}" x-data="{ show: true }">
+    <div class="{{($fullCol)?'col-start-2 col-end-4':'col-start-2 col-end-6'}}" x-data="{ show: true }">
         <div class="relative">
             <input placeholder=""
                    :type="show ? 'password' : 'text'"

@@ -26,6 +26,9 @@ return [
         'this clip requires a password for access' => 'This clip requires a password for access. '.'
                                                         Please contact the Video Series administrators.',
         'comments' => 'Kommentare',
+        'clip has no assets warning' => 'This clip has no playable assets. Please upload a video file.',
+        'clip still without assets warning' => 'No video available (yet)? Please contact 
+                                         <a class="underline" href=":mail_to">:mail_address</a>',
     ],
     'backend' => [
         'belongs to' => 'Belongs to: :series_title',

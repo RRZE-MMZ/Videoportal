@@ -64,9 +64,9 @@ it('changes the preview image for a clip based on the user selected video frame 
     post(route('clips.generatePreviewImageFromFrame', $this->clip), ['recentFrame' => '3'])
         ->assertRedirectToRoute('clips.edit', $this->clip);
 
-    //expect that the old preview will be deleted from the storage
+    // expect that the old preview will be deleted from the storage
     Storage::disk('thumbnails')->assertMissing('previews-ng/1_preview.png');
-    //finally expect that the database value for the asset will be updated
+    // finally expect that the database value for the asset will be updated
     expect($this->clip->assets()->first()->player_review)->not()->toBe('1_preview.png');
 });
 
@@ -76,7 +76,7 @@ it('changes the preview image for a clip based on a user uploads image', functio
         ->putFileAs(path: $storagePath, file: storage_path().'/tests/Big_Buck_Bunny.mp4', name: 'video.mp4');
     Storage::disk('thumbnails')
         ->putFileAs(path: 'previews-ng', file: UploadedFile::fake()->image('new_banner.png'), name: '1_preview.png');
-    //first upload file to filepond tmp directory
+    // first upload file to filepond tmp directory
     $initialResponse = postJson(route('uploads.process'), [
         'image' => UploadedFile::fake()->image('new_banner.png'),
     ]);
@@ -86,8 +86,8 @@ it('changes the preview image for a clip based on a user uploads image', functio
     post(route('clips.generatePreviewImageFromUser', $this->clip), ['image' => $newPreviewImagePath])
         ->assertRedirectToRoute('clips.edit', $this->clip)
         ->assertSessionDoesntHaveErrors();
-    //expect that the old preview will be deleted from the storage
+    // expect that the old preview will be deleted from the storage
     Storage::disk('thumbnails')->assertMissing('previews-ng/1_preview.png');
-    //finally expect that the database value for the asset will be updated
+    // finally expect that the database value for the asset will be updated
     expect($this->clip->assets()->first()->player_review)->not()->toBe('1_preview.png');
 });

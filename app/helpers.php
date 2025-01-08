@@ -26,7 +26,7 @@ function fetchClipPoster(?string $player_preview): string
 
         return "/images/$img";
     } elseif (env('APP_ENV') === 'local') {
-        //fetch player previews from cdn server and not from local path
+        // fetch player previews from cdn server and not from local path
         $portalSettings = Setting::streaming();
         $cdnServer = $portalSettings->data['cdn']['server1']['url'];
 
@@ -188,7 +188,7 @@ function setSessionAccessToken($obj, $token, $time, $client): void
  */
 function checkAccessToken($obj): bool
 {
-    //Type can be either series or clip
+    // Type can be either series or clip
     $tokenType = lcfirst(class_basename($obj::class));
 
     if (session()->exists("{$tokenType}_{$obj->id}_token")) {
@@ -198,7 +198,7 @@ function checkAccessToken($obj): bool
 
         return $cookieTokenHash === getAccessToken($obj, $cookieTokenTime, $cookieTokenClient);
     } elseif ($tokenType === 'clip' && session()->exists("series_{$obj->series->id}_token")) {
-        //check whether a series token for this clip exists
+        // check whether a series token for this clip exists
         $cookieTokenHash = session()->get("series_{$obj->series->id}_token");
         $cookieTokenTime = session()->get("series_{$obj->series->id}_time");
         $cookieTokenClient = session()->get("series_{$obj->series->id}_client");
@@ -233,7 +233,7 @@ function getProtectedUrl(?string $filePath): string
     $settingsData = Setting::streaming();
     $filePath = '/'.$filePath;
     $secret = $settingsData->data['cdn']['server1']['secret'];
-    $cdn = $settingsData->data['cdn']['server1']['url'];
+    $cdn = $settingsData->data['cdn']['server1']['url'].'/media/';
     $hexTime = dechex(time());
     $userIP = (App::environment(['testing', 'local'])) ? env('FAUTV_USER_IP') : $_SERVER['REMOTE_ADDR'];
     $token = md5($secret.$filePath.$hexTime.$userIP);
@@ -293,8 +293,8 @@ function getCurrentGitBranch()
 
 function checkOpencastLivestreamRoom(string $opencastLocation): ?Livestream
 {
-    //find the exact livestream with the given opencast location name
-    //use squish to remove any empty chars from opencast agent till the bug in opencast api is fixed
+    // find the exact livestream with the given opencast location name
+    // use squish to remove any empty chars from opencast agent till the bug in opencast api is fixed
     return Livestream::where('opencast_location_name', '=', Str::squish($opencastLocation))->get()->first();
 }
 

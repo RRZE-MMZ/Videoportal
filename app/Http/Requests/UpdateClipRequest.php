@@ -39,10 +39,11 @@ class UpdateClipRequest extends FormRequest
                 if ($this->route('clip')->series->chapters->pluck('id')->doesntContain($value)) {
                     $fail("The {$attribute} id doesn't belong to the series.");
                 }
-            }, ], //check whether the chapter id belongs to user series chapters
+            }, ], // check whether the chapter id belongs to user series chapters
             'presenters' => ['array'],
             'presenters.*' => ['integer', 'nullable'],
             'tags' => ['array'],
+            'opencast_event_id' => ['sometimes', 'uuid'],
             'tags.*' => ['string', 'nullable'],
             'acls' => ['array'],
             'acls.*' => ['integer', 'nullable'],
@@ -66,9 +67,9 @@ class UpdateClipRequest extends FormRequest
     {
         $this->merge([
             'slug' => Str::slug($this->title),
-            'tags' => $this->tags = $this->tags ?? [], //set empty array if select2 tags is empty
-            'acls' => $this->acls = $this->acls ?? [], //set empty array if select2 acls is empty
-            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if select2 is empty
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
+            'acls' => $this->acls = $this->acls ?? [], // set empty array if select2 acls is empty
+            'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if select2 is empty
             'allow_comments' => $this->allow_comments === 'on',
             'is_public' => $this->is_public === 'on',
             'is_livestream' => $this->is_livestream === 'on',

@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-4 py-2">
     <!-- Label Section -->
     <div class="{{ $labelClass }} sm:col-span-4">
         <label for="{{ $fieldName }}"

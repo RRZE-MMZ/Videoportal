@@ -66,6 +66,7 @@ return [
         'transcript' => 'Transcript',
         'host' => 'Host|Hosts',
         'guest' => 'Guest|Guests',
+        'opencast_event_id' => 'Opencast-EventID',
     ],
     'menu' => [
         'dashboard' => 'Dashboard',

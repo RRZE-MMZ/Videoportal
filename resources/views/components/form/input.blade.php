@@ -15,7 +15,7 @@
             @endif
         </div>
     </div>
-    <div class="{{($fullCol)?'col-start-2 col-end-8':'w-full'}}">
+    <div class="{{($fullCol)?'col-start-2 col-end-8':'col-start-2 col-end-6'}}">
         <input class="py-2 px-4 w-full leading-tight  bg-white rounded border-2
                                             border-gray-200 appearance-none focus:outline-none focus:bg-white
                                             focus:border-blue-500 "
