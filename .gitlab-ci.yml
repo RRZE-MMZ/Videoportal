@@ -1,0 +1,63 @@
+stages:
+  - setup
+  - test
+  - deploy_staging
+  - deploy_production
+
+variables:
+  APP_ENV: testing
+  DB_CONNECTION: sqlite
+  DB_DATABASE: ":memory:"
+  CACHE_DRIVER: array
+  SESSION_DRIVER: array
+  QUEUE_CONNECTION: sync
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+    - node_modules/
+    - public/build/
+
+before_script:
+  - cp .env.example .env
+  - composer install --prefer-dist --no-progress --no-suggest --no-interaction
+  - php artisan key:generate
+  - php artisan migrate --seed --force
+  - npm ci
+  - npm run dev
+
+test:
+  stage: test
+  script:
+    - ./vendor/bin/pest
+  artifacts:
+    when: always
+    paths:
+      - storage/logs
+    reports:
+      junit: storage/logs/junit.xml
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+
+deploy_staging:
+  stage: deploy_staging
+  environment:
+    name: staging
+    url: https://www.dev4.uni-erlangen.de
+  only:
+    - develop
+  script:
+    - composer global require laravel/envoy
+    - envoy run deploy-on-dev
+
+deploy_production:
+  stage: deploy_production
+  environment:
+    name: production
+    url: https:/www.fau.tv
+  only:
+    - main
+  when: on_success
+  script:
+    - composer global require laravel/envoy
+    - envoy run deploy --branch=main --on=production
