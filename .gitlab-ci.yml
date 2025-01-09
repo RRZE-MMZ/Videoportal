@@ -2,62 +2,57 @@ stages:
   - setup
   - test
   - deploy_staging
-  - deploy_production
 
-variables:
-  APP_ENV: testing
-  DB_CONNECTION: sqlite
-  DB_DATABASE: ":memory:"
-  CACHE_DRIVER: array
-  SESSION_DRIVER: array
-  QUEUE_CONNECTION: sync
-
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - vendor/
-    - node_modules/
-    - public/build/
-
-before_script:
-  - cp .env.example .env
-  - composer install --prefer-dist --no-progress --no-suggest --no-interaction
-  - php artisan key:generate
-  - php artisan migrate --seed --force
-  - npm ci
-  - npm run dev
+setup:
+  stage: setup
+  image: gitlab.rrze.fau.de:4567/multimedia/tides
+  before_script:
+    - composer install --quiet --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
+    - cp .env.example .env
+    - php artisan key:generate
+    - chmod -R 777 storage bootstrap/cache
+    - mkdir -p /var/log/tides && chmod 777 /var/log/tides
+    - mkdir -p database && touch database/database.sqlite
+  script:
+    - echo "Setup complete"
+  artifacts:
+    paths:
+      - vendor/
+      - node_modules/
 
 test:
   stage: test
+  image: gitlab.rrze.fau.de:4567/multimedia/tides
+  before_script:
+    - apt install php-curl -y
+    - composer install --quiet --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
+    - cp .env.example .env
+    - php artisan key:generate
+    - chmod -R 777 storage bootstrap/cache
+    - mkdir -p /var/log/tides && chmod 777 /var/log/tides
+    - mkdir -p database && touch database/database.sqlite
   script:
-    - ./vendor/bin/pest
-  artifacts:
-    when: always
-    paths:
-      - storage/logs
-    reports:
-      junit: storage/logs/junit.xml
-  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+    - vendor/bin/pest --parallel
 
-deploy_staging:
+staging:
   stage: deploy_staging
-  environment:
-    name: staging
-    url: https://www.dev4.uni-erlangen.de
-  only:
-    - develop
-  script:
+  image: gitlab.rrze.fau.de:4567/multimedia/tides
+  before_script:
+    - export PATH="$PATH:~/.composer/vendor/bin"
     - composer global require laravel/envoy
-    - envoy run deploy-on-dev
+    - composer install --quiet --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
+    - cp .env.example .env
+    - echo "DEPLOY_USER=$DEPLOY_USER" >> .env
+    - echo "DEPLOY_GROUP=$DEPLOY_GROUP" >> .env
+    - echo "DEPLOY_SERVER=$DEPLOY_SERVER" >> .env
+    - echo "DEPLOY_REPO=$DEPLOY_REPO" >> .env
+    - echo "DEPLOY_BRANCH=develop" >> .env
+    - echo "DEPLOY_BASE_DIR=$DEPLOY_BASE_DIR" >> .env
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - vendor/bin/envoy run deploy-on-dev
 
-deploy_production:
-  stage: deploy_production
-  environment:
-    name: production
-    url: https:/www.fau.tv
-  only:
-    - main
-  when: on_success
-  script:
-    - composer global require laravel/envoy
-    - envoy run deploy --branch=main --on=production

@@ -25,6 +25,7 @@ $branch = 'main';
 
 $releaseDir = $baseDir . '/releases';
 $currentDir = $baseDir . '/current';
+
 $release = date('YmdHis');
 $currentReleaseDir = $releaseDir . '/' . $release;
 
