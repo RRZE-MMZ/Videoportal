@@ -24,7 +24,6 @@ test:
   stage: test
   image: gitlab.rrze.fau.de:4567/multimedia/tides
   before_script:
-    - apt install php-curl -y
     - composer install --quiet --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
     - cp .env.example .env
     - php artisan key:generate

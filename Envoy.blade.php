@@ -26,6 +26,7 @@ $branch = 'main';
 $releaseDir = $baseDir . '/releases';
 $currentDir = $baseDir . '/current';
 
+date_default_timezone_set('Europe/Berlin');
 $release = date('YmdHis');
 $currentReleaseDir = $releaseDir . '/' . $release;
 
