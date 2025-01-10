@@ -1,45 +1,43 @@
 # Tides - Open Source Video Platform
 
-[![Laravel](https://github.com/stefanosgeo/tides/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/stefanosgeo/tides/actions/workflows/build.yml)
+[![Laravel](https://github.com/rrze-mmz/tides/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/stefanosgeo/tides/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Tides is an open source video platform based on the Laravel framework. It provides a flexible and customizable
-solution for managing and streaming videos. This README provides instructions on setting up the development environment
-and installing Tides on your local machine.
+Tides is an open-source video platform built on the Laravel framework. It offers a flexible and customizable solution
+for managing and streaming videos, making it ideal for developers seeking a robust platform for video content delivery.
+
+This README provides instructions for setting up the development environment and installing Tides on your local machine.
 
 ## Features and Components
 
-Tides utilizes the following components:
+Tides leverages modern technologies and components to deliver a seamless video management experience:
 
-- **Tailwind CSS**: A utility-first CSS framework for building responsive and modern user interfaces.
-- **Plyr Player**: A lightweight and customizable HTML5 video player with a sleek design and robust features.
-- **Laravel FFmpeg**: A PHP package for working with FFmpeg, allowing for video manipulation and processing.
+- **Tailwind CSS**: A utility-first CSS framework for creating responsive and modern user interfaces.
+- **Vidstack Player**: A lightweight, customizable HTML5 video player with a sleek design and powerful features.
 
-## Quick Start
+### Prerequisites
 
-To get started with Tides, follow these steps to set up your development environment:
+Ensure you have the following installed:
 
-### Setting up Development Environment
+- **PHP 8.2+**
+- **Composer**
+- **SQLite** (or any other supported database)
+- **Node.js & npm**
 
-For local development, we recommend using Valet. Choose the appropriate Valet fork for your operating system:
+### Installation Steps
 
-- [Valet for macOS](https://github.com/laravel/valet)
-- [Valet for Linux](https://github.com/cpriego/valet-linux)
-- [Valet for Windows](https://github.com/cretueusebiu/valet-windows)
-
-### Tides Installation
-
-1. Clone the Tides repository to your desired location:
+1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/tides.git
+    git clone https://github.com/your-username/tides.git
+    cd tides
       ```
-2. Install the required dependencies using Composer:
+2. Install PHP dependencies using Composer:
    ```
    composer install
       ```
 
-3. Create a copy of the .env.example file and name it .env:
+3. Copy the example environment file and configure your environment:
    ```
    cp .env.example .env
       ```
@@ -48,19 +46,40 @@ For local development, we recommend using Valet. Choose the appropriate Valet fo
    php artisan key:generate
       ```
 
-5. Create an SQLite database file for Tides:
+5. Create an SQLite database file (or configure your preferred database):
    ```
    touch /tmp/tides.sqlite
       ```
-6. Run the database migrations:
+   Ensure your .env file is updated with the correct database connection settings:
+
+   ```
+   DB_CONNECTION=sqlite
+   DB_DATABASE=/tmp/tides.sqlite
+      ```
+6. Run database migrations:
    ```
    php artisan migrate
       ```
+7. Install front-end dependencies
+    ```
+    npm install
+    npm run dev
+      ```
+8. Start the development server
+   ```
+   php artisan serve
+      ```
+
+## Contributing
+
+We welcome contributions from the community! If you would like to contribute, please fork the repository and submit a
+pull request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
-Tides is open-source software licensed under the MIT license. See the LICENSE file for more details.
+Tides is open-source software licensed under the ECL 2.0 (Educational Community License). See the [LICENSE](LICENSE)
+file for more details.
 
-Thank you for your interest in Tides! If you encounter any issues or have any questions, please don't hesitate to reach
-out or create a GitHub issue. We appreciate your support and contributions in making Tides a powerful video platform.
+Thank you for your interest in Tides! If you encounter any issues or have any questions, feel free to reach out or
+create a GitHub issue. We appreciate your support and contributions in making Tides a powerful video platform.
 
