@@ -1,5 +1,40 @@
+# Environment files
+.env
+.env.testing
+.env.backup
+
+# Vendor dependencies
+/vendor
+
+# Node dependencies
 /node_modules
-/laradock
+
+# IDE specific files
+.idea/
+*.iml
+.phpstorm.meta.php
+.vscode/*
+
+# Editor config and cache files
+.phpunit.result.cache
+.phpactor.json
+/.phpunit.result.cache
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+/storage/logs/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/*
+/storage/*.key
+
+# Laravel storage (excluding `storage/app/public` which may be needed for public assets)
+!/storage/app/public
+
+# Compiled files
 /public/hot
 /public/storage
 /public/build
@@ -7,17 +42,24 @@
 /public/streamable_videos
 /public/thumbnails
 /public/podcast-files
-/storage/*.key
-/vendor
-.idea
-.idea/*
-.vscode/*
-.env
-.env.backup
-.phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
+/public/mix-manifest.json
+/public/*.hot
+/public/*.map
+/public/*.gz
+
+# NPM/Yarn build files
+/node_modules
+/public/css/*.css
+/public/js/*.js
+/public/css/*.map
+/public/js/*.map
+
+# Cache and lock files
+composer.lock
+package-lock.json
+yarn.lock
+npm-debug.log*
+
+#testings
 /reports
+
