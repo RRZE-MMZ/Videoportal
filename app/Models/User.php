@@ -145,9 +145,9 @@ class User extends Authenticatable
      */
     public function assignRole(Role $role): static
     {
-        //a member cannot be a user or student
+        // a member cannot be a user or student
         if ($role == Role::MEMBER) {
-            //therefore remove the existing user role
+            // therefore remove the existing user role
             $this->roles()->sync([$role->value]);
         } else {
             $this->roles()->toggle([$role->value]);
@@ -318,7 +318,7 @@ class User extends Authenticatable
     {
         $settings = $this->settings;
 
-        //set user settings to default
+        // set user settings to default
         $settings->data = config('settings.user');
         $settings->save();
 

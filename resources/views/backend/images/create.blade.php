@@ -3,7 +3,7 @@
 @section('content')
     <div class="mb-5 flex items-center justify-between border-b border-black pb-2 font-semibold font-2xl">
         <div class="flex">
-            Create new image
+            {{ __('image.backend.actions.create a new image') }}
         </div>
         <div class="flex">
             <a href="{{ route('images.index') }}">
@@ -12,7 +12,7 @@
                         <x-heroicon-o-arrow-left-circle class="h-6 w-6" />
                     </div>
                     <div>
-                        Back to images list
+                        {{ __('image.backend.actions.back to images list') }}
                     </div>
                 </x-button>
             </a>
@@ -47,7 +47,7 @@
                 <div class="flex">
                     <x-heroicon-o-arrow-up-circle class="h-6 w-6" />
                     <span class="pl-4">
-                        Upload file
+                        {{ __('common.actions.upload file') }}
                     </span>
                 </div>
             </x-button>

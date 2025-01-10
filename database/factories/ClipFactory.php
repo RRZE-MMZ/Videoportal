@@ -35,7 +35,7 @@ class ClipFactory extends Factory
             'recording_date' => Carbon::now()->format('d-m-Y H:i:s'),
             'slug' => $title,
             'organization_id' => Organization::factory()->create()->org_id,
-            'language_id' => '1', //1 is de, 2 should be  en
+            'language_id' => '1', // 1 is de, 2 should be  en
             'context_id' => Context::factory()->create()->id,
             'format_id' => Format::factory()->create()->id,
             'type_id' => Type::factory()->create()->id,

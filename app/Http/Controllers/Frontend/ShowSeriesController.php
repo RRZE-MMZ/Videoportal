@@ -33,7 +33,7 @@ class ShowSeriesController extends Controller
          * for visitors fetch only clips that containing a video asset
          */
         if ($chapters->count() > 0) {
-            //clips info will be eager loaded inside the chapters collection
+            // clips info will be eager loaded inside the chapters collection
             $chapters =
                 (auth()->user()?->id === $series->owner_id || auth()->user()?->isAdmin())
                     ? $chapters->orderBy('position')->get()

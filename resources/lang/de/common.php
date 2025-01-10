@@ -27,6 +27,7 @@ return [
     'subscribe' => 'Abonnieren',
     'unsubscribe' => 'Abbestellen',
     'publish status' => 'Veröffentlichungsstatus',
+    'no description available' => 'Keine Beschreibung verfügbar',
     'actions' => [
         'action' => 'Aktion|Aktionen',
         'save' => 'Speichern',
@@ -39,6 +40,8 @@ return [
         'download' => 'Herunterladen',
         'search' => 'Suche',
         'search for episodes' => 'Nach Episoden suchen',
+        'activate' => 'Aktivieren',
+        'upload file' => 'Datei hochladen',
     ],
     'metadata' => [
         'metadata' => 'Metadaten',
@@ -67,6 +70,8 @@ return [
         'host' => 'Moderator|Moderatoren',
         'guest' => 'Gast|Gäste',
         'opencast_event_id' => 'Opencast-EventID',
+        'url handle' => 'URL-Handle',
+
     ],
     'menu' => [
         'dashboard' => 'Dashboard',
@@ -74,6 +79,7 @@ return [
         'clip' => 'Clip|Clips',
         'asset' => 'Anlage|Anlagen',
         'podcast' => 'Podcast|Podcasts',
+        'episode' => 'Folge|Folgen',
         'presenter' => 'Lehrer/Lehrerin|Lehrende',
         'member' => 'Teilnehmer/Teilnehmerin|Teilnehmern',
         'activity' => 'Aktivität|Aktivitäten',

@@ -60,7 +60,7 @@ it('shows all podcasts to portal admins', function () {
 it('denies access to edit page to a moderator without access rights', function () {
     auth()->logout();
 
-    //sign in another user
+    // sign in another user
     signInRole(Role::MODERATOR);
 
     get(route('podcasts.edit', $this->podcast))->assertForbidden();
@@ -71,8 +71,8 @@ it('shows podcast create page a moderator user with all podcast page fields', fu
         ->assertOk()
         ->assertSee(__('common.forms.title'))
         ->assertSee(__('common.forms.description'))
-        ->assertSee('Host(s)')
-        ->assertSee('Guest(s)')
+        ->assertSee(trans_choice('common.metadata.host', 2))
+        ->assertSee(trans_choice('common.metadata.guest', 2))
         ->assertViewIs('backend.podcasts.create');
 });
 
@@ -97,7 +97,7 @@ it('show podcasts edit page for podcasts owner', function () {
 it('denies updating a podcast to a non privileged moderator', function () {
     auth()->logout();
 
-    //sign in another user
+    // sign in another user
     signInRole(Role::MODERATOR);
 
     patch(route('podcasts.update', $this->podcast), ['title' => 'title_changed'])->assertForbidden();

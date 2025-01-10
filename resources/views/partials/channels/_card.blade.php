@@ -3,7 +3,7 @@
     <div class="flex place-content-around justify-between">
         <div>
             <h3 class="pb-6 font-semibold dark:text-white">
-                {{ $channel->name }} Channel
+                {{ $channel->name }} {{ trans_choice('common.menu.channel', 1) }}
             </h3>
         </div>
         <div>
@@ -24,9 +24,9 @@
                       class="flex w-full content-center justify-between bg-blue-600 hover:bg-blue-700">
                 <div>
                     @if(!str_contains(url()->current(), 'admin'))
-                        View channel
+                        {{ __('channel.frontend.actions.view channel') }}
                     @else
-                        Go to channel edit page
+                        {{ __('channel.backend.actions.go to channel edit page') }}
                     @endif
 
                 </div>

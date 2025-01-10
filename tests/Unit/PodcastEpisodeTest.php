@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 uses()->group('unit');
 
 beforeEach(function () {
-    //create the podcast to link the episode with the id = 1 otherwise tests are going to fail
+    // create the podcast to link the episode with the id = 1 otherwise tests are going to fail
     $this->podcast = Podcast::factory()->create();
     $this->podcastEpisode = PodcastEpisode::factory()->create();
 });

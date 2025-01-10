@@ -5,6 +5,7 @@ return [
         'edit podcast' => 'Edit podcast',
         'podcast index' => 'Podcast Index',
         'no podcast episodes found' => 'No podcast episodes found',
+        'podcast cover' => 'Podcast Cover',
     ],
     'frontend' => [
         'jumbotron heading' => 'Podcasts by Students, Departments, and University Leadership',
@@ -15,11 +16,16 @@ return [
         'episode details' => 'Episode details',
     ],
     'backend' => [
+        'podcast title form placeholder' => 'My new Podcast Title',
+        'cover upload info text' => '* please prefer a resolution of 1400x1400px',
+        'podcast owner' => 'Podcast owner',
+        'podcast no owner info text' => 'No owner has been assigned to this podcast yet',
         'actions' => [
             'create new podcast' => 'Create new podcast',
             'add new episode' => 'Add new episode',
             'edit metadata of multiple episodes' => 'Edit metadata of multiple episodes',
             'reorder podcast episodes' => 'Reorder podcast episodes',
+            'upload a new podcast cover' => 'Upload a new podcast cover',
         ],
         'delete' => [
             'modal title' => 'Are you certain you wish to delete the podcast titled ":podcast_title"?',

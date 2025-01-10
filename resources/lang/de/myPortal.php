@@ -50,13 +50,4 @@ return [
     'subscriptions' => [
         'Your are subscribed to X Series' => 'Sie haben die :counter Serie abonniert',
     ],
-    'channels' => [
-        'introduction' => 'In einem akademischen Videoportal dient Ihr Kanal als kuratierter Raum zum Sammeln und
-        Organisieren relevanter Videos. Passen Sie Ihren Kanal mit einem spezifischen thematischen Schwerpunkt an und
-        ordnen Sie Videos in kategorisierte Wiedergabelisten für eine effiziente Entdeckung. Interagieren Sie mit einer
-        akademischen Gemeinschaft durch Kommentare, um den wissenschaftlichen Austausch und die Wissensvermittlung zu
-        fördern. Diese Plattform legt den Schwerpunkt auf Inhaltskuration und Community-Interaktion, anstatt auf
-        persönliche Video-Uploads.',
-        'activate button' => 'Persönliche Kanal aktivieren',
-    ],
 ];

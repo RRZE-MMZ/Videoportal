@@ -72,10 +72,10 @@
                 <div class="row-span-4 pr-4">
                     <div class="flex-row">
                         <div class="text-lg  dark:text-white pt-4 ">
-                            <span class="font-bold">Podcast Owner:</span>
+                            <span class="font-bold">{{ __('podcast.backend.podcast owner') }}:</span>
                             <span class="italic">
                                        @if(is_null($podcast->owner))
-                                    Podcast has no owner yet
+                                    {{ __('podcast.backend.podcast no owner info text') }}
                                 @else
                                     {{$podcast->owner?->getFullNameAttribute().'-'.$podcast->owner?->username}}
                                 @endif
@@ -106,10 +106,10 @@
                     <div class="flex flex-col items-center place-content-center text-lg pt-8 pb-4 border-b border-black
                     dark:text-white mb-4">
                         <div class="pb-4">
-                            Upload a new podcast cover
+                            {{ __('podcast.backend.actions.upload a new podcast cover') }}
                         </div>
                         <div class="italic text-xs">
-                            * please prefer a resolution of 1400x1400px
+                            {{ __('podcast.backend.cover upload info text') }}
                         </div>
 
                     </div>
@@ -185,7 +185,7 @@
                            aria-current="page"
                            x-ref="tab1"
                         >
-                            Episodes
+                            {{ trans_choice('common.menu.episode', 2) }}
                         </a>
                     </li>
                     <li class="me-2">
@@ -212,7 +212,7 @@
                            :class="activeTab === 4 ? activeClass : inactiveClass"
                            x-ref="tab4"
                         >
-                            Activities
+                            {{ trans_choice('common.menu.activity', 2) }}
                         </a>
                     </li>
                 </ul>

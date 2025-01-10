@@ -65,12 +65,12 @@ it('allows access to moderators to create a channel', function () {
 it('shows a channel introduction text if channel is not activated yet', function () {
     signInRole(Role::MODERATOR);
     get(route('channels.index'))
-        ->assertSee(__('myPortal.channels.introduction'));
+        ->assertSee(__('channel.backend.channel activation info text'));
 });
 
 it('asks to enable channels if moderator has no active channel', function () {
     signInRole(Role::MODERATOR);
-    get(route('channels.index'))->assertSee(__('myPortal.channels.introduction'));
+    get(route('channels.index'))->assertSee(__('common.actions.activate'));
 });
 
 it('it validates url handle and channel title the form for channel activation', function () {
@@ -164,6 +164,6 @@ it('moderator can update channel basic infos like name and description', functio
 it('has a button for uploading a new banner image using filepond', function () {
     signIn($this->moderatorWithChannel);
     get(route('channels.edit', $this->moderatorChannel))
-        ->assertSee('Upload Channel banner image')
+        ->assertSee(__('channel.backend.actions.upload channel banner image'))
         ->assertSee('filepond');
 });

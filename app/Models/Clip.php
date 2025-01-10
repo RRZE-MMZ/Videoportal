@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Storage;
 #[ObservedBy(ClipObserver::class)]
 class Clip extends BaseModel
 {
-    use Accessable; //can have multiple acls
+    use Accessable; // can have multiple acls
     use Assetable; // can have multiple assets
     use Documentable; // can have multiple documents
     use Presentable; // can have multiple presenters
@@ -116,7 +116,7 @@ class Clip extends BaseModel
      */
     public function series(): BelongsTo
     {
-        //a clip may not belong to a series
+        // a clip may not belong to a series
         return $this->belongsTo(Series::class)->withDefault();
     }
 

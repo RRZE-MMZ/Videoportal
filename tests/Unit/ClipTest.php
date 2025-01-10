@@ -200,7 +200,7 @@ it('fetches assets by type', function () {
 });
 
 it('creates a folder id after model save', function () {
-    //second db update will be done in clip observer class
+    // second db update will be done in clip observer class
     expect($this->clip->folder_id)->toEqual('TIDES_ClipID_1');
 });
 

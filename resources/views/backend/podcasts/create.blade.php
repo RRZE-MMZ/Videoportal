@@ -16,7 +16,7 @@
                     <div class="flex flex-col gap-3 space-y-4 pt-4">
                         <x-form.input field-name="title"
                                       input-type="text"
-                                      :placeholder="'my new shiny podcast'"
+                                      :placeholder="__('podcast.backend.podcast title form placeholder')"
                                       :value="old('title')"
                                       label="{{ __('common.forms.title') }}"
                                       :full-col="true"
@@ -29,20 +29,20 @@
                         />
 
                         <x-form.select2-multiple field-name="hosts"
-                                                 label="Host(s)"
+                                                 label="{{ trans_choice('common.metadata.host',2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="null"
                                                  :items="[]"
                         />
                         <x-form.select2-multiple field-name="guests"
-                                                 label="Guest(s)"
+                                                 label="{{ trans_choice('common.guest', 2) }}"
                                                  select-class="select2-tides-presenters"
                                                  :model="null"
                                                  :items="[]"
                         />
 
                         <x-form.toggle-button :value="true"
-                                              label="Is public"
+                                              label="{{ __('common.forms.public') }}"
                                               field-name="is_published"
                         />
                         <x-form.input field-name="website_url"
@@ -72,10 +72,10 @@
                     <div class="flex flex-col items-center place-content-center text-lg pt-8 pb-4 border-b border-black
                     dark:text-white mb-4">
                         <div class="pb-4">
-                            Podcast Cover
+                            {{ __('podcast.common.podcast cover') }}
                         </div>
                         <div class="italic text-xs">
-                            * please prefer a resolution of 1400x1400px
+                            {{ __('podcast.backend.cover upload info text') }}
                         </div>
 
                     </div>
@@ -99,7 +99,7 @@
                         </x-button>
                         <a href="{{route('podcasts.index')}}">
                             <x-button type="button" class="ml-3 bg-green-600 hover:bg-green-700">
-                                Cancel
+                                {{ __('common.actions.cancel') }}
                             </x-button>
                         </a>
                     </div>

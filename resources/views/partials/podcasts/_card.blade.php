@@ -8,7 +8,7 @@
                  @else
                      src="/podcast-files/covers/PodcastDefaultFAU.png"
                  @endif
-                 alt="{{ $podcast->title }} cover image">
+                 alt="{{ $podcast->title }} {{ __('podcast.common.podcast cover') }}">
         </a>
     </div>
 
@@ -27,7 +27,7 @@
         <!-- Description -->
         <p class="text-sm sm:text-base font-light text-gray-800 dark:text-gray-300 mb-4">
             @if($podcast->description === '')
-                <span class="italic">No description available</span>
+                <span class="italic">{{ __('common.no description available') }}</span>
             @else
                 {{ Str::limit(removeHtmlElements($podcast->description), 250, ' (...)') }}
             @endif
