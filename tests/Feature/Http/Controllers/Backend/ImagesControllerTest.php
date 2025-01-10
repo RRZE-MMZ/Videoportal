@@ -149,7 +149,7 @@ it('has an edit page for change image metadata', function () {
         ->assertViewIs('backend.images.edit')
         ->assertViewHas(['image', 'mediaInfoContainer'])
         ->assertSee('Edit Image ID')
-        ->assertSee('Back to images list');
+        ->assertSee(__('image.backend.actions.back to images list'));
 });
 
 it('lists the last 5 presenters using an image in an image edit page', function () {

@@ -86,7 +86,7 @@ class SeriesFactory
 
     public function create($count = 1): Series|Collection
     {
-        //use ramsey/uuid because faker shows an error
+        // use ramsey/uuid because faker shows an error
 
         if ($count > 1) {
             $series = Series::factory($count)->create([

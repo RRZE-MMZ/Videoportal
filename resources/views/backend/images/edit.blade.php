@@ -15,7 +15,7 @@
                         <x-heroicon-o-arrow-left-circle class="h-6 w-6" />
                     </div>
                     <div>
-                        Back to images list
+                        {{ __('image.backend.actions.back to images list') }}
                     </div>
                 </x-button>
             </a>

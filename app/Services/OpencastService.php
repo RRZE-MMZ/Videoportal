@@ -27,7 +27,7 @@ class OpencastService
 
     public function __construct(private OpencastClient $client)
     {
-        //initialize an empty response
+        // initialize an empty response
         $this->response = new Response(200, [], json_encode([]));
         $this->opencastSettings = Setting::opencast();
     }
@@ -497,7 +497,7 @@ class OpencastService
         } catch (GuzzleException $exception) {
             Log::error($exception->getMessage());
         }
-        //TODO
+        // TODO
         // Create upload file table, store upload information and re-ingest if failed before deleting
 
         return $this->response;
@@ -759,7 +759,7 @@ class OpencastService
         // change the xml response to xml object
         $xmlResponse = simplexml_load_string((string) $response->getBody());
 
-        //format the response and include the created/modified date
+        // format the response and include the created/modified date
         $dateCreated = (string) $xmlResponse->attributes()->start;
 
         // isolate the media key from XML Object

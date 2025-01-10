@@ -5,6 +5,8 @@ return [
         'edit podcast' => 'Podcast bearbeiten',
         'no podcast episodes found' => 'Keine Podcast-Episoden gefunden',
         'podcast index' => 'Podcast-Index',
+        'podcast cover' => 'Podcast-Cover',
+
     ],
     'frontend' => [
         // TODO this need to be dynamic
@@ -17,11 +19,16 @@ return [
         'episode details' => 'Episodendetails',
     ],
     'backend' => [
+        'podcast title form placeholder' => 'Mein neuer Podcast-Titel',
+        'cover upload info text' => '* Bitte bevorzugen Sie eine Auflösung von 1400x1400px',
+        'podcast owner' => 'Podcast-Besitzer',
+        'podcast no owner info text' => 'Diesem Podcast wurde noch kein Besitzer zugewiesen',
         'actions' => [
             'create new podcast' => 'Einen neuen Podcast erstellen',
             'add new episode' => 'Neue Episode hinzufügen',
             'edit metadata of multiple episodes' => 'Metadaten mehrerer Episoden bearbeiten',
             'reorder podcast episodes' => 'Podcast-Episoden neu anordnen',
+            'upload a new podcast cover' => 'Laden Sie ein neues Podcast-Cover hoch',
         ],
         'delete' => [
             'modal title' => 'Sind Sie sicher, dass Sie den Podcast mit dem Titel ":podcast_title" löschen möchten?',
