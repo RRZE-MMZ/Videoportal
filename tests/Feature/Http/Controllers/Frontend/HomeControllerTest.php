@@ -145,12 +145,32 @@ it('does not display clips that belong to a series', function () {
 
 it('displays clips with video assets', function () {
     $clip = ClipFactory::withAssets(1)->create();
+    $clip->addAcls(collect(Acl::PUBLIC()));
 
     get(route('home'))->assertSee(Str::limit($clip->title, 100, preserveWords: true));
 });
 
+it('should not display not open clips to visitors', function () {
+    $clip = ClipFactory::withAssets(1)->create();
+    $clip->addAcls(collect(Acl::PUBLIC()));
+    get(route('home'))->assertSee($clip->title);
+
+    $clip->addAcls(collect(Acl::PORTAL()));
+    get(route('home'))->assertDontSee($clip->title);
+
+    $clip->addAcls(collect(Acl::PASSWORD()));
+    get(route('home'))->assertDontSee($clip->title);
+
+    $clip->addAcls(collect(Acl::LMS()));
+    get(route('home'))->assertDontSee($clip->title);
+
+    $clip->addAcls(collect(Acl::PUBLIC()));
+    get(route('home'))->assertSee($clip->title);
+});
+
 it('should not display clips that are not public', function () {
     $clip = ClipFactory::withAssets(1)->create();
+    $clip->addAcls(collect(Acl::PUBLIC()));
 
     get(route('home'))->assertSee(Str::limit($clip->title, 100, preserveWords: true));
 

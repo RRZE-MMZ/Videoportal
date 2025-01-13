@@ -52,6 +52,7 @@ class HomeController extends Controller
             'series' => $openSeries,
             'portalSeries' => $portalSeries,
             'clips' => Clip::select('id', 'slug', 'title', 'recording_date', 'owner_id')
+                ->whereRelation('acls', 'acl_id', Acl::PUBLIC) // show only open clips in homepage
                 ->with(['presenters'])
                 ->public()
                 ->withVideoAssets()
