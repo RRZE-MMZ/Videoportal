@@ -61,14 +61,14 @@ it('fetches opencast series info  with all workflows for a given series', functi
     $series = SeriesFactory::create();
 
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     $seriesInfo = $this->opencastService->getSeriesInfo($series);
@@ -270,7 +270,7 @@ it('logs the exception message if server is not available for ingesting a media 
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
     $clip = Clip::factory()->create();
     $file = UploadedFile::fake()->create('video.mp4', 1000);
@@ -398,15 +398,15 @@ it('logs the exception message if server is not available updating a series', fu
 it('updates an Opencast ACL for a given series', function () {
     $series = SeriesFactory::withOpencastID()->create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
         $this->mockNoResultsResponse(), // getSeriesTheme
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockNoResultsResponse(), // acl updated successfully
     );
     $user = User::factory()->create();
@@ -425,7 +425,7 @@ it('logs the exception message if server is not available for updating series AC
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
     $user = User::factory()->create();
     $opencastSeriesInfo = collect();
@@ -620,8 +620,8 @@ it('logs the exception message if server is not available for getting processed 
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
+        $this->mockServerNotAvailable(), // health
     );
 
     $this->opencastService->getProcessedEventsBySeriesID($series->opencast_series_id);
@@ -636,8 +636,8 @@ it('logs the exception message if server is not available for getting processed 
 it('fetching processed events will fetch those events that have either succeeded or stopped status ', function () {
     $series = SeriesFactory::withOpencastID()->create();
     $this->mockHandler->append(
-        $this->mockEventResponse($series, OpencastWorkflowState::SUCCEEDED), //health
-        $this->mockEventResponse($series, OpencastWorkflowState::STOPPED), //health
+        $this->mockEventResponse($series, OpencastWorkflowState::SUCCEEDED), // health
+        $this->mockEventResponse($series, OpencastWorkflowState::STOPPED), // health
     );
 
     $events = $this->opencastService->getProcessedEventsBySeriesID($series->id);
@@ -654,7 +654,7 @@ it('logs the exception message if server is not available for fetching all asset
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
 
     $this->opencastService->getAssetsByEventID(Str::uuid());
@@ -673,7 +673,7 @@ it('logs the exception message if server is not available for fetching an event 
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
 
     $this->opencastService->getEventByEventID(Str::uuid());
@@ -687,7 +687,7 @@ it('logs the exception message if server is not available for fetching an event 
 
 it('starts ingesting a video by creating a media package', function () {
     $this->mockHandler->append(
-        $this->mockCreateMediaPackageResponse(), //health
+        $this->mockCreateMediaPackageResponse(), // health
     );
     $response = $this->opencastService->createMediaPackage();
 
@@ -701,7 +701,7 @@ it('logs the exception message if server is not available for creating a media p
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
     $this->opencastService->createMediaPackage();
     // Now assert that at least one of the logged errors contains 'status'
@@ -731,7 +731,7 @@ it('logs the exception message if server is not available for adding a dc catalo
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
     $this->opencastService->addCatalog('', Clip::factory()->create());
     // Now assert that at least one of the logged errors contains 'status'
@@ -765,7 +765,7 @@ it('logs the exception message if server is not available for adding a track', f
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
     $file = UploadedFile::fake()->create('video.mp4', 1000);
 
@@ -817,7 +817,7 @@ it('logs the exception message if server is not available for ingesting a video 
             $loggedErrors[] = $message;
         });
     $this->mockHandler->append(
-        $this->mockServerNotAvailable(), //health
+        $this->mockServerNotAvailable(), // health
     );
 
     $response = $this->opencastService->ingest('', 'fast-workflow');

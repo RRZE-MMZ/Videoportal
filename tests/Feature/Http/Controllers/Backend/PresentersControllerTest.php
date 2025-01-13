@@ -237,7 +237,7 @@ it('shows all presenter clips in presenter edit page', function () {
 
     $clip->addPresenters(collect($presenter->id));
 
-    //flush session data to remove the update clip model message
+    // flush session data to remove the update clip model message
     session()->flush();
 
     get(route('presenters.edit', $presenter))

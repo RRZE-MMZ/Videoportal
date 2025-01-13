@@ -47,7 +47,7 @@ class InsertSmilAssets extends Command
         $bar->start();
 
         Clip::orderBy('id', 'desc')->lazy()->each(function ($clip) use ($wowzaService, $override) {
-            //do not generate smil files if a clip has already
+            // do not generate smil files if a clip has already
             if ($override) {
                 if ($clip->assets()
                     ->formatSmil()

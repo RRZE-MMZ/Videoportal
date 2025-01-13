@@ -34,7 +34,7 @@ class SeriesOwnershipRemoveUser extends Notification
      */
     public function toMail(mixed $notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject("You have been removed as owner from {$this->series->title} !")
             ->line('Hi '.$notifiable->getFullNameAttribute())
             ->line('you have been removed by '.auth()->user()->getFullNameAttribute().' as Series owner')

@@ -229,7 +229,7 @@ it('hide non visible clip acls in series description', function () {
     signInRole(Role::STUDENT);
     get(route('home'))->assertSee('portal');
 
-    //clip has no assets thus should not be displayed to visitors
+    // clip has no assets thus should not be displayed to visitors
     $thirdClip = Clip::factory()->create(['series_id' => $series]);
 
     $thirdClip->addAcls(collect([Acl::LMS()]));

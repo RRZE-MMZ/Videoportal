@@ -60,7 +60,7 @@ class SeriesPolicy
 
     public function update(User $user, Series $series): Response
     {
-        //assistants are not allowed to update series info
+        // assistants are not allowed to update series info
         return ($user->is($series->owner) || ($user->isAdmin()))
             ? Response::allow()
             : Response::deny('You do not own this series');

@@ -124,7 +124,7 @@ it(/**
 
         session()->flush();
 
-        //test again clip series token
+        // test again clip series token
         $time = dechex(time());
         $client = Acl::LMS->lower();
         $seriesToken = md5('series'.'1'.'1234QWer'.'127.0.0.1'.$time.$client);
@@ -201,11 +201,11 @@ it('has a check opencast livestream room function', function () {
 });
 
 it('has a check for a valid insert for statistics', function () {
-    //null values
+    // null values
     expect(check_valid_statistic_insert(null, 'POST', 'Firefox'))->toBeFalse();
-    //method is not POST
+    // method is not POST
     expect(check_valid_statistic_insert(23311872, 'GET', 'Firefox'))->toBeFalse();
-    //user agent contains the string 'bot'
+    // user agent contains the string 'bot'
     expect(check_valid_statistic_insert(23311872, 'POST', 'bot'))->toBeFalse();
 
     expect(check_valid_statistic_insert(23311872, 'POST', 'Firefox'))->toBeTrue();

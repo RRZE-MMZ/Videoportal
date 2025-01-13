@@ -50,7 +50,7 @@ trait Transferable
             new CreateWowzaSmilFile($model),
         ])->dispatch();
 
-        //mail can be chained inside anonymous function bus parameter but then the test  fails
+        // mail can be chained inside anonymous function bus parameter but then the test  fails
         Mail::to($model->owner->email)->queue(new AssetsTransferred($model));
     }
 }

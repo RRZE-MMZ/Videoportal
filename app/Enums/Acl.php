@@ -15,7 +15,7 @@ enum Acl: int
     case LMS = 4;
     case OTHER = 5;
 
-    //lowercase state's name
+    // lowercase state's name
     public function lower(): string
     {
         return Str::lower($this->name);

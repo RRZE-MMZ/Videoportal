@@ -48,7 +48,7 @@ class SeriesVideoWorkflowController extends Controller
     ): RedirectResponse {
         $opencastSeriesInfo = $opencastService->getSeriesInfo($series);
 
-        //Opencast doesn't allow to update a series when a workflow is running
+        // Opencast doesn't allow to update a series when a workflow is running
         if ($opencastSeriesInfo->get('running')->isNotEmpty()) {
             session()->flash('flashMessage', 'Opencast workflows running in this series. Try again later');
 
@@ -101,10 +101,14 @@ class SeriesVideoWorkflowController extends Controller
     ): RedirectResponse {
         $request->validated();
 
-        $events = $opencastService->getEventsByStatus(OpencastWorkflowState::SCHEDULED, $series);
+        $events = $opencastService->getEventsByStatus(
+            state: OpencastWorkflowState::SCHEDULED,
+            series: $series,
+            limit: 300);
         $clipIdentifiers = $series->clips->pluck('opencast_event_id');
-        $events->each(function (array $event, int $key) use ($series, $clipIdentifiers) {
-            //search if a clip exists for an event. If so then don't insert to avoid duplicates
+        $createdClipsCounter = 0;
+        $events->each(function (array $event, int $key) use ($series, $clipIdentifiers, &$createdClipsCounter) {
+            // search if a clip exists for an event. If so then don't insert to avoid duplicates
             if ($clipIdentifiers->doesntContain($event['identifier'])) {
                 $setting = Setting::portal();
                 $settingData = $setting->data;
@@ -127,6 +131,7 @@ class SeriesVideoWorkflowController extends Controller
                     'opencast_event_id' => $event['identifier'],
                 ];
                 $clip = Clip::create($attributes);
+                $createdClipsCounter++;
                 if (! is_null($series->lms_link)) {
                     $clip->addAcls(collect([Acl::LMS()]));
 
@@ -135,8 +140,12 @@ class SeriesVideoWorkflowController extends Controller
                 }
             }
         });
-        $series->recordActivity("Update {$events->count()} scheduled events to series as clips");
-        session()->flash('flashMessage', "{$events->count()} Clips created");
+        if ($createdClipsCounter > 0) {
+            $series->recordActivity("Update {$createdClipsCounter} scheduled events to series as clips");
+            session()->flash('flashMessage', "{$events->count()} Clips created");
+        } else {
+            session()->flash('flashMessage', 'No new events found');
+        }
 
         return to_route('series.edit', $series);
     }
@@ -147,7 +156,7 @@ class SeriesVideoWorkflowController extends Controller
             'faculty' => ['required', 'string'],
             'position' => ['required', 'integer'],
         ]);
-        //actually position is the themeID
+        // actually position is the themeID
         $opencastService->updateSeriesTheme($series, $validated['position']);
 
         $series->recordActivity("Update Theme to : {$validated['faculty']} with ID:{$validated['position']}");

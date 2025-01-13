@@ -18,7 +18,7 @@ class UploadImageController extends Controller
     public function __invoke(
         Request $request,
     ): RedirectResponse {
-        //get the imageID from filepond.js request
+        // get the imageID from filepond.js request
         $imageID = (int) array_keys($request->query())[0];
         $image = Image::findOrFail($imageID);
 

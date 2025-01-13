@@ -19,13 +19,13 @@ class AdminPortalApplicationController extends Controller
      */
     public function __invoke(AdminPortalGrantAccessRequest $request)
     {
-        //validate if the username is indeed applied for admin portal
+        // validate if the username is indeed applied for admin portal
         $validated = $request->validated();
 
         $appliedUser = User::search($validated['username'])->first();
         $presenter = Presenter::search($appliedUser->username)->first();
 
-        //create or update a presenter for the applied user
+        // create or update a presenter for the applied user
         if (is_null($presenter)) {
             Presenter::create([
                 'first_name' => $appliedUser->first_name,
@@ -39,10 +39,10 @@ class AdminPortalApplicationController extends Controller
             $presenter->email = $appliedUser->email;
             $presenter->save();
         }
-        //assign the user the moderator role
+        // assign the user the moderator role
         $appliedUser->assignRole(Role::MODERATOR);
 
-        //update the application status for the user
+        // update the application status for the user
         $appliedUserSettings = $appliedUser->settings;
         $data = $appliedUserSettings->data;
         $data['admin_portal_application_status'] = ApplicationStatus::COMPLETED;
@@ -52,15 +52,15 @@ class AdminPortalApplicationController extends Controller
         $appliedUserSettings->data = $data;
         $appliedUserSettings->save();
 
-        //send email to user that applied for admin portal
+        // send email to user that applied for admin portal
         \Mail::to([$appliedUser])->send(new AdminPortalAccessGranted($appliedUser));
 
-        //update admin's notification status
+        // update admin's notification status
         auth()->user()->notifications->filter(function ($notification) use ($appliedUser) {
             return $notification->data['username_applied_for_admin_portal'] === $appliedUser->username;
         })->first()->markAsRead();
 
-        //update all superadmins notifications to inform them that the application was processed
+        // update all superadmins notifications to inform them that the application was processed
         Notification::where('notifiable_type', 'user')->get()->filter(function ($notification) use ($appliedUser) {
             return $notification->data['username_applied_for_admin_portal'] === $appliedUser->username;
         })->each(function ($notification) {
@@ -73,7 +73,7 @@ class AdminPortalApplicationController extends Controller
             $notification->save();
         });
 
-        //redirect to notifications page
+        // redirect to notifications page
         return to_route('users.edit', $appliedUser);
     }
 }

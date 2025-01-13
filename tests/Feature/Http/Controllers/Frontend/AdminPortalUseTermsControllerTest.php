@@ -12,7 +12,7 @@ use function PHPUnit\Framework\assertTrue;
 uses()->group('frontend');
 
 it('is forbidden for a user role to access admin portal use terms page', function () {
-    //sign in a simple user
+    // sign in a simple user
     signIn();
 
     acceptUseTerms();
@@ -21,7 +21,7 @@ it('is forbidden for a user role to access admin portal use terms page', functio
 });
 
 it('is forbidden for a student role to access admin portal use terms page', function () {
-    //sign in a student
+    // sign in a student
     signInRole(Role::STUDENT);
 
     acceptUseTerms();
@@ -30,7 +30,7 @@ it('is forbidden for a student role to access admin portal use terms page', func
 });
 
 it('is allowed for a member role to access admin portal use terms page', function () {
-    //sign in a member
+    // sign in a member
     signInRole(Role::MEMBER);
 
     acceptUseTerms();
@@ -47,7 +47,7 @@ it('is not allowed for role other than member to post for accepting use terms', 
 });
 
 it('updated user settings when user accepts admin portal use terms', function () {
-    //sign in a member
+    // sign in a member
     $user = signInRole(Role::MEMBER);
 
     acceptUseTerms();

@@ -124,7 +124,7 @@ class ClipsController extends Controller
     {
         $this->authorize('edit', $clip);
 
-        //deleting a clip will fire an event and trigger a listener
+        // deleting a clip will fire an event and trigger a listener
         $clip->delete();
 
         return ($clip->series_id) ? to_route('series.edit', $clip->series) : to_route('clips.index');

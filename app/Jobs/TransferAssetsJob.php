@@ -50,7 +50,7 @@ class TransferAssetsJob implements ShouldQueue
         $clipStoragePath = getClipStoragePath($this->model);
         $this->files->each(function ($file, $key) use ($clipStoragePath, $settingData) {
             $isVideo = (bool) $file['video'];
-            //if it is a filePond file read the file from local /tmp dir
+            // if it is a filePond file read the file from local /tmp dir
             if (isset($file['filePond'])) {
                 $storageDisk = Storage::readStream($file['path']);
             } else {
@@ -88,7 +88,7 @@ class TransferAssetsJob implements ShouldQueue
 
             if ($isVideo) {
 
-                //generate a poster image for the clip
+                // generate a poster image for the clip
                 $ffmpeg->getFrameFromSeconds(5)
                     ->export()
                     ->toDisk('thumbnails')
@@ -98,7 +98,7 @@ class TransferAssetsJob implements ShouldQueue
                 Storage::disk('thumbnails')->delete("{$this->model->id}_poster.png");
             }
 
-            //in case of local upload delete the tmp file
+            // in case of local upload delete the tmp file
             if ($this->sourceDisk == 'local') {
                 Storage::disk($this->sourceDisk)->delete($file['name']);
             }

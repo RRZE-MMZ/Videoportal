@@ -135,11 +135,11 @@ class WowzaService
             ], true, 'UTF-8', '1.0', []);
 
             $original_file_name = str($type->name)->lower().'.smil';
-            //store the generated file to clip path
+            // store the generated file to clip path
             Storage::disk('videos')
                 ->put(getClipStoragePath($model)."/{$original_file_name}", $xmlFile = $result->prettify()->toXml());
 
-            //save or update the smil file in db
+            // save or update the smil file in db
             $model->addAsset(Asset::create([
                 'disk' => 'videos',
                 'original_file_name' => $original_file_name,
@@ -307,11 +307,11 @@ class WowzaService
         $time_availability_end = is_null($endTime) ? Carbon::now()->addHours(2)
             : Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $endTime)->add('2 hours');
 
-        //livestream is matching with opencast capture agent
+        // livestream is matching with opencast capture agent
 
         try {
             if ($livestream) {
-                //reserve the livestream for this clipID
+                // reserve the livestream for this clipID
                 $livestream->clip_id = (isset($livestreamClip)) ? $livestreamClip->id : null;
                 $livestream->time_availability_start = Carbon::now();
                 $livestream->time_availability_end = $time_availability_end;

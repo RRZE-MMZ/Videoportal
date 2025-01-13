@@ -24,7 +24,7 @@ class Saml2UserSignedIn
             'nameId' => $samlUser->getNameId(),
         ];
         Log::info($samlUser);
-        //check if email already exists and fetch user
+        // check if email already exists and fetch user
         $user = User::firstOrCreate(
             [
                 'username' => $samlUser['attributes']['urn:mace:dir:attribute-def:uid'][0],
@@ -52,7 +52,7 @@ class Saml2UserSignedIn
                 'name' => $user->username,
                 'data' => config('settings.user'), ]);
         }
-        $user->refresh(); //refresh the user otherwise the settings value would be null
+        $user->refresh(); // refresh the user otherwise the settings value would be null
 
         return $user->settings;
     }

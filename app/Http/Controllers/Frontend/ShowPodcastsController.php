@@ -13,7 +13,7 @@ class ShowPodcastsController extends Controller
      */
     public function index()
     {
-        //for visitors show only the published podcasts with episodes containing audio files
+        // for visitors show only the published podcasts with episodes containing audio files
         $podcasts = Podcast::where('is_published', true)
             ->whereHas('episodes.assets')
             ->orderBy('updated_at', 'desc')->paginate(12);

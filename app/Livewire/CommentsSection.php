@@ -59,7 +59,7 @@ class CommentsSection extends Component
 
         $this->model->refresh();
 
-        //don't notify user for self posted comments
+        // don't notify user for self posted comments
         if (auth()->user()->isNot($this->model->owner)) {
             if (is_null($this->model->owner)) {
                 Notification::sendNow(User::admins()->get(), new NewComment($comment));

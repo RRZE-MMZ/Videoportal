@@ -50,7 +50,7 @@ it('check object lms acl', function () {
 
     expect($this->clip->checkAcls())->toBeFalse();
 
-    //generate session token cookie for test to pass
+    // generate session token cookie for test to pass
     get(getAccessToken($this->clip, dechex(time()), Acl::LMS->lower(), true));
     expect($this->clip->checkAcls())->toBeTrue();
 });

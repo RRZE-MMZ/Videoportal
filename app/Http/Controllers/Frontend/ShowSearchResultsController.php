@@ -20,7 +20,7 @@ class ShowSearchResultsController extends Controller
         $searchResults = collect();
         $health = $openSearchService->getHealth();
 
-        //check whether OpenSearch server is up and running
+        // check whether OpenSearch server is up and running
         if ($health->contains('pass')) {
             $results = [];
 
@@ -32,7 +32,7 @@ class ShowSearchResultsController extends Controller
                 }
             }
 
-            //keep this order to pass testing search result
+            // keep this order to pass testing search result
             if ($request->clips) {
                 $results['clips'] = $openSearchService->searchIndexes('tides_clips', $request->term, $filters);
                 $results['clips']['counter'] = ($results['clips']->isNotEmpty())
@@ -54,18 +54,18 @@ class ShowSearchResultsController extends Controller
             $searchResults = $searchResults->put('searchTerm', $request->term);
 
             return view('frontend.search.results.opensearch.index', compact('searchResults'));
-        } else { //use slow db __invoke if no OpenSearch node is found
+        } else { // use slow db __invoke if no OpenSearch node is found
             $clips = Clip::with('presenters', 'assets')
                 ->search($request->term)
                 ->whereHas('assets')
                 ->orWhereHas('presenters', function ($q) use ($request) {
                     $q->whereRaw('lower(first_name)  like (?)', ["%{$request->term}%"])
                         ->orWhereRaw('lower(last_name)  like (?)', ["%{$request->term}%"]);
-                }) //__invoke for clip presenter
+                }) // __invoke for clip presenter
                 ->orWhereHas('owner', function ($q) use ($request) {
                     $q->whereRaw('lower(first_name)  like (?)', ["%{$request->term}%"])
                         ->orWhereRaw('lower(last_name)  like (?)', ["%{$request->term}%"]);
-                }) //__invoke for clip presenter
+                }) // __invoke for clip presenter
                 ->orderByDesc('recording_date')
                 ->paginate(10)
                 ->withQueryString();

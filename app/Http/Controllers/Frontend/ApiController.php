@@ -145,7 +145,7 @@ class ApiController extends Controller
             return abort(404);
         }
 
-        //get the assetID and clip acls from html page,
+        // get the assetID and clip acls from html page,
         // instead of using always eloquent queries to find the data for each request
         $validated = $request->validate([
             'mediaID' => 'required|integer',

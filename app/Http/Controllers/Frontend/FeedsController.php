@@ -76,7 +76,7 @@ class FeedsController extends Controller
                         '_attributes' => [
                             'isPermaLink' => 'false',
                         ],
-                        '_value' => 'localhost', //need to be filled with asset link
+                        '_value' => 'localhost', // need to be filled with asset link
                     ],
                     'pubDate' => $clip->recording_date,
                     'itunes:explicit' => 'false',
@@ -161,7 +161,7 @@ class FeedsController extends Controller
                             '_attributes' => [
                                 'isPermaLink' => 'false',
                             ],
-                            '_value' => 'localhost', //need to be filled with asset link
+                            '_value' => 'localhost', // need to be filled with asset link
                         ],
                         'pubDate' => $clip->recording_date,
                         'itunes:explicit' => 'false',

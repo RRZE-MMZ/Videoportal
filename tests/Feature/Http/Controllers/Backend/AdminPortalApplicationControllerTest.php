@@ -11,7 +11,7 @@ use function Pest\Laravel\post;
 uses()->group('backend');
 
 beforeEach(function () {
-    //sign in a user, apply for admin portal and logout
+    // sign in a user, apply for admin portal and logout
     $this->superadminA = User::factory()->create()->assignRole(Role::SUPERADMIN);
     $this->superadminB = User::factory()->create()->assignRole(Role::SUPERADMIN);
     $this->appliedUser = signInRole(Role::MEMBER);

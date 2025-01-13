@@ -60,7 +60,7 @@ it('shows an error when search term is less than 3 chars', function () {
 });
 
 it('renders a results page', function () {
-    //disable OpenSearch
+    // disable OpenSearch
     $this->mockHandler->append($this->mockClusterNotAvailable());
     $response = searchFor('test');
 
@@ -68,7 +68,7 @@ it('renders a results page', function () {
 });
 
 it('returns only clips with assets', function () {
-    //disable OpenSearch
+    // disable OpenSearch
     $this->mockHandler->append($this->mockClusterNotAvailable());
     Clip::factory()->create(['title' => 'without assets', 'description' => 'clip without assets']);
 
@@ -76,28 +76,28 @@ it('returns only clips with assets', function () {
 });
 
 it('searches for clip title', function () {
-    //disable OpenSearch
+    // disable OpenSearch
     $this->mockHandler->append($this->mockClusterNotAvailable());
 
     searchFor('lorem')->assertSee($this->clip->title);
 });
 
 it('searches for clip description', function () {
-    //disable OpenSearch
+    // disable OpenSearch
     $this->mockHandler->append($this->mockClusterNotAvailable());
 
     searchFor('dolor')->assertSee($this->clip->title);
 });
 
 it('searches for clip owner', function () {
-    //disable OpenSearch
+    // disable OpenSearch
     $this->mockHandler->append($this->mockClusterNotAvailable());
 
     searchFor('Doe')->assertSee($this->clip->owner->first_name);
 });
 
 it('searches for multiple owners', function () {
-    //disable OpenSearch
+    // disable OpenSearch
     $this->mockHandler->append($this->mockClusterNotAvailable());
     $secondClip = Clip::factory()->create([
         'title' => 'Lorem ipsum for testing  the search function',

@@ -21,7 +21,7 @@ enum OpencastWorkflowState: string
 
     case TRIMMING = 'EVENTS.EVENTS.STATUS.TRIMMING';
 
-    //lowercase state's name
+    // lowercase state's name
     public function lower(): string
     {
         return Str::lower($this->name);

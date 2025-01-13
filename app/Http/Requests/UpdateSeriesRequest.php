@@ -44,7 +44,7 @@ class UpdateSeriesRequest extends FormRequest
             'slug' => Str::slug($this->title),
             'is_public' => $this->is_public === 'on',
             'allow_comments' => $this->allow_comments === 'on',
-            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if select2 presenters is empty
+            'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if select2 presenters is empty
         ]);
     }
 }

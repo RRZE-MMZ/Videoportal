@@ -26,7 +26,7 @@ class DeleteModalWindow extends Component
 
     public function delete(): RedirectResponse|Redirector
     {
-        //Only portal admins can delete images.
+        // Only portal admins can delete images.
         $this->authorize('administrate-admin-portal-pages');
 
         Storage::disk('images')->delete($this->model->file_name);

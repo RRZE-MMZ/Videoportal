@@ -50,12 +50,12 @@ it('shows series information in index page', function () {
         ->withAssets(2)
         ->create();
     Clip::find(1)->addAcls(collect([Acl::PORTAL()]));
-    //assign 'intern' acl
+    // assign 'intern' acl
     Clip::find(2)->addAcls(collect([Acl::LMS()]));
-    //assign 'lms' acl
+    // assign 'lms' acl
     Clip::find(3)->addAcls(collect([Acl::LMS()]));
 
-    //assign 'lms' acl
+    // assign 'lms' acl
     get(route('series.index'))
         ->assertSee($series->title)
         ->assertSee('portal, lms');
@@ -218,14 +218,14 @@ test('create series form should remember old values on validation error', functi
 test('a series owner can view edit form fields', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))
@@ -245,14 +245,14 @@ test('a series member can view edit form fields and owner name and username', fu
 
     $series->addMember($user2);
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))
@@ -271,14 +271,14 @@ test('a moderator cannot view edit clip form for not owned series', function () 
 test('an admin can edit a not owned series', function () {
     $series = SeriesFactory::create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
     signInRole(Role::ADMIN);
 
@@ -289,14 +289,14 @@ test('a superadmin can edit a not owned series', function () {
     $series = SeriesFactory::create();
 
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     signInRole(Role::SUPERADMIN);
@@ -341,14 +341,14 @@ test('edit series should display series image information', function () {
 test('edit series page should display all series buttons for actions', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->withClips(3)->create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
     get(route('series.edit', $series))
         ->assertSee(route('series.clips.create', $series))
@@ -362,14 +362,14 @@ test('edit series page should display all series buttons for actions', function 
 test('edit series page should hide some action buttons if series has no clips', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
     get(route('series.edit', $series))
         ->assertSee(route('series.clips.create', $series))
@@ -386,14 +386,14 @@ test('edit series should allow user to switch to default image if one is set', f
     $series->image_id = Image::find(2)->id;
     $series->save();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))
@@ -402,14 +402,14 @@ test('edit series should allow user to switch to default image if one is set', f
     $series->image_id = 1;
     $series->save();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))
@@ -421,14 +421,14 @@ test('series admin can select another image', function () {
     $series->image_id = Image::find(1)->id;
     $series->save();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))
@@ -438,14 +438,14 @@ test('series admin can select another image', function () {
 test('edit series page should display opencast users rights', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
     get(route('series.edit', $series))
         ->assertViewHas(['opencastSeriesInfo'])
@@ -455,15 +455,15 @@ test('edit series page should display opencast users rights', function () {
 test('edit series should display opencast running events if any', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->withOpencastID()->create();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
         $this->mockNoResultsResponse(), // seriesThemes
-        $this->mockNoResultsResponse(), //recording
-        $runningWorkflow = $this->mockEventResponse($series, OpencastWorkflowState::RUNNING), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $runningWorkflow = $this->mockEventResponse($series, OpencastWorkflowState::RUNNING), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
     $opencastViewData = collect(json_decode($runningWorkflow->getBody(), true));
 
@@ -476,17 +476,17 @@ test('edit series should display opencast failed events if any', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))
         ->withOpencastID()
         ->create();
-    //pass an empty opencast response
+    // pass an empty opencast response
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($series), // seriesInfo
         $this->mockNoResultsResponse(), // seriesThemes
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockEventResponse($series, OpencastWorkflowState::FAILED), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockEventResponse($series, OpencastWorkflowState::FAILED), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))
@@ -547,7 +547,7 @@ test('a series owner can update series', function () {
 
 it('updates opencast series id if is null', function () {
     $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
-    //pass an empty opencast response
+    // pass an empty opencast response
     $this->mockHandler->append($this->mockCreateSeriesResponse());
     $this->patch(route('series.edit', $series), [
         'title' => 'changed',
@@ -579,14 +579,14 @@ it('shows create oc series button if no series exist in opencast for portal admi
     $series = SeriesFactory::create();
     signInRole(Role::ASSISTANT);
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockNoResultsResponse(), // seriesInfo
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
     );
 
     get(route('series.edit', $series))->assertSee('Create Opencast series for this object');
@@ -607,7 +607,7 @@ test('a moderator cannot update a not owned series', function () {
 test('an admin user can update a not owned series', function () {
     $series = SeriesFactory::create();
     signInRole(Role::ADMIN);
-    //pass an empty opencast respons
+    // pass an empty opencast respons
     $this->mockHandler->append($this->mockSeriesRunningWorkflowsResponse($series, false));
     $this->patch(route('series.edit', $series), [
         'title' => 'changed',

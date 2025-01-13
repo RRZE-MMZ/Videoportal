@@ -47,9 +47,9 @@ class MassUpdateClipsRequest extends FormRequest
     {
         $this->merge([
             'slug' => Str::slug($this->title),
-            'tags' => $this->tags = $this->tags ?? [], //set empty array if select2 tags is empty
-            'acls' => $this->acls = $this->acls ?? [], //set empty array if select2 acls is empty
-            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if select2 is empty
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
+            'acls' => $this->acls = $this->acls ?? [], // set empty array if select2 acls is empty
+            'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if select2 is empty
         ]);
     }
 }

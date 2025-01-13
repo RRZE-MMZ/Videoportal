@@ -11,7 +11,7 @@ class Organization extends BaseModel
     use HasFactory;
     use Searchable;
 
-    //search columns for searchable trait
+    // search columns for searchable trait
     protected array $searchable = ['name'];
 
     protected $primaryKey = 'org_id';

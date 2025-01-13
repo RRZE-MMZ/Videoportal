@@ -147,7 +147,7 @@ class Series extends BaseModel
         if (! empty($response->getHeaders())) {
             $this->opencast_series_id = Str::afterLast($response->getHeaders()['Location'][0], 'api/series/');
 
-            //do not record this activity
+            // do not record this activity
             $this->updateQuietly();
         }
     }
@@ -229,7 +229,7 @@ class Series extends BaseModel
             ? $this->clips
             : $this->clips->filter(fn ($clip) => $clip->assets->count() && $clip->is_public && ! $clip->is_livestream);
 
-        //iterate every clip and get a unique acl name
+        // iterate every clip and get a unique acl name
         return $clips->map(function ($clip) {
             return ($clip->acls->isEmpty()) ? \App\Enums\Acl::PUBLIC->lower() : $clip->acls->pluck('name');
         })->flatten()->unique()->values()->implode(', ');

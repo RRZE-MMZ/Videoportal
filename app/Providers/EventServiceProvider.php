@@ -9,9 +9,9 @@ use App\Events\DocumentDeleted;
 use App\Events\SeriesDeleted;
 use App\Events\SeriesTitleUpdated;
 use App\Listeners\DeleteAssetFile;
-use App\Listeners\DeleteClipResources;
+use App\Listeners\DeleteClipAssets;
 use App\Listeners\DeleteDocumentFile;
-use App\Listeners\DeleteSeriesResources;
+use App\Listeners\DeleteSeriesAssets;
 use App\Listeners\Saml2UserSignedIn;
 use App\Listeners\Saml2UserSignedOut;
 use App\Listeners\UpdateClipChapter;
@@ -46,13 +46,13 @@ class EventServiceProvider extends ServiceProvider
             UpdateClipChapter::class,
         ],
         ClipDeleting::class => [
-            DeleteClipResources::class,
+            DeleteClipAssets::class,
         ],
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
         SeriesDeleted::class => [
-            DeleteSeriesResources::class,
+            DeleteSeriesAssets::class,
         ],
         SeriesTitleUpdated::class => [
             UpdateOpencastSeriesTitle::class,

@@ -62,9 +62,9 @@ class StoreClipRequest extends FormRequest
 
         $this->merge([
             'slug' => Str::slug($this->title),
-            'tags' => $this->tags = $this->tags ?? [], //set empty array if select2 tags is empty
-            'acls' => $this->acls = $this->acls ?? [], //set empty array if select2 acls is empty
-            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if presenters array is empty
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
+            'acls' => $this->acls = $this->acls ?? [], // set empty array if select2 acls is empty
+            'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if presenters array is empty
             'allow_comments' => $this->allow_comments === 'on',
             'is_public' => $this->is_public === 'on',
             'image_id' => (isset($this->image_id)) ? $this->image_id : $settingData['default_image_id'],

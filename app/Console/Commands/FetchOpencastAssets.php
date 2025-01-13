@@ -41,7 +41,7 @@ class FetchOpencastAssets extends Command
      */
     public function handle(OpencastService $opencastService): int
     {
-        //fetch all clips without video files
+        // fetch all clips without video files
         Log::info('Fetching Opencast Assets Command: started');
         $emptyClips = Clip::doesntHave('assets')
             ->whereHas('series', function ($q) {
@@ -58,7 +58,7 @@ class FetchOpencastAssets extends Command
                 "Fetching Opencast Assets Command: Found {$counter} clips! Searching Opencast API for events..."
             );
             $emptyClips->each(function ($clip) use ($opencastService) {
-                //find finished workflows for every clip
+                // find finished workflows for every clip
                 $events = $opencastService->getProcessedEventsBySeriesID($clip->series->opencast_series_id);
 
                 $events->each(function ($event) use ($clip, $opencastService) {

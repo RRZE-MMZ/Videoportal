@@ -70,11 +70,11 @@ class SeriesController extends Controller
         $chapters = $series->chapters()->orderBy('position')->get();
         if ($opencastSeriesInfo->get('health')->get('status') === 'pass' && $series->opencast_series_id !== '') {
             $assistants = User::byRole(Role::ASSISTANT)->get();
-            //reject all assistants that are already in opencast series acl
+            // reject all assistants that are already in opencast series acl
             $availableAssistants = $assistants->reject(function ($admin) use ($opencastSeriesInfo) {
                 if ($opencastSeriesInfo->get('metadata')->isNotEmpty()) {
                     foreach ($opencastSeriesInfo['metadata']['acl'] as $acl) {
-                        //Opencast return Roles as ROLE_USER_USERNAME, so filter users based on this string
+                        // Opencast return Roles as ROLE_USER_USERNAME, so filter users based on this string
                         if (Str::contains($acl['role'], Str::of($admin->username)->upper())) {
                             return true;
                         }

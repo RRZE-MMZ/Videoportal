@@ -69,14 +69,14 @@ Route::get('/', HomeController::class)->name('home');
 Route::redirect('/home', '/');
 Route::redirect('/admin', '/admin/dashboard');
 
-//Quick __invoke
+// Quick __invoke
 Route::get('/search', ShowSearchResultsController::class)->name('search');
 
-//Channels routes
+// Channels routes
 Route::get('/channels', [ShowChannelsController::class, 'index'])->name('frontend.channels.index');
 Route::get('/channels/{channel}', [ShowChannelsController::class, 'show'])->name('frontend.channels.show');
 
-//frontend series routes
+// frontend series routes
 Route::controller(ShowSeriesController::class)->prefix('/series')->group(function () {
     Route::get('/index', 'index')->name('frontend.series.index');
     Route::get('/{series}', 'show')->name('frontend.series.show');
@@ -85,22 +85,22 @@ Route::controller(ShowSeriesController::class)->prefix('/series')->group(functio
 Route::get('/series/{series}/feed/{assetsResolution}', [FeedsController::class, 'series'])
     ->name('frontend.series.feed');
 
-//keep backwards compatibility
+// keep backwards compatibility
 Route::get('/course/id/{series}', function (Series $series) {
     return to_route('frontend.series.show', $series);
 });
 
-//Frontend clip routes
+// Frontend clip routes
 Route::controller(ShowClipsController::class)->prefix('/clips')->group(function () {
     Route::get('/', 'index')->name('frontend.clips.index');
     Route::get('/{clip}', 'show')->name('frontend.clips.show');
 });
 
-//Route::get('/webplayer', TestApiController::class)->name('frontend.webplayer');C
+// Route::get('/webplayer', TestApiController::class)->name('frontend.webplayer');C
 Route::get('/clips/{clip}/feed/{assetsResolution}', [FeedsController::class, 'clips'])
     ->name('frontend.clips.feed');
 
-//Frontend podcasts routes
+// Frontend podcasts routes
 Route::controller(ShowPodcastsController::class)->prefix('/podcasts')->group(function () {
     Route::get('/', [ShowPodcastsController::class, 'index'])->name('frontend.podcasts.index');
     Route::get('/{podcast:slug}', [ShowPodcastsController::class, 'show'])->name('frontend.podcasts.show');
@@ -117,7 +117,7 @@ Route::get('/live-now', [ShowLivestreamsController::class, 'index'])->name('fron
 Route::get('/livestreams/{livestream:id}', [ShowLivestreamsController::class, 'show'])
     ->name('frontend.livestreams.show');
 
-//static pages
+// static pages
 Route::get('/faq', function () {
     return view('frontend.articles.show')->withArticle(Article::whereSlug('faq')->first());
 })->name('frontend.faq');
@@ -134,7 +134,7 @@ Route::get('/accessibility', function () {
     return view('frontend.articles.show')->withArticle(Article::whereSlug('accessibility')->first());
 })->name('frontend.accessibility');
 
-//Frontend myPortal links
+// Frontend myPortal links
 Route::prefix('/my'.str(config('app.name')))->middleware(['auth'])->group(function () {
     Route::put('/', AcceptUseTermsController::class)->name('frontend.acceptUseTerms');
     Route::middleware(['use.terms'])->group(function () {
@@ -173,7 +173,7 @@ Route::get(
     ->middleware(['access.token'])
     ->name('lms.link');
 
-//Routes used for select2 js component
+// Routes used for select2 js component
 Route::controller(ApiController::class)->prefix('/api')->group(function () {
     Route::get('/clips', 'clips')->name('api.clips');
     Route::get('/tags', 'tags')->name('api.tags');
@@ -185,7 +185,7 @@ Route::controller(ApiController::class)->prefix('/api')->group(function () {
     Route::post('/logPlayEvent', [ApiController::class, 'logPlayEvent'])->name('api.logPlayEvent');
 });
 
-//change portal language
+// change portal language
 Route::get('/set_lang/{locale}', function ($locale) {
     if (! in_array($locale, ['en', 'de'])) {
         abort(400);
@@ -197,9 +197,9 @@ Route::get('/set_lang/{locale}', function ($locale) {
 
 Route::get('/assetDownload/{asset:guid}', AssetsDownloadController::class)->name('assets.download');
 
-//Backend routes
+// Backend routes
 Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->group(function () {
-    //Dashboard
+    // Dashboard
     Route::get('search', \App\Http\Controllers\Backend\ShowSearchResultsController::class)->name('admin.search');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::post('/goto/series', function (Request $request) {
@@ -227,11 +227,11 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
     Route::delete('/notifications', [UserNotificationsController::class, 'destroy'])
         ->name('user.notifications.delete');
 
-    //Channels routes
+    // Channels routes
     Route::resource('channels', ChannelsController::class)->except(['show']);
     Route::post('channel/{channel}/uploadChannelBannerImage', ChannelsUploadBannerImageController::class)
         ->name('channels.uploadBannerImage');
-    //Series routes
+    // Series routes
     Route::resource('series', SeriesController::class)->except(['show', 'edit']);
     Route::get('/series/{series}', [SeriesController::class, 'edit'])->name('series.edit');
 
@@ -247,13 +247,13 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         Route::patch('/{series}/updateClipsMetadata', 'updateClipsMetadata')
             ->name('series.clips.batch.update.clips.metadata');
 
-        //add/remove an existing clip to selected series
+        // add/remove an existing clip to selected series
         Route::get('/listSeries/{clip}', 'listSeries')->name('series.clips.listSeries');
         Route::post('/{series}/assignSeries/{clip}', 'assign')->name('series.clips.assign');
         Route::delete('/clip/removeSeries/{clip}', 'remove')->name('series.clips.remove');
     });
 
-    //Series chapters
+    // Series chapters
     Route::controller(ChaptersController::class)->prefix('/series')
         ->middleware('can:edit,series')
         ->group(function () {
@@ -269,7 +269,7 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
             Route::get('{series}/statistics', [StatisticsController::class, 'series'])->name('statistics.series');
         });
 
-    //Series invitations - Invite a user to be a member of a Series
+    // Series invitations - Invite a user to be a member of a Series
     Route::post('/series/{series}/ownership', SeriesOwnership::class)->name('series.ownership.change');
     Route::post('/series/{series}/membership/addUser', [SeriesMembershipController::class, 'add'])
         ->name('series.membership.addUser');
@@ -280,10 +280,10 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
     Route::put('/series/{series}/updateOpencastSeriesTheme', [
         SeriesVideoWorkflowController::class, 'updateSeriesTheme'])
         ->name('series.opencast.updateSeriesTheme');
-    //Clip routes
+    // Clip routes
     Route::resource('clips', ClipsController::class)->except(['show']);
 
-    //Podcast routes
+    // Podcast routes
     Route::resource('podcasts', PodcastsController::class)->except(['show']);
     Route::controller(PodcastEpisodesController::class)->prefix('/podcasts')
         ->middleware('can:edit-podcast,podcast')
@@ -325,13 +325,13 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         Route::get('clip/{clip}/statistics', [StatisticsController::class, 'clip'])->name('statistics.clip');
     });
 
-    //Clips Images
+    // Clips Images
     Route::put('/clips/{clip}/updateImage/', UpdateClipImage::class)->name('update.clip.image');
 
-    //Assets routes
+    // Assets routes
     Route::delete('assets/{asset}', AssetDestroyController::class)->name('assets.destroy');
 
-    //Documents routes
+    // Documents routes
     Route::post('/document/upload', [DocumentController::class, 'upload'])->name('documents.upload');
     Route::get('/series/{series}/document/{document}', [DocumentController::class, 'viewSeriesDocument'])
         ->name('document.series.view');
@@ -339,7 +339,7 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         ->name('document.clip.view');
     Route::delete('/document/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
-    //Presenter routes
+    // Presenter routes
     Route::resource('presenters', PresentersController::class)->except(['show']);
 
     Route::resource('images', ImagesController::class);
@@ -352,15 +352,15 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
     Route::middleware(['user.admin'])->group(function () {
         Route::resource('users', UsersController::class)->except(['show']);
 
-        //Collections administration
+        // Collections administration
         Route::resource('collections', CollectionsController::class)->except(['show']);
         Route::post('collections/{collection}/toggleClips', ClipsCollectionsController::class)
             ->name('collections.toggleClips');
 
-        //Articles
+        // Articles
         Route::resource('articles', ArticlesController::class)->except(['show']);
 
-        //Series Opencast routes
+        // Series Opencast routes
         Route::post('/series/{series}/createOpencastSeries/', [SeriesVideoWorkflowController::class, 'createSeries'])
             ->name('series.opencast.createSeries');
         Route::post('/series/{series}/updateOpencastSeriesAcl', [SeriesVideoWorkflowController::class, 'updateAcl'])
@@ -376,7 +376,7 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
             ->name('admin.clips.triggerSmilFiles');
     });
 
-    //Admin and portal assistants routes
+    // Admin and portal assistants routes
     Route::middleware('can:administrate-assistant-pages')->group(function () {
         Route::get('/activities', function () {
             return view('backend.activities.index', [
@@ -390,7 +390,7 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
             ->name('livestreams.cancelReservation');
     });
 
-    //Superadmin routes
+    // Superadmin routes
     Route::middleware('can:administrate-superadmin-portal-pages')->group(function () {
         Route::get('/systems', SystemsCheckController::class)->name('systems.status');
         Route::get('/settings/portal', [PortalSettingsController::class, 'show'])->name('settings.portal.show');
@@ -415,8 +415,8 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
             ->name('channels.activate');
     });
 });
-//https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php
-//redirect the saml2 logged-in user to previous page e.g. a clip with portal acl
+// https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php
+// redirect the saml2 logged-in user to previous page e.g. a clip with portal acl
 Route::get('/saml2Login', function () {
     $redirectUrl = (session()->has('url.intended')) ? session('url.intended') : RouteServiceProvider::HOME;
 

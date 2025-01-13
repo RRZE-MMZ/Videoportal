@@ -25,11 +25,11 @@ class AdminPortalUseTermsController extends Controller
      */
     public function terms()
     {
-        //allow to apply only members. If user has more than one role then he/she already has access
+        // allow to apply only members. If user has more than one role then he/she already has access
         Gate::allowIf(fn ($user) => $user->hasRole(Role::MEMBER) && $user->roles->containsOneItem());
         $settings = auth()->user()->settings->data;
 
-        //user already accepted the terms
+        // user already accepted the terms
         if (isset($settings['accept_admin_portal_use_terms'])) {
             return to_route('frontend.user.applications');
         }
@@ -40,7 +40,7 @@ class AdminPortalUseTermsController extends Controller
     public function accept(Request $request)
     {
         Gate::allowIf(fn ($user) => $user->hasRole(Role::MEMBER) && $user->roles->containsOneItem());
-        //user already accepted the terms
+        // user already accepted the terms
         if (isset($settings['accept_admin_portal_use_terms'])) {
             return to_route('frontend.user.applications');
         }
@@ -61,7 +61,7 @@ class AdminPortalUseTermsController extends Controller
         }
 
         Mail::to(env('support_mail_address'))->send(new NewApplicationForAdminPortal($user));
-        //notify portal superadmins
+        // notify portal superadmins
         Notification::send(User::byRole(Role::SUPERADMIN)->get(), new NewAdminPortalNotification($user));
 
         return to_route('frontend.userSettings.edit');
