@@ -16,7 +16,7 @@ enum Role: int
     case MEMBER = 5;
     case AFFILIATE = 6;
     case STUDENT = 7;
-    case USER = 8; //treated as local user
+    case USER = 8; // treated as local user
 
     public static function rolesArray(): array
     {

@@ -10,7 +10,7 @@ use function Pest\Laravel\post;
 
 beforeEach(function () {
     Storage::fake('local');
-    //create an image in the database with an existing image name
+    // create an image in the database with an existing image name
     $this->image = Image::factory()->create(['file_name' => 'image.jpg']);
     $oldFile = UploadedFile::fake()->image('image.jpg', 1200, 1200);
     $file = UploadedFile::fake()->image('avatar.jpg', 1200, 1200);
@@ -18,7 +18,7 @@ beforeEach(function () {
     $this->filePath = "/tmp/{$randomString}/avatar.jpg";
     $this->oldFilePath = '/images/image.jpg';
 
-    //create two test images in the disks
+    // create two test images in the disks
     Storage::disk('local')->put($this->filePath, $file->getContent());
     Storage::disk('local')->put($this->oldFilePath, $oldFile->getContent());
 

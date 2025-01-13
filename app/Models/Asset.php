@@ -20,10 +20,10 @@ class Asset extends BaseModel
 
     protected $guarded = [];
 
-    //this will update clips timestamp
+    // this will update clips timestamp
     protected $touches = ['clips'];
 
-    //remove asset from disk on delete
+    // remove asset from disk on delete
     protected $dispatchesEvents = [
         'deleted' => AssetDeleted::class,
     ];

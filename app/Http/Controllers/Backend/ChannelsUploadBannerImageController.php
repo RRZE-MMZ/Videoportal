@@ -30,10 +30,10 @@ class ChannelsUploadBannerImageController extends Controller
             file: $uploadedImage,
         );
 
-        $channel->banner_url = $path; //path will be images/channels_banners/imageID.png
+        $channel->banner_url = $path; // path will be images/channels_banners/imageID.png
         $channel->save();
 
-        //delete the old banner if one is already set
+        // delete the old banner if one is already set
         if (! is_null($oldBannerUrl)) {
             if (Storage::disk('local')->exists($oldBannerUrl)) {
                 Storage::disk('local')->delete($oldBannerUrl);

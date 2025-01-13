@@ -41,7 +41,7 @@ class CheckLivestreams extends Command
         }
 
         $activeLivestreams->each(function ($livestream) {
-            //TODO insert livestream stats from wowza api and update (?) the app names
+            // TODO insert livestream stats from wowza api and update (?) the app names
             if ($livestream->time_availability_end->isPast()) {
                 $livestream->clip_id = null;
                 $livestream->active = false;

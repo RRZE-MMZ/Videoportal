@@ -53,7 +53,7 @@ class DocDataSeeder extends Seeder
             '33' => 'PD Dr.-Ing. habil.',
         ]);
 
-        //all possible combinations
+        // all possible combinations
         $allItems = [
             'B. Sc.',
             'B.Eng.',

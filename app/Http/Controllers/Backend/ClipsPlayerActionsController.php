@@ -22,10 +22,10 @@ class ClipsPlayerActionsController extends Controller
         $frame = $validated['recentFrame'];
         $this->updateAssetPreviewFromFrame(clip: $clip, framePosition: $frame);
 
-        //create the clip log
-        //set a flash message
-        //local saved video files -> ClipID:43746
-        //update the search index?
+        // create the clip log
+        // set a flash message
+        // local saved video files -> ClipID:43746
+        // update the search index?
         $clip->recordActivity(description: 'Generate Player preview from frame at second: '.$frame);
 
         return to_route('clips.edit', $clip);
@@ -38,7 +38,7 @@ class ClipsPlayerActionsController extends Controller
         ]);
         $uploadedImage = new File(Storage::path($validated['image']));
         $this->updateAssetPreviewFromUploadFile(clip: $clip, image: $uploadedImage);
-        //update the search index?
+        // update the search index?
         $clip->recordActivity(description: 'Create player preview from user uploaded file');
 
         return to_route('clips.edit', $clip);

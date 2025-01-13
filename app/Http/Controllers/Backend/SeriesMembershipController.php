@@ -24,7 +24,7 @@ class SeriesMembershipController extends Controller
         $validated = $request->validated();
         $user = User::findOrFail($validated['userID']);
 
-        //after adding the user to series notify him via email
+        // after adding the user to series notify him via email
         $series->addMember($user)->notify(new SeriesMembershipAddUser($series));
 
         return to_route('series.edit', $series);

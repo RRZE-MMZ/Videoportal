@@ -37,7 +37,7 @@ class RenamePodcastFolders extends Command
             $podcast->episodes->each(function ($episode) use ($podcast) {
 
                 if (! is_null($episode->image_id)) {
-                    //check the course folder
+                    // check the course folder
                     $oldCourseFilePath =
                         'podcasts-files/courseID_'.$podcast->old_podcast_id.'/'.$episode->cover->file_name;
                     if (Storage::exists($oldCourseFilePath)) {

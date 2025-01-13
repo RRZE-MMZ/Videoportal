@@ -45,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //series
+        // series
         Gate::define('index-all-series', [SeriesPolicy::class, 'index']);
         Gate::define('create-series', [SeriesPolicy::class, 'create']);
         Gate::define('edit-series', [SeriesPolicy::class, 'edit']);
@@ -55,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-series', [SeriesPolicy::class, 'delete']);
         Gate::define('change-series-owner', [SeriesPolicy::class, 'changeOwner']);
 
-        //clips
+        // clips
         Gate::define('index-all-clips', [ClipPolicy::class, 'index']);
         Gate::define('create-clips', [ClipPolicy::class, 'create']);
         Gate::define('edit-clips', [ClipPolicy::class, 'edit']);
@@ -65,7 +65,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('watch-video', [ClipPolicy::class, 'canWatchVideo']);
         Gate::define('edit-assets', [AssetPolicy::class, 'edit']);
         Gate::define('download-asset', [AssetPolicy::class, 'download']);
-        //user
+        // user
         Gate::define('show-users', [UserPolicy::class, 'show']);
         Gate::define('access-dashboard', [UserPolicy::class, 'dashboard']);
         Gate::define('administrate-moderator-pages',
@@ -74,15 +74,15 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('administrate-admin-portal-pages', fn (User $user) => $user->isAdmin());
         Gate::define('administrate-superadmin-portal-pages', fn (User $user) => $user->isSuperAdmin());
 
-        //comments
+        // comments
         Gate::define('create-comment', [CommentPolicy::class, 'create']);
         Gate::define('delete-comment', [CommentPolicy::class, 'delete']);
 
-        //channels
+        // channels
         Gate::define('activate-channel', [ChannelsPolicy::class, 'create']);
         Gate::define('edit-channel', [ChannelsPolicy::class, 'update']);
 
-        //podcasts
+        // podcasts
         Gate::define('edit-podcast', [PodcastPolicy::class, 'update']);
         Gate::define('create-podcasts', [PodcastPolicy::class, 'create']);
     }

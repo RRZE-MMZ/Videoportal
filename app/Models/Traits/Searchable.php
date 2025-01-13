@@ -30,7 +30,7 @@ trait Searchable
 
     private function lowerCaseTerm($term): array|string
     {
-        //'-' was removed cause of the livestreams opencast rooms search containing also '-'
+        // '-' was removed cause of the livestreams opencast rooms search containing also '-'
         $term = str_replace(['+', '<', '>', '(', ')', '~'], '', $term);
 
         return trim(str($term)->lower());

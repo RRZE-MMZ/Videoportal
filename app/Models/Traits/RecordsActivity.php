@@ -11,7 +11,7 @@ trait RecordsActivity
 {
     public array $oldAttributes = [];
 
-    //a  list for attributes to check in updated event
+    // a  list for attributes to check in updated event
     public array $checkedAttributes = [
         'title', 'description', 'image_id', 'episode', 'name', 'organization_id', 'language_id', 'context_id',
         'format_id', 'type_id', 'password', 'owner_id',  'allow_comments', 'is_public', 'is_livestream',

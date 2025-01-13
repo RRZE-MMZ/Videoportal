@@ -35,7 +35,7 @@ class ImagesObserver
     {
         $setting = Setting::portal();
         $settingData = $setting->data;
-        //TODO this needs to be tested!
+        // TODO this needs to be tested!
         if ($image->series()->exists()) {
             $image->series()->each(function (Series $series) use ($settingData) {
                 $series->image_id = $settingData['default_image_id'];

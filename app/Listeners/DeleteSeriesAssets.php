@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\SeriesDeleted;
 
-class DeleteSeriesResources
+class DeleteSeriesAssets
 {
     /**
      * Create the event listener.
@@ -21,7 +21,7 @@ class DeleteSeriesResources
      */
     public function handle(SeriesDeleted $event): void
     {
-        //delete all documents
+        // delete all documents
         $event->series->documents->each(function ($document) {
             $document->delete();
         });

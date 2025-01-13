@@ -52,7 +52,7 @@ class OpenSearchRebuildIndexes extends Command
         $bar->start();
         $modelClass::chunk(200, function (Collection $models) use ($openSearchService, $modelResource, $bar) {
             $models->each(function ($model) use ($openSearchService, $modelResource, $bar) {
-                //create the necessary json resource
+                // create the necessary json resource
                 if ($model) {
                     $openSearchService->createIndex(new $modelResource($model));
                 }

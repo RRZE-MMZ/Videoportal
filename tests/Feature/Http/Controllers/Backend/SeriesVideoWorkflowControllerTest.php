@@ -30,15 +30,15 @@ it('shows certain opencast actions to moderator', function () {
     $this->series->owner_id = signInRole(Role::MODERATOR)->id;
     $this->series->save();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series),
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockCreateSeriesResponse(),
     );
     get(route('series.edit', $this->series))
@@ -52,15 +52,15 @@ it('shows certain opencast actions to moderator', function () {
 it('shows all opencast actions for portal admins', function () {
     signInRole(Role::ASSISTANT);
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series),
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), // upcoming
         $this->mockCreateSeriesResponse(),
     );
     get(route('series.edit', $this->series))
@@ -86,15 +86,15 @@ it('allows create opencast series only for portal admins', function () {
 
     signInRole(Role::ADMIN);
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockNoResultsResponse(), // seriesInfo
         $this->mockNoResultsResponse(), // seriesTheme
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockCreateSeriesResponse(),
     );
 
@@ -107,15 +107,15 @@ it('updates opencast series id for the given series', function () {
     signInRole(Role::ADMIN);
 
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockNoResultsResponse(), // seriesInfo
         $this->mockNoResultsResponse(), // seriesTheme
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockCreateSeriesResponse(),
     );
     post(route('series.opencast.createSeries', $this->series));
@@ -125,15 +125,15 @@ it('updates opencast series id for the given series', function () {
 
 it('does not update an opencast series acl if series has a running workflow', function () {
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockNoResultsResponse(), // seriesInfo
         $this->mockNoResultsResponse(), // seriesTheme
-        $this->mockNoResultsResponse(), //recording
-        $this->mockEventResponse($this->series, OpencastWorkflowState::RUNNING), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockEventResponse($this->series, OpencastWorkflowState::RUNNING), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockCreateSeriesResponse(),
     );
     signInRole(Role::ADMIN);
@@ -159,15 +159,15 @@ it('shows a forbidden page for updating opencast acl for users other than admin 
 
 test('it validates opencast update acl form data for a series', function () {
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockNoResultsResponse(), // seriesInfo
         $this->mockNoResultsResponse(), // seriesTheme
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockCreateSeriesResponse(),
     );
 
@@ -178,15 +178,15 @@ test('it validates opencast update acl form data for a series', function () {
 
 it('updates opencast series acl for a specific series', function () {
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series), // seriesInfo
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockUpdateAclResponse()
     );
 
@@ -202,15 +202,15 @@ it('updates opencast series acl for a specific series', function () {
 
 it('does not update the acl if server is not available', function () {
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series), // seriesInfo
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockNoResultsResponse(), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockNoResultsResponse(), // upcoming
         $this->mockServerNotAvailable()
     );
 
@@ -327,15 +327,15 @@ it('validates themes options to update the video workflow', function () {
     $this->series->addMember(signInRole(ROLE::MODERATOR));
     $this->series->refresh();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series),
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), // upcoming
         $this->mockCreateSeriesResponse(),
     );
 
@@ -346,15 +346,15 @@ it('denies to update series theme if a user has a role of student', function () 
     signInRole(ROLE::STUDENT);
 
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series),
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), // upcoming
         $this->mockCreateSeriesResponse(),
     );
 
@@ -369,15 +369,15 @@ it('can change the default theme for a series', function () {
     $this->series->addMember(signInRole(ROLE::MODERATOR));
     $this->series->refresh();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series),
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), // upcoming
         $this->mockCreateSeriesResponse(),
     );
 
@@ -393,15 +393,15 @@ it('records activity on series theme update', function () {
     $this->series->addMember(signInRole(ROLE::MODERATOR));
     $this->series->refresh();
     $this->mockHandler->append(
-        $this->mockHealthResponse(), //health
+        $this->mockHealthResponse(), // health
         $this->mockSeriesMetadata($this->series),
-        $this->mockgetSeriesTheme(), //Themes response
-        $this->mockNoResultsResponse(), //recording
-        $this->mockNoResultsResponse(), //running
-        $this->mockNoResultsResponse(), //scheduled
-        $this->mockNoResultsResponse(), //failed
-        $this->mockNoTrimmingResultsResponse(), //trimming
-        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), //upcoming
+        $this->mockgetSeriesTheme(), // Themes response
+        $this->mockNoResultsResponse(), // recording
+        $this->mockNoResultsResponse(), // running
+        $this->mockNoResultsResponse(), // scheduled
+        $this->mockNoResultsResponse(), // failed
+        $this->mockNoTrimmingResultsResponse(), // trimming
+        $this->mockEventResponse($this->series, OpencastWorkflowState::SCHEDULED), // upcoming
         $this->mockCreateSeriesResponse(),
     );
 

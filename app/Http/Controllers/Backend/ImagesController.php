@@ -30,7 +30,7 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
-        //Only portal admins can persist new images to DB
+        // Only portal admins can persist new images to DB
         $this->authorize('administrate-admin-portal-pages');
         $validated = $request->validate([
             'description' => ['required', 'string'],
@@ -49,7 +49,7 @@ class ImagesController extends Controller
      */
     public function create()
     {
-        //Only portal admins can create new images.
+        // Only portal admins can create new images.
         $this->authorize('administrate-admin-portal-pages');
 
         return view('backend.images.create');
@@ -72,7 +72,7 @@ class ImagesController extends Controller
      */
     public function edit(Image $image, MediaInfo $mediaInfo)
     {
-        //Only portal admins can create new images.
+        // Only portal admins can create new images.
         $this->authorize('administrate-admin-portal-pages');
         $mediaInfoContainer = $mediaInfo->getInfo(Storage::disk('images')->path($image->file_name));
 
@@ -84,7 +84,7 @@ class ImagesController extends Controller
      */
     public function update(Request $request, Image $image, MediaInfo $mediaInfo)
     {
-        //Only portal admins can create new images.
+        // Only portal admins can create new images.
         $this->authorize('administrate-admin-portal-pages');
 
         $validated = $request->validate([
@@ -105,7 +105,7 @@ class ImagesController extends Controller
      */
     public function destroy(Image $image)
     {
-        //Only portal admins can delete images.
+        // Only portal admins can delete images.
         $this->authorize('administrate-admin-portal-pages');
 
         $image->delete();

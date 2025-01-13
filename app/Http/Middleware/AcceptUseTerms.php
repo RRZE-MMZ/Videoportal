@@ -14,7 +14,7 @@ class AcceptUseTerms
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        //if user doesn't have accepted the use terms then show use terms page
+        // if user doesn't have accepted the use terms then show use terms page
         if (auth()->user()->settings->data['accept_use_terms']) {
             return $next($request);
         } else {

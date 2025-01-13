@@ -11,7 +11,7 @@ final class FileUploadController extends Controller
 {
     public function process(Request $request): string
     {
-        //disable debugbar otherwise all debugbar output from it will be passed as a form input
+        // disable debugbar otherwise all debugbar output from it will be passed as a form input
         if (app()->environment('local')) {
             app('debugbar')->disable();
         }

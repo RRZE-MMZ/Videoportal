@@ -46,7 +46,7 @@ class StoreSeriesRequest extends FormRequest
             'slug' => Str::slug($this->title),
             'is_public' => $this->is_public === 'on',
             'allow_comments' => $this->allow_comments === 'on',
-            'presenters' => $this->presenters = $this->presenters ?? [], //set empty array if presenters array is empty
+            'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if presenters array is empty
             'image_id' => (isset($this->image_id)) ? $this->image_id : $settingData['default_image_id'],
         ]);
     }

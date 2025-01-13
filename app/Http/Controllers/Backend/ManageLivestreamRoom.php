@@ -49,11 +49,11 @@ class ManageLivestreamRoom extends Controller
         $containsEventID = $validated->keys()->contains(function ($key) {
             return str_starts_with($key, 'event_');
         });
-        //reserve the livestream based on an opencast event
+        // reserve the livestream based on an opencast event
         if ($containsEventID) {
             $eventID = $validated->first();
             $event = $opencastService->getEventByEventID($eventID);
-            //now check if a livestream clip for this series exists
+            // now check if a livestream clip for this series exists
             $series = Series::where('opencast_series_id', $event['is_part_of'])->first();
 
             if (! is_null($series)) {

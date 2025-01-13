@@ -9,7 +9,7 @@ class Tag extends BaseModel
 {
     use Searchable;
 
-    //search columns for searchable trait
+    // search columns for searchable trait
     protected array $searchable = ['name'];
 
     /**

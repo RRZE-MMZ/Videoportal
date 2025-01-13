@@ -13,7 +13,7 @@ class ChannelsPolicy
      */
     public function create(User $user, string $handle): bool
     {
-        //a  user can activate only his channel handle
+        // a  user can activate only his channel handle
         return $handle === '@'.Str::before($user->email, '@');
     }
 

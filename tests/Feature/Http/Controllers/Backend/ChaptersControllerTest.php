@@ -21,13 +21,13 @@ uses()->beforeEach(function () {
 });
 
 it('displays a forbidden page for unauthorized users ', function () {
-    auth()->logout(); //log out all test users
+    auth()->logout(); // log out all test users
     signInRole(Role::USER);
     get(route('series.chapters.index', $this->series))->assertForbidden();
 });
 
 it('displays a forbidden page for unauthorized moderators', function () {
-    auth()->logout(); //log out all test users
+    auth()->logout(); // log out all test users
     signInRole(Role::MODERATOR);
     get(route('series.chapters.index', $this->series))->assertForbidden();
 });

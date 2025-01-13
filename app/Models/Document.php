@@ -12,7 +12,7 @@ class Document extends BaseModel
     use HasFactory;
     use RecordsActivity;
 
-    //remove document from file disk on delete
+    // remove document from file disk on delete
     protected $dispatchesEvents = ['deleted' => DocumentDeleted::class];
 
     public function series(): MorphToMany

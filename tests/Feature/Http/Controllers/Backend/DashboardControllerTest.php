@@ -29,20 +29,20 @@ uses()->afterEach(function () {
 });
 
 it('should not be accessed by a visitor', function () {
-    auth()->logout(); //sign out the logged in moderator from setUp
+    auth()->logout(); // sign out the logged in moderator from setUp
 
     get(route('dashboard'))->assertRedirectToRoute('login');
 });
 
 it('should not be accessed by a logged in user with role user', function () {
-    auth()->logout(); //sign out the logged in moderator from setUp
+    auth()->logout(); // sign out the logged in moderator from setUp
     signInRole(Role::USER);
 
     get(route('dashboard'))->assertForbidden();
 });
 
 it('should not be accessed by a logged in user with role student ', function () {
-    auth()->logout(); //sign out the logged in moderator from setUp
+    auth()->logout(); // sign out the logged in moderator from setUp
     signInRole(Role::STUDENT);
 
     get(route('dashboard'))->assertForbidden();
@@ -247,7 +247,7 @@ it('hides opencast events for unauthorized moderators', function () {
     $series = SeriesFactory::ownedBy(auth()->user())->withOpencastID()->create();
     auth()->logout();
 
-    //sign in another Moderator
+    // sign in another Moderator
     signInRole(Role::MODERATOR);
 
     app(OpencastService::class);

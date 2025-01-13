@@ -46,7 +46,7 @@ class DevicesController extends Controller
      */
     public function create(): Application|Factory|View
     {
-        //TODO create a wowza app also
+        // TODO create a wowza app also
         Gate::allowIf(fn ($user) => $user->isAdmin() || $user->isAssistant());
 
         return view('backend.devices.create');

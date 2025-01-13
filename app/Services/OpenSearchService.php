@@ -89,7 +89,7 @@ class OpenSearchService
 
             $this->response = collect($this->clientBuilder->build()->update($params));
         } catch (Exception $exception) {
-            //avoid error messages if it is running on console command
+            // avoid error messages if it is running on console command
             if (! App::runningInConsole()) {
                 Log::error($exception->getMessage());
             }

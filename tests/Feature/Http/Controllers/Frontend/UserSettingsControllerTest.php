@@ -89,12 +89,12 @@ it('updates user lang preferences', function () {
 });
 
 it('shows an application menu for admin portal if use has a member or affiliate role', function () {
-    //current user is a student
+    // current user is a student
     acceptUseTerms();
     get(route('frontend.userSettings.edit'))->assertDontSee('Apply for admin portal');
     auth()->logout();
 
-    //current user has a saml role employee
+    // current user has a saml role employee
     signInRole(Role::MEMBER);
     acceptUseTerms();
     get(route('frontend.userSettings.edit'))->assertSee(__('myPortal._sidebar_menu.Apply for admin portal'));

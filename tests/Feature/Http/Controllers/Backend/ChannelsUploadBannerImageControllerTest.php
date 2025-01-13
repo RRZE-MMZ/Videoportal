@@ -43,7 +43,7 @@ it('uploads a new banner image to user\'s channel', function () {
 
     expect($this->moderatorChannel->banner_url)->toBeNull();
 
-    //first upload file to filepond tmp directory
+    // first upload file to filepond tmp directory
     $initialResponse = postJson(route('uploads.process'), [
         'image' => UploadedFile::fake()->image('test.jpg'),
     ]);
@@ -62,7 +62,7 @@ it('uploads a new banner image to user\'s channel', function () {
 it('deletes the old banner from images folder', function () {
     signIn($this->moderatorWithChannel);
 
-    //first upload file to filepond tmp directory
+    // first upload file to filepond tmp directory
     $initialResponse = postJson(route('uploads.process'), [
         'image' => UploadedFile::fake()->image('test.jpg'),
     ]);
@@ -73,7 +73,7 @@ it('deletes the old banner from images folder', function () {
     $this->moderatorChannel->refresh();
     Storage::disk('local')->assertExists($this->moderatorChannel->banner_url);
 
-    //Upload another file to filepond tmp directory
+    // Upload another file to filepond tmp directory
     $initialResponse2 = postJson(route('uploads.process'), [
         'image' => UploadedFile::fake()->image('test2.jpg'),
     ]);

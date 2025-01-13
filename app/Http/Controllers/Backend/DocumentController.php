@@ -23,7 +23,7 @@ class DocumentController extends Controller
     {
         $validated = $request->validate([
             'id' => ['required', 'integer'],
-            'type' => ['required', Rule::in(['series', 'clip'])], //types are not dynamic
+            'type' => ['required', Rule::in(['series', 'clip'])], // types are not dynamic
             'document' => ['file', 'mimes:pdf,xsl,doc'],
         ]);
 
@@ -56,7 +56,7 @@ class DocumentController extends Controller
     {
         $this->authorize('edit-series', $series);
 
-        //file maybe not found especially in testing
+        // file maybe not found especially in testing
         try {
             return response()->file(public_path('documents/').$document->save_path);
         } catch (Exception $exception) {
@@ -76,7 +76,7 @@ class DocumentController extends Controller
     {
         $this->authorize('edit-clips', $clip);
 
-        //file maybe not found especially in testing
+        // file maybe not found especially in testing
         try {
             return response()->file(public_path('documents/').$document->save_path);
         } catch (Exception $exception) {

@@ -59,7 +59,7 @@ class Select2Single extends Component
                     ->get(),
                 'organization' => Organization::select(['org_id as id', 'name'])
                     ->where('org_id', '=', $this->selectedItem)
-                    ->get(),//make an api call. Therefor display only the selected option
+                    ->get(),// make an api call. Therefor display only the selected option
                 'chapter' => Chapter::select(['id', 'title as name'])
                     ->where('series_id', $this->whereID)->orderBy('position')->get(),
                 'default' => []

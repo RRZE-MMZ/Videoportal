@@ -4,6 +4,4 @@ namespace App\Http\Clients;
 
 use GuzzleHttp\Client;
 
-class OpencastClient extends Client
-{
-}
+class OpencastClient extends Client {}

@@ -33,7 +33,7 @@ uses()->beforeEach(function () {
     $audioFile = FileFactory::audioFile();
     $randomString = Str::random(10); // Use Laravel's Str helper
     $this->filePath = "/tmp/{$randomString}/Sample_Audio_file.mp3";
-    //create two test images in the disks
+    // create two test images in the disks
     Storage::disk('local')->put($this->filePath, $audioFile->getContent());
 });
 

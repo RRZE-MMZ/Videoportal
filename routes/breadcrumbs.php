@@ -39,14 +39,14 @@ Breadcrumbs::for('errors.404', function (BreadcrumbTrail $trail) {
     $trail->push('Page Not Found');
 });
 
-//// Home > Podcasts > [Podcast]
-//Breadcrumbs::for('podcasts.show', function (BreadcrumbTrail $trail, $podcasts) {
+// // Home > Podcasts > [Podcast]
+// Breadcrumbs::for('podcasts.show', function (BreadcrumbTrail $trail, $podcasts) {
 //    $trail->parent('frontend.podcasts.index');
 //    $trail->push($podcasts->title, route('frontend.podcasts.show', $podcasts->id));
-//});
+// });
 //
-//// Home > Podcasts > [Podcast] > [Episode]
-//Breadcrumbs::for('podcasts.episodes.show', function (BreadcrumbTrail $trail, $podcasts, $episode) {
+// // Home > Podcasts > [Podcast] > [Episode]
+// Breadcrumbs::for('podcasts.episodes.show', function (BreadcrumbTrail $trail, $podcasts, $episode) {
 //    $trail->parent('podcasts.show', $podcasts);
 //    $trail->push($episode->title, route('podcasts.episodes.show', [$podcasts->id, $episode->id]));
-//});
+// });
