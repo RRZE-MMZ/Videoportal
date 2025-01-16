@@ -43,7 +43,7 @@
                     <thead>
                     <tr>
                         <th
-                            class="px-6 py-3 text-left">
+                                class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('first_name')"
                                         class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
@@ -52,13 +52,13 @@
                                     First Name
                                 </button>
                                 <x-sort-icon
-                                    field="first_name"
-                                    :sortField="$sortField"
-                                    :sortAsc="$sortAsc" />
+                                        field="first_name"
+                                        :sortField="$sortField"
+                                        :sortAsc="$sortAsc" />
                             </div>
                         </th>
                         <th
-                            class="px-6 py-3 text-left">
+                                class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('last_name')"
                                         class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
@@ -67,13 +67,13 @@
                                     Last Name
                                 </button>
                                 <x-sort-icon
-                                    field="last_name"
-                                    :sortField="$sortField"
-                                    :sortAsc="$sortAsc" />
+                                        field="last_name"
+                                        :sortField="$sortField"
+                                        :sortAsc="$sortAsc" />
                             </div>
                         </th>
                         <th
-                            class="px-6 py-3 text-left">
+                                class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('username')"
                                         class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
@@ -82,13 +82,13 @@
                                     Username
                                 </button>
                                 <x-sort-icon
-                                    field="username"
-                                    :sortField="$sortField"
-                                    :sortAsc="$sortAsc" />
+                                        field="username"
+                                        :sortField="$sortField"
+                                        :sortAsc="$sortAsc" />
                             </div>
                         </th>
                         <th
-                            class="px-6 py-3 text-left">
+                                class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('email')"
                                         class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
@@ -97,9 +97,9 @@
                                     Email
                                 </button>
                                 <x-sort-icon
-                                    field="email"
-                                    :sortField="$sortField"
-                                    :sortAsc="$sortAsc" />
+                                        field="email"
+                                        :sortField="$sortField"
+                                        :sortAsc="$sortAsc" />
                             </div>
                         </th>
                         <th class="px-6 py-3 text-left">
@@ -107,6 +107,21 @@
                                         text-gray-500 uppercase tracking-wider"
                             >
                                 Roles
+                            </div>
+                        </th>
+                        <th
+                                class="px-6 py-3 text-left">
+                            <div class="flex items-center">
+                                <button wire:click="sortBy('logged_in_at')"
+                                        class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        text-gray-500 uppercase tracking-wider"
+                                >
+                                    Logged in at
+                                </button>
+                                <x-sort-icon
+                                        field="logged_in_at"
+                                        :sortField="$sortField"
+                                        :sortAsc="$sortAsc" />
                             </div>
                         </th>
                         <th></th>
@@ -155,12 +170,15 @@
                             <td class="w-2/12 px-6 py-4 whitespace-no-wrap">
                                 @foreach($user->roles as $role)
                                     <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                     bg-green-100 text-green-800 ">
                                     {{ $role->name }}
                                     </span>
                                 @endforeach
 
+                            </td>
+                            <td class="w-2/12 px-6 py-4 whitespace-no-wrap">
+                                {{ $user->logged_in_at?->diffForHumans() }}
                             </td>
                             <td class="w-2/12 px-6 py-4 text-right text-sm font-medium leading-5 whitespace-no-wrap">
                                 @if(auth()->user()->id !== $user->id)
@@ -173,8 +191,8 @@
                                         </a>
                                         @can('administrate-superadmin-portal-pages')
                                             <x-modals.delete
-                                                :route="route('users.destroy', $user)"
-                                                class="w-full justify-center"
+                                                    :route="route('users.destroy', $user)"
+                                                    class="w-full justify-center"
                                             >
                                                 <x-slot:title>
                                                     {{ __('user.backend.delete.modal title',[

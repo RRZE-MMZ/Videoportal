@@ -106,6 +106,14 @@ class Clip extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * User relationship
+     */
+    public function supervisor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'supervisor_id');
+    }
+
     public function collections(): BelongsToMany
     {
         return $this->belongsToMany(TCollection::class);

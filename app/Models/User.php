@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Notifications\Notifiable;
@@ -26,6 +27,7 @@ class User extends Authenticatable
     use Notifiable;
     use RecordsActivity;
     use Searchable;
+    use SoftDeletes;
 
     protected array $searchable = ['first_name', 'last_name', 'username', 'email'];
 
@@ -59,6 +61,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'logged_in_at' => 'datetime:Y-m-d H:i:s',
+        'last_visit_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**
@@ -136,6 +140,11 @@ class User extends Authenticatable
     public function podcasts(): HasMany
     {
         return $this->hasMany(Podcast::class, 'owner_id');
+    }
+
+    public function podcastEpisodes(): HasMany
+    {
+        return $this->hasMany(PodcastEpisode::class, 'owner_id');
     }
 
     /*
@@ -234,6 +243,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Series::class, 'series_members')->withTimestamps();
     }
 
+    public function getAllActivities(): HasMany
+    {
+        return $this->hasMany(Activity::class, 'user_id');
+    }
+
     public function getAllSeries(): Builder|Series
     {
         return Series::select('id', 'slug', 'title', 'updated_at', 'owner_id', 'organization_id', 'created_at')
@@ -293,6 +307,11 @@ class User extends Authenticatable
         return $query->whereHas('roles', function ($q) use ($role) {
             $q->where('name', $role->lower());
         });
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('expired', true);
     }
 
     /*

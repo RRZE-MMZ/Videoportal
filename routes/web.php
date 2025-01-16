@@ -60,12 +60,19 @@ use App\Models\Activity;
 use App\Models\Article;
 use App\Models\Clip;
 use App\Models\Series;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\OpenSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('/usersExpired', function () {
+
+    $users = User::admins();
+
+    return new App\Mail\ExpiredUsersFound($users);
+});
 Route::redirect('/home', '/');
 Route::redirect('/admin', '/admin/dashboard');
 

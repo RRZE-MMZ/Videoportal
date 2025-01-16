@@ -142,13 +142,7 @@ php {{ $currentDir }}/artisan optimize:clear
 
 @task('rebuild-cache',['on'=>'development'])
 {{ logMessage("Starting rebuilding cache...") }}
-php {{ $currentDir }}/artisan view:cache
-
-php {{ $currentDir }}/artisan route:cache
-
-php {{ $currentDir }}/artisan config:cache
-
-php {{ $currentDir }}/artisan icons:cache
+php {{ $currentDir }}/artisan optimize
 @endtask
 
 @task('fix-broken-links',['on'=>'development'])

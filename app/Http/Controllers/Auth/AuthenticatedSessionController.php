@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Setting;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -46,6 +47,8 @@ class AuthenticatedSessionController extends Controller
             ]
         );
         $lang = auth()->user()->settings->data['language'];
+        auth()->user()->logged_in_at = Carbon::now();
+        auth()->user()->save();
         $request->session()->put('locale', $lang);
 
         if (session()->has('url.intended')) {
@@ -60,13 +63,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        auth()->user()->last_visited_at = Carbon::now();
+        auth()->user()->save();
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        //        return to_route('saml.logout');
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

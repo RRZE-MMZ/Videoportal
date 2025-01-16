@@ -47,6 +47,12 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
+        'commands_log' => [
+            'driver' => 'single',
+            'path' => env('COMMAND_LOG_PATH', storage_path('logs/commands.log')),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => env('LOG_PATH', storage_path('logs/laravel.log')),
