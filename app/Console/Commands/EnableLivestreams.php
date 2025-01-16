@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Enums\OpencastWorkflowState;
 use App\Models\Livestream;
 use App\Models\Series;
@@ -17,29 +18,18 @@ use Illuminate\Support\Facades\Notification;
 
 class EnableLivestreams extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'app:enable-livestreams';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Check for planned opencast events and livestream clips to enable the livestream app';
 
-    /**
-     * Execute the console command.
-     */
     public function handle(OpencastService $opencastService, WowzaService $wowzaService)
     {
         $settings = Setting::portal();
 
         if ($opencastService->getHealth()->get('status') === 'failed') {
-            $this->info('No Opencast server found or server is offline!');
+            $this->commandLog(message: 'No Opencast server found or server is offline!');
 
             return Command::SUCCESS;
         }
@@ -48,16 +38,16 @@ class EnableLivestreams extends Command
         $endDate = Carbon::now('UTC')->addMinutes(9);
         //        $endDate = (Carbon::now()->isDST()) ? Carbon::now()->addMinutes(110) : Carbon::now()->subMinutes(50);
         Log::info('Searching for active Opencast recording events without active livestream room reservation');
-        $this->info('Searching for active Opencast recording events');
+        $this->commandLog(message: 'Searching for active Opencast recording events');
 
         $recordingEvents = $opencastService->getEventsByStatus(state: OpencastWorkflowState::RECORDING);
 
         if ($recordingEvents->isEmpty()) {
-            $this->info('No active recording events found');
+            $this->commandLog(message: 'No active recording events found');
         } else {
             $counter = $recordingEvents->count();
             $eventsName = $recordingEvents->pluck('title');
-            $this->info("Find $counter recording events: $eventsName");
+            $this->commandLog(message: "Find $counter recording events: $eventsName");
         }
         $recordingEvents->each(function ($event) use ($wowzaService, $settings) {
             $series = Series::where('opencast_series_id', $event['is_part_of'])->first();
@@ -66,9 +56,8 @@ class EnableLivestreams extends Command
             if (! is_null($seriesLivestreamClip)
                 &&
                 is_null(Livestream::where('clip_id', $seriesLivestreamClip->id)->first())) {
-                $this->info(
-                    "Series '{$series->title}' has a livestream clip now try to enable"
-                    ." wowza app {$event['scheduling']['agent_id']} for this clip"
+                $this->commandLog(message: "Series '{$series->title}' has a livestream clip now try to enable"
+                     ." wowza app {$event['scheduling']['agent_id']} for this clip"
                 );
                 $wowzaService->reserveLivestreamRoom(
                     opencastAgentID: $event['scheduling']['agent_id'],
@@ -87,7 +76,7 @@ class EnableLivestreams extends Command
 
         $msg = 'Check for Opencast scheduled events startDate:'.Carbon::now().' endDate:'.Carbon::now()->addMinutes(9);
         Log::info($msg);
-        $this->info($msg);
+        $this->commandLog(message: $msg);
 
         $events = $opencastService->getEventsByStatusAndByDate(
             state: OpencastWorkflowState::SCHEDULED,
@@ -97,7 +86,7 @@ class EnableLivestreams extends Command
         );
 
         if ($events->isEmpty()) {
-            $this->info('No Opencast scheduled events found for the next 10 minutes');
+            $this->commandLog(message: 'No Opencast scheduled events found for the next 10 minutes');
 
             return Command::SUCCESS;
         }
@@ -109,9 +98,8 @@ class EnableLivestreams extends Command
             if ($seriesLivestreamClip &&
                 is_null(Livestream::where('clip_id', $seriesLivestreamClip->id)->first())
             ) {
-                $this->info(
-                    "Series '{$series->title}' has a livestream clip now try to enable"
-                    ." wowza app {$event['scheduling']['agent_id']} for this clip"
+                $this->commandLog(message: "Series '{$series->title}' has a livestream clip now try to enable"
+                     ." wowza app {$event['scheduling']['agent_id']} for this clip"
                 );
                 $wowzaService->reserveLivestreamRoom(
                     opencastAgentID: $event['scheduling']['agent_id'],

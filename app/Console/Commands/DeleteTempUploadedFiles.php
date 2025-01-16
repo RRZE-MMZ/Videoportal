@@ -2,29 +2,19 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class DeleteTempUploadedFiles extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'app:delete-temp-uploaded-files';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Delete temporary uploaded files older than 24 hours.';
 
-    /**
-     * Execute the console command.
-     */
     public function handle(): void
     {
         $directories = Storage::directories('tmp');

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 it('shows a message if smil is created', function () {
     $clip = ClipFactory::withAssets(4)->create();
 
-    $this->artisan('smil:insert')->expectsOutput('Finish clip ID '.$clip->id);
+    $this->artisan('smil:insert')->expectsOutputToContain('Finish clip ID '.$clip->id);
 });
 
 it('generates a smil file and inserts it to database', function () {

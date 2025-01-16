@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
@@ -10,23 +11,12 @@ use function Laravel\Prompts\select;
 
 class CheckAndCreateSettings extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'app:check-and-create-settings';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Checks for new settings and stores them in the database';
 
-    /**
-     * Execute the console command.
-     */
     public function handle(): int
     {
         $settingsTypes = ['all', 'portal', 'opencast', 'streaming', 'openSearch'];
@@ -38,19 +28,19 @@ class CheckAndCreateSettings extends Command
         );
 
         if ($settingToBeChecked === 'all') {
-            $this->info('Start migrating all settings');
+            $this->commandLog(message: 'Start migrating all settings');
             foreach (Arr::except($settingsTypes, [0]) as $settingType) {
-                $this->info("Starting with {$settingType} settings");
+                $this->commandLog(message: "Starting with {$settingType} settings");
                 $this->processSettings($settingType);
-                $this->info("Finished with {$settingType} settings");
+                $this->commandLog(message: "Finished with {$settingType} settings");
             }
         } else {
-            $this->info("Starting with {$settingToBeChecked} settings");
+            $this->commandLog(message: "Starting with {$settingToBeChecked} settings");
             $this->processSettings($settingToBeChecked);
-            $this->info("Finished with {$settingToBeChecked} settings");
+            $this->commandLog(message: "Finished with {$settingToBeChecked} settings");
         }
 
-        $this->info($settingToBeChecked.'settings have been checked and created');
+        $this->commandLog(message: $settingToBeChecked.'settings have been checked and created');
 
         return Command::SUCCESS;
     }

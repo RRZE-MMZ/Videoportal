@@ -10,7 +10,7 @@ it('generates organization slug', function () {
     $organization->save();
     $organization->refresh();
 
-    $this->artisan('organizations:slugs')->expectsOutput('Finish organizations slugs');
+    $this->artisan('organizations:slugs')->expectsOutputToContain('Finish organizations slugs');
 
     $organization->refresh();
 

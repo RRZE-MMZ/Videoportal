@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Console\Commands\traits\Logable;
+use App\Console\Commands\Traits\Logable;
 use App\Events\UserExpired;
 use App\Mail\ExpiredUsersFound;
 use App\Models\Setting;
@@ -16,24 +16,11 @@ class CheckForExpiredUsers extends Command
     use Logable;
     use Notifiable;
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:check-for-expired-users';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Checks for expired users, fires up and event, and notifies portal admins';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function handle(): int
     {
         $this->commandLog(message: 'Check for expired users');
         $expiredUsers = User::expired();

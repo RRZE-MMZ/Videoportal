@@ -27,14 +27,14 @@ it('searches for clips with no assets', function () {
     SeriesFactory::withClips(1)->withAssets(2)->withOpencastID()->create();
 
     $this->artisan('opencast:finished-events')
-        ->expectsOutput('No empty clips found');
+        ->expectsOutputToContain('No empty clips found');
 });
 
 it('searches for clips with series', function () {
     ClipFactory::create();
 
     $this->artisan('opencast:finished-events')
-        ->expectsOutput('No empty clips found');
+        ->expectsOutputToContain('No empty clips found');
 });
 
 it('searched for clips with opencast series id', function () {
@@ -42,7 +42,7 @@ it('searched for clips with opencast series id', function () {
     expect(Series::hasOpencastSeriesID()->count())->toEqual(0);
 
     $this->artisan('opencast:finished-events')
-        ->expectsOutput('No empty clips found');
+        ->expectsOutputToContain('No empty clips found');
 });
 
 it('fetches opencast events for a given series', function () {
@@ -80,7 +80,7 @@ it('fetches opencast events for a given series', function () {
         );
 
     $this->artisan('opencast:finished-events')
-        ->expectsOutput("Videos from Clip {$clip->title} is online");
+        ->expectsOutputToContain("Videos from Clip {$clip->title} is online");
 });
 
 it('output a console message do nothing if no opencast event id found for an empty clip', function () {
@@ -99,5 +99,5 @@ it('output a console message do nothing if no opencast event id found for an emp
     );
 
     $this->artisan('opencast:finished-events')
-        ->expectsOutput("No Opencast Event found for Clip {$clip->title} | [ID]:{$clip->id}");
+        ->expectsOutputToContain("No Opencast Event found for Clip {$clip->title} | [ID]:{$clip->id}");
 });

@@ -2,34 +2,23 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Enums\Content;
 use App\Models\Clip;
 use App\Services\OpencastService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class OpencastMultipleIngest extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'opencast:multiple-ingest';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Multiple ingest opencast files';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle(OpencastService $opencastService)
+    public function handle(OpencastService $opencastService): int
     {
-        Log::info('Starting to ingest multiple opencast files');
+        $this->commandLog(message: 'Starting to ingest multiple opencast files');
 
         $clip = Clip::find(39198);
 

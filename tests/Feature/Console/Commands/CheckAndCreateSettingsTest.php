@@ -18,13 +18,13 @@ beforeEach(function () {
 it('allows user to select a certain setting or all', function () {
     $this->artisan('app:check-and-create-settings')
         ->expectsChoice('First select the setting you want to update:', 'all', $this->settingsType)
-        ->expectsOutput('Start migrating all settings');
+        ->expectsOutputToContain('Start migrating all settings');
 });
 
 it('checks for not existing portal settings', function () {
     artisan('app:check-and-create-settings')
         ->expectsChoice('First select the setting you want to update:', 'portal', $this->settingsType)
-        ->expectsOutput('Starting with portal settings');
+        ->expectsOutputToContain('Starting with portal settings');
     Config::set('settings.portal.second_one', 'this is the second one');
     expect(count(Setting::portal()->data))->not()->toBe(count(config('settings.portal')));
     artisan('app:check-and-create-settings')
@@ -35,7 +35,7 @@ it('checks for not existing portal settings', function () {
 it('checks for not existing opencast settings', function () {
     artisan('app:check-and-create-settings')
         ->expectsChoice('First select the setting you want to update:', 'opencast', $this->settingsType)
-        ->expectsOutput('Starting with opencast settings');
+        ->expectsOutputToContain('Starting with opencast settings');
     Config::set('settings.opencast.second_one', 'this is the second one');
     expect(count(Setting::opencast()->data))->not()->toBe(count(config('settings.opencast')));
 });
