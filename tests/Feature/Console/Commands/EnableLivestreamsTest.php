@@ -21,7 +21,7 @@ beforeEach(function () {
 it('outputs a message and skip checks if Opencast server is not available', function () {
     $this->mockHandler->append($this->mockServerNotAvailable());
 
-    artisan('app:enable-livestreams')->expectsOutput('No Opencast server found or server is offline!');
+    artisan('app:enable-livestreams')->expectsOutputToContain('No Opencast server found or server is offline!');
 });
 
 it('outputs a message and skip checks if no Opencast scheduled events found for the next 10 minutes', function () {
@@ -31,7 +31,7 @@ it('outputs a message and skip checks if no Opencast scheduled events found for 
         $this->mockNoResultsResponse()
     );
 
-    artisan('app:enable-livestreams')->expectsOutput('No Opencast scheduled events found for the next 10 minutes');
+    artisan('app:enable-livestreams')->expectsOutputToContain('No Opencast scheduled events found for the next 10 minutes');
 });
 
 it('outputs a message if Opencast scheduled events found for the next 10 minutes', function () {
@@ -48,7 +48,7 @@ it('outputs a message if Opencast scheduled events found for the next 10 minutes
     );
 
     artisan('app:enable-livestreams')
-        ->expectsOutput("Series '{$series->title}' has a livestream clip now try to enable".
+        ->expectsOutputToContain("Series '{$series->title}' has a livestream clip now try to enable".
             ' wowza app test-lecture-hall for this clip');
 });
 
@@ -66,7 +66,7 @@ it('notifies the admins if a livestream room is enables via cronjob', function (
     );
 
     artisan('app:enable-livestreams')
-        ->expectsOutput("Series '{$series->title}' has a livestream clip now try to enable".
+        ->expectsOutputToContain("Series '{$series->title}' has a livestream clip now try to enable".
             ' wowza app test-lecture-hall for this clip');
 });
 

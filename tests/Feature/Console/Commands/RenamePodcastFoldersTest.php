@@ -32,7 +32,7 @@ beforeEach(function () {
 it('renames folders correctly when matching old  pattern', function () {
     $oldFolderPath = 'podcasts-files/courseID_'.$this->podcast->old_podcast_id;
     artisan('podcasts:rename-folders')
-        ->expectsOutput('Moving file from podcasts folder to images folder')
+        ->expectsOutputToContain('Moving file from podcasts folder to images folder')
         ->assertExitCode(0);
 
     Storage::assertMissing($oldFolderPath.'/'.$this->podcast->cover->file_name);
@@ -62,7 +62,7 @@ it('moves and renames also episode files inside the podcasts directory', functio
     $oldFolderPath = 'podcasts-files/clipID_'.$episode->old_episode_id;
 
     artisan('podcasts:rename-folders')
-        ->expectsOutput('Moving file from podcasts episode folder to images folder')
+        ->expectsOutputToContain('Moving file from podcasts episode folder to images folder')
         ->assertExitCode(0);
 
     Storage::assertMissing($oldFolderPath.'/'.$episode->cover->file_name);

@@ -2,32 +2,20 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Models\Organization;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
 class GenerateOrganizationSlug extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'organizations:slugs';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Generate the slugs for all organizations if slug is null';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): int
     {
         $organizations = Organization::all();
 
@@ -42,7 +30,7 @@ class GenerateOrganizationSlug extends Command
             }
         });
 
-        $this->info('Finish organizations slugs');
+        $this->commandLog(message: 'Finish organizations slugs');
 
         return Command::SUCCESS;
     }

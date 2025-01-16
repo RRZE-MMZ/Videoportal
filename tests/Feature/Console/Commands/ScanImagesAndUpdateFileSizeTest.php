@@ -9,7 +9,7 @@ use function Pest\Laravel\artisan;
 uses()->group('commands');
 
 it('has a scan and update images command', function () {
-    artisan('images:update-file-size')->expectsOutput('Starting to update images file size in database');
+    artisan('images:update-file-size')->expectsOutputToContain('Starting to update images file size in database');
 });
 
 it('updated the file size value on database', function () {

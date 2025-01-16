@@ -2,44 +2,33 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Models\Clip;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class CheckTimeAvailabilityClips extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'app:check-time-availability-clips';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Check and toggle time availability for clips';
 
-    /**
-     * Execute the console command.
-     */
     public function handle(): int
     {
         $now = Carbon::now();
         $clips = Clip::where('has_time_availability', true)->get();
 
-        Log::info('Starting command to check time availability for clips.');
+        $this->commandLog(message: 'Starting command to check time availability for clips.');
 
         if ($clips->isEmpty()) {
-            $this->info("No clips with time availability found as of {$now}");
+            $this->commandLog(message: "No clips with time availability found as of {$now}");
 
             return Command::SUCCESS;
         }
 
-        $this->info("Processing {$clips->count()} clips with time availability.");
+        $this->commandLog(message: "Processing {$clips->count()} clips with time availability.");
 
         $bar = $this->output->createProgressBar($clips->count());
         $bar->start();
@@ -51,7 +40,7 @@ class CheckTimeAvailabilityClips extends Command
         });
 
         $bar->finish();
-        $this->info('Time availability check completed.');
+        $this->commandLog(message: 'Time availability check completed.');
 
         return Command::SUCCESS;
     }
@@ -77,6 +66,6 @@ class CheckTimeAvailabilityClips extends Command
         }
 
         $clip->save();
-        $this->info("ClipID: {$clip->id} / Title: {$clip->episode} {$clip->title} {$message}");
+        $this->commandLog(message: "ClipID: {$clip->id} / Title: {$clip->episode} {$clip->title} {$message}");
     }
 }

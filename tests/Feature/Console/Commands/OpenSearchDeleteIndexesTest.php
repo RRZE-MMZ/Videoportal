@@ -15,5 +15,5 @@ beforeEach(function () {
 it('deletes all OpenSearch indexes for a certain model', function () {
     $this->mockHandler->append($this->mockClusterHealthResponse());
     artisan('opensearch:delete-indexes series')
-        ->expectsOutput('series Indexes deleted successfully');
+        ->expectsOutputToContain('series Indexes deleted successfully');
 });

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Services\OpenSearchService;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
@@ -12,13 +12,12 @@ use function Laravel\Prompts\select;
 
 class OpenSearchRebuildIndexes extends Command
 {
+    use Logable;
+
     protected $signature = 'opensearch:rebuild-indexes';
 
     protected $description = 'Rebuild OpenSearch indexes';
 
-    /**
-     * @throws GuzzleException
-     */
     public function handle(OpenSearchService $openSearchService): int
     {
 
@@ -32,7 +31,7 @@ class OpenSearchRebuildIndexes extends Command
         $modelClass = "App\\Models\\{$modelName}";
         $modelResource = "App\\Http\\Resources\\{$modelName}Resource";
 
-        $this->info('Staring rebuild of model '.$modelName);
+        $this->commandLog(message: 'Staring rebuild of model '.$modelName);
         $this->newLine(2);
         if (! class_exists($modelClass)) {
             $this->error("Model doesn't exists");
@@ -46,7 +45,7 @@ class OpenSearchRebuildIndexes extends Command
             $openSearchService->deleteIndexes(Str::plural($modelName));
         }
 
-        $this->info($modelName.' Indexes deleted successfully');
+        $this->commandLog(message: $modelName.' Indexes deleted successfully');
         $counter = $modelClass::count();
         $bar = $this->output->createProgressBar($counter);
         $bar->start();
@@ -62,7 +61,7 @@ class OpenSearchRebuildIndexes extends Command
 
         $bar->finish();
         $this->newLine(2);
-        $this->info("{$modelClass::count()} ".Str::plural($modelName).' Indexes created successfully');
+        $this->commandLog(message: "{$modelClass::count()} ".Str::plural($modelName).' Indexes created successfully');
 
         return Command::SUCCESS;
     }

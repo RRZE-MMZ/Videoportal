@@ -20,7 +20,7 @@ beforeEach(function () {
 it('outputs a message and skip checks if Opencast server is not available', function () {
     $this->mockHandler->append($this->mockServerNotAvailable());
 
-    artisan('app:check-livestreams')->expectsOutput('No Opencast server found or server is offline!');
+    artisan('app:check-livestreams')->expectsOutputToContain('No Opencast server found or server is offline!');
 });
 
 it('outputs a message and skip checks if no active livestream rooms found', function () {
@@ -30,7 +30,7 @@ it('outputs a message and skip checks if no active livestream rooms found', func
         'clip_id' => null,
     ]);
 
-    artisan('app:check-livestreams')->expectsOutput('No active livestreams found');
+    artisan('app:check-livestreams')->expectsOutputToContain('No active livestreams found');
 });
 
 it('it outputs a message if a livestream exists and it is still active', function () {
@@ -44,7 +44,7 @@ it('it outputs a message if a livestream exists and it is still active', functio
         'active' => true,
     ]);
 
-    artisan('app:check-livestreams')->expectsOutput("Livestream {$livestream->name} is still active.");
+    artisan('app:check-livestreams')->expectsOutputToContain("Livestream {$livestream->name} is still active.");
     $livestream->refresh();
 
     expect($livestream->clip_id)->toBe($clip->id);
@@ -63,7 +63,7 @@ it('disables a livestream if the end availability timestamp is equal or less tha
     ]);
 
     travelTo(now()->addHours(2), function () use ($livestream) {
-        artisan('app:check-livestreams')->expectsOutput("Disable livestream {$livestream->name}.");
+        artisan('app:check-livestreams')->expectsOutputToContain("Disable livestream {$livestream->name}.");
         $livestream->refresh();
 
         expect($livestream->clip_id)->toBeNull();

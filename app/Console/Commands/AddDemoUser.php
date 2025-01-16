@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Traits\Logable;
 use App\Enums\Content;
 use App\Enums\Role;
 use App\Models\Asset;
@@ -13,26 +14,15 @@ use Illuminate\Support\Str;
 
 class AddDemoUser extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    use Logable;
+
     protected $signature = 'app:add-demo-user';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Add Dr. Dolitle to the portal';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function handle(): int
     {
-        $this->info('Adding Dr. Dolitle to users');
+        $this->commandLog(message: 'Adding Dr. Dolitle to users');
         $user = User::create([
             'username' => 'drdoli',
             'first_name' => 'John',
@@ -42,7 +32,7 @@ class AddDemoUser extends Command
             'email' => 'john.dolittle@tides.edu',
         ]);
         $user->assignRole(Role::MODERATOR);
-        $this->info('Adding Dr. Dolittle presenter');
+        $this->commandLog(message: 'Adding Dr. Dolitle to users');
         $user->presenter()->create([
             'academic_degree_id' => '1',
             'first_name' => 'John',
@@ -50,14 +40,14 @@ class AddDemoUser extends Command
             'username' => 'drdoli',
             'email' => 'john.dolittle@tides.edu',
         ]);
-        $this->info('Adding Dr. Dolittle series');
+        $this->commandLog(message: 'Adding Dr. Dolittle series');
         $user->series()->create([
             'title' => 'The story of Dr. Dollitle',
             //            'semester_id' => Semester::current()->get()->first()->id,
         ]);
 
         $series = $user->series()->first();
-        $this->info('Adding Dr. Dolittle clips to his series');
+        $this->commandLog(message: 'Adding Dr. Dolittle clips to his series');
         $series->clips()->create([
             'episode' => 1,
             'title' => 'Taby cat',
@@ -76,7 +66,7 @@ class AddDemoUser extends Command
             'has_video_assets' => 1,
             'language_id' => '1',
         ]);
-        $this->info('Adding Dr. Dolittle assets to his clips');
+        $this->commandLog(message: 'Adding Dr. Dolittle assets to his clips');
 
         $series->clips()->each(function ($clip) {
             if ($clip->episode == 1) {

@@ -9,7 +9,7 @@ use function Pest\Laravel\artisan;
 uses()->group('backend');
 
 it('outputs a message that the command is starting', function () {
-    artisan('app:link-user-with-presenter')->expectsOutput('Start to iterating over employees');
+    artisan('app:link-user-with-presenter')->expectsOutputToContain('Start to iterating over employees');
 });
 
 it('outputs a message with members counter', function () {
@@ -17,7 +17,7 @@ it('outputs a message with members counter', function () {
         $user->assignRole(Role::MEMBER);
     });
 
-    artisan('app:link-user-with-presenter')->expectsOutput('Found 4 members');
+    artisan('app:link-user-with-presenter')->expectsOutputToContain('Found 4 members');
 });
 
 it('assigns a presenter_id to a user if user and presenter have the same username or same email address', function () {
@@ -39,8 +39,8 @@ it('assigns a presenter_id to a user if user and presenter have the same usernam
     $userC = tap(User::factory()->create(['username' => 'usr002']))->assignRole(Role::MEMBER);
 
     artisan('app:link-user-with-presenter')
-        ->expectsOutput('Found 3 members')
-        ->expectsOutput('Presenter ID is set for user:'.$userA->getFullNameAttribute());
+        ->expectsOutputToContain('Found 3 members')
+        ->expectsOutputToContain('Presenter ID is set for user:'.$userA->getFullNameAttribute());
 
     $userA->refresh();
     $userB->refresh();
