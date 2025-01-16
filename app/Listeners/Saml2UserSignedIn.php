@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -40,6 +41,8 @@ class Saml2UserSignedIn
         // Login a user
         $userSettings = $this->checkUserSettings($user);
         $lang = $userSettings->data['language'];
+        $user->logged_in_at = Carbon::now();
+        $user->save();
         Auth::login($user);
         session()->put('locale', $lang);
         session()->put('url.intended', session('url.intended'));

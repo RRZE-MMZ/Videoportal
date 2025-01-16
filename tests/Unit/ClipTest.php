@@ -97,7 +97,11 @@ it('has one type', function () {
 });
 
 it('belongs to an owner', function () {
-    expect($this->clip->owner)->toBeInstanceOf(User::class);
+    expect($this->clip->owner())->toBeInstanceOf(BelongsTo::class);
+});
+
+it('belongs to a supervisor', function () {
+    expect($this->clip->supervisor())->toBeInstanceOf(BelongsTo::class);
 });
 
 it('has many presenters using presentable trait', function () {

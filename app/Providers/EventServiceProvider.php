@@ -8,10 +8,12 @@ use App\Events\ClipDeleting;
 use App\Events\DocumentDeleted;
 use App\Events\SeriesDeleted;
 use App\Events\SeriesTitleUpdated;
+use App\Events\UserExpired;
 use App\Listeners\DeleteAssetFile;
 use App\Listeners\DeleteClipAssets;
 use App\Listeners\DeleteDocumentFile;
 use App\Listeners\DeleteSeriesAssets;
+use App\Listeners\HandleUserExpiration;
 use App\Listeners\Saml2UserSignedIn;
 use App\Listeners\Saml2UserSignedOut;
 use App\Listeners\UpdateClipChapter;
@@ -56,6 +58,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SeriesTitleUpdated::class => [
             UpdateOpencastSeriesTitle::class,
+        ],
+        UserExpired::class => [
+            HandleUserExpiration::class,
         ],
     ];
 

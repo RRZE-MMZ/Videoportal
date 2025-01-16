@@ -16,7 +16,7 @@ class UserDataTable extends Component
 
     public $search;
 
-    public $sortField;
+    public $sortField = 'logged_in_at';
 
     public $sortAsc = true;
 

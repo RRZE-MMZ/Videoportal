@@ -361,7 +361,8 @@ test('an admin user can delete a user', function () {
     $user = User::factory()->create();
     delete(route('users.destroy', $user));
 
-    $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    // exclude soft deletes
+    $this->assertDatabaseMissing('users', ['id' => $user->id, 'delete_at' => null]);
 });
 
 test('an admin can update user role', function () {

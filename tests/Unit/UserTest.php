@@ -15,7 +15,8 @@ beforeEach(function () {
 
 test('to array', function () {
     expect(array_keys($this->user->toArray()))->toBe([
-        'first_name', 'last_name', 'username', 'email', 'email_verified_at', 'presenter_id', 'updated_at', 'created_at', 'id',
+        'first_name', 'last_name', 'username', 'email', 'email_verified_at', 'presenter_id', 'expired', 'logged_in_at',
+        'last_visited_at', 'override_role', 'updated_at', 'created_at', 'id',
     ]);
 });
 it('has many series', function () {
@@ -30,8 +31,12 @@ it('has many channels', function () {
     expect($this->user->channels())->toBeInstanceOf(HasMany::class);
 });
 
-it('has many podcasta', function () {
+it('has many podcasts', function () {
     expect($this->user->podcasts())->toBeInstanceOf(HasMany::class);
+});
+
+it('has many podcast episodes', function () {
+    expect($this->user->podcastEpisodes())->toBeInstanceOf(HasMany::class);
 });
 
 it('has many supervised clips', function () {
@@ -106,6 +111,10 @@ it('check for assistant role', function () {
 
 it('has an admins scope', function () {
     expect(User::admins())->toBeInstanceOf(Builder::class);
+});
+
+it('has an expired users scope', function () {
+    expect(User::expired())->toBeInstanceOf(Builder::class);
 });
 
 it('has a scope to search by role', function () {

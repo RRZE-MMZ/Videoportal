@@ -41,6 +41,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:check-time-availability-clips')->everyFiveMinutes();
         $schedule->command('app:check-livestreams')->everyFiveMinutes();
         $schedule->command('app:enable-livestreams')->everyFiveMinutes();
+        $schedule->command('app:check-for-expired-users')->dailyAt('13:00');
         $schedule->command(DeleteTempUploadedFiles::class)->hourly();
     }
 }

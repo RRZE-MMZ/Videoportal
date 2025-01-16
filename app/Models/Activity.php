@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Activity extends BaseModel
 {
@@ -16,4 +17,9 @@ class Activity extends BaseModel
     protected $casts = [
         'changes' => 'array',
     ];
+
+    public function user(): HasOne
+    {
+        $this->hasOne(User::class);
+    }
 }
