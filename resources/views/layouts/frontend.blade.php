@@ -36,7 +36,7 @@
             <div class="w-full md:w-auto sm:w-auto mb-2 sm:mb-0 text-center md:text-left sm:text-left
             whitespace-nowrap text-wrap sm:italic">
                 Copyright &copy; {{ Illuminate\Support\Carbon::now()->year }} MIT Licence
-                [v. {{ getCurrentGitBranch() }}]
+                [br. {{ getCurrentGitBranch().' / deployed at:'.getDeployDate() }}]
             </div>
 
             <!-- Bottom Navigation -->

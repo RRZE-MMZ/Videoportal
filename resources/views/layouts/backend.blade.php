@@ -208,7 +208,8 @@
                 </div>
             </main>
             <footer class="w-full bg-white p-4 text-center dark:bg-sky-950 dark:text-white">
-                Copyright @ {{ Illuminate\Support\Carbon::now()->year }} MIT Licence [ v. {{ getCurrentGitBranch() }}]
+                Copyright @ {{ Illuminate\Support\Carbon::now()->year }} MIT Licence
+                [br. {{ getCurrentGitBranch().' / deployed at:'.getDeployDate() }}]
             </footer>
         </div>
     </div>

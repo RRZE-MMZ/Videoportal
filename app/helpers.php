@@ -291,6 +291,26 @@ function getCurrentGitBranch()
     }
 }
 
+function getDeployDate()
+{
+    $deployPath = base_path();
+    //    $deployPath = '/srv/www/releases/20250116144550';
+    $timestamp = Str::after($deployPath, '/releases/');
+
+    // Check if the timestamp is valid and convert it to human-readable format
+    if ($timestamp && strlen($timestamp) === 14) {
+        return Carbon::createFromFormat('YmdHis', $timestamp)->format('Y-m-d H:i:s');
+    } else {
+        // Fallback to the latest git commit timestamp
+        $gitTimestamp = exec('git log -1 --format=%ct');
+        if ($gitTimestamp) {
+            return Carbon::createFromTimestamp($gitTimestamp)->format('Y-m-d H:i:s');
+        } else {
+            $formattedDate = 'No valid timestamp or git commit timestamp found.';
+        }
+    }
+}
+
 function checkOpencastLivestreamRoom(string $opencastLocation): ?Livestream
 {
     // find the exact livestream with the given opencast location name
