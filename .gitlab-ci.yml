@@ -54,4 +54,5 @@ staging:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - vendor/bin/envoy run deploy-on-dev
-
+  only:
+    - develop
