@@ -208,7 +208,7 @@
                 </div>
             </main>
             <footer class="w-full bg-white p-4 text-center dark:bg-sky-950 dark:text-white">
-                Copyright @ {{ Illuminate\Support\Carbon::now()->year }} MIT Licence
+                Copyright @ {{ Illuminate\Support\Carbon::now()->year }} ECL-2.0 license
                 [br. {{ getCurrentGitBranch().' / deployed at:'.getDeployDate() }}]
             </footer>
         </div>
@@ -218,3 +218,6 @@
 @livewireScriptConfig
 </body>
 </html>
+
+
+
