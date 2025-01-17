@@ -6,30 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreDeviceRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'has_recording_func' => $this->has_recording_func === 'on',
-            'has_livestream_func' => $this->has_livestream_func === 'on',
-            'is_hybrid' => $this->is_hybrid === 'on',
-            'operational' => $this->operational === 'on',
-
-        ]);
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return auth()->user()->isAdmin() || auth()->user()->isAssistant();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     */
     public function rules(): array
     {
         return [
@@ -50,5 +31,16 @@ class StoreDeviceRequest extends FormRequest
             'comment' => ['string', 'nullable'],
             'telephone_number' => ['digits_between:5,12', 'nullable'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'has_recording_func' => $this->has_recording_func === 'on',
+            'has_livestream_func' => $this->has_livestream_func === 'on',
+            'is_hybrid' => $this->is_hybrid === 'on',
+            'operational' => $this->operational === 'on',
+
+        ]);
     }
 }

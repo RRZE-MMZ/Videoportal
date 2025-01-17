@@ -24,7 +24,7 @@ class StoreClipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required'],
+            'title' => ['required', 'string', 'max:255'],
             'description' => ['string', 'nullable'],
             'recording_date' => ['required', 'date'],
             'organization_id' => ['required', 'integer'],

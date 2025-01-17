@@ -6,13 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCollectionRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'is_public' => $this->is_public === 'on',
-        ]);
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -32,9 +25,16 @@ class StoreCollectionRequest extends FormRequest
     {
         return [
             'position' => ['required', 'integer'],
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'max:1000'],
             'is_public' => ['required', 'boolean'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'is_public' => $this->is_public === 'on',
+        ]);
     }
 }

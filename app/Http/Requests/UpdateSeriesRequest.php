@@ -25,7 +25,7 @@ class UpdateSeriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required'],
+            'title' => ['required', 'string', 'max:255'],
             'description' => ['string', 'nullable'],
             'organization_id' => ['required ', 'integer'],
             'slug' => ['required'],
