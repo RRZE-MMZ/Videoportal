@@ -365,6 +365,13 @@ test('an admin user can delete a user', function () {
     $this->assertDatabaseMissing('users', ['id' => $user->id, 'delete_at' => null]);
 });
 
+test('a web sso cannot be deleted via the UsersController', function () {
+    $user = User::factory()->create(['login_type' => 'sso']);
+    delete(route('users.destroy', $user))->assertForbidden();
+
+    assertDatabaseHas('users', ['id' => $user->id, 'deleted_at' => null]);
+});
+
 test('an admin can update user role', function () {
     $user = User::factory()->create();
 

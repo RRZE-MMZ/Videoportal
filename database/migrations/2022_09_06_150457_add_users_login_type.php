@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('login_type', 10)->default('websso');
+            $table->enum('login_type', ['sso', 'ldap', 'local', 'other'])->default('local')->after('remember_token');
         });
     }
 

@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'logged_in_at' => now(),
             'last_visited_at' => null,
             'override_role' => false,
+            'login_type' => 'local',
         ];
     }
 
