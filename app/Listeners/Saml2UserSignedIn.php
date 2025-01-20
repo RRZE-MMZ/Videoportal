@@ -36,6 +36,7 @@ class Saml2UserSignedIn
                 'password' => Hash::make(bcrypt(str()->random(40))),
                 'first_name' => str($samlUser['attributes']['urn:mace:dir:attribute-def:displayName'][0])->before(' '),
                 'last_name' => str($samlUser['attributes']['urn:mace:dir:attribute-def:displayName'][0])->after(' '),
+                'login_type' => 'sso',
             ]
         );
         // Login a user

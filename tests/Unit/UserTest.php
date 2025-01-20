@@ -16,7 +16,7 @@ beforeEach(function () {
 test('to array', function () {
     expect(array_keys($this->user->toArray()))->toBe([
         'first_name', 'last_name', 'username', 'email', 'email_verified_at', 'presenter_id', 'expired', 'logged_in_at',
-        'last_visited_at', 'override_role', 'updated_at', 'created_at', 'id',
+        'last_visited_at', 'override_role', 'login_type', 'updated_at', 'created_at', 'id',
     ]);
 });
 it('has many series', function () {

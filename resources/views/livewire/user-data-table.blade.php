@@ -109,6 +109,13 @@
                                 Roles
                             </div>
                         </th>
+                        <th class="px-6 py-3 text-left">
+                            <div class="dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        text-gray-500 uppercase tracking-wider"
+                            >
+                                Login type
+                            </div>
+                        </th>
                         <th
                                 class="px-6 py-3 text-left">
                             <div class="flex items-center">
@@ -178,17 +185,21 @@
 
                             </td>
                             <td class="w-2/12 px-6 py-4 whitespace-no-wrap">
+                                <div class="">{{ $user->login_type }}</div>
+                            </td>
+                            <td class="w-2/12 px-6 py-4 whitespace-no-wrap">
                                 {{ $user->logged_in_at?->diffForHumans() }}
                             </td>
                             <td class="w-2/12 px-6 py-4 text-right text-sm font-medium leading-5 whitespace-no-wrap">
-                                @if(auth()->user()->id !== $user->id)
-                                    <div class="flex space-x-2">
-                                        <a href="{{route('users.edit',$user)}}"
-                                        >
-                                            <x-button class="bg-blue-500 hover:bg-blue-700"
-                                                      wire:click="route('users.destroy', $user)">Edit
-                                            </x-button>
-                                        </a>
+                                <div class="flex space-x-2">
+                                    <a href="{{route('users.edit',$user)}}"
+                                    >
+                                        <x-button class="bg-blue-500 hover:bg-blue-700"
+                                                  wire:click="route('users.destroy', $user)">
+                                            {{ __('common.actions.edit') }}
+                                        </x-button>
+                                    </a>
+                                    @if(auth()->user()->id !== $user->id && $user->login_type === 'local')
                                         @can('administrate-superadmin-portal-pages')
                                             <x-modals.delete
                                                     :route="route('users.destroy', $user)"
@@ -207,8 +218,8 @@
                                                 </x-slot:body>
                                             </x-modals.delete>
                                         @endcan
-                                    </div>
-                                @endif
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach

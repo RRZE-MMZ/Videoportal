@@ -39,7 +39,7 @@ class UsersController extends Controller
         $validated = $request->validated();
         $secret = random_int(20, 30);
         $validated['password'] = Hash::make((string) $secret);
-
+        $validated['login_type'] = 'local';
         $user = User::create($validated);
 
         Password::sendResetLink(['email' => $user->email]);
@@ -90,7 +90,12 @@ class UsersController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $user->delete();
+        if ($user->login_type === 'local') {
+            $user->delete();
+        } else {
+            session()->flash('errorMessage', 'You cannot delete this user');
+            abort(403);
+        }
 
         return to_route('users.index');
     }
