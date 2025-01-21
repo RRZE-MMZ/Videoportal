@@ -14,6 +14,8 @@ class UserDataTable extends Component
 
     public $admin = false;
 
+    public $deleted = false;
+
     public $search;
 
     public $sortField = 'logged_in_at';
@@ -44,6 +46,21 @@ class UserDataTable extends Component
     public function updatingAdmin(): void
     {
         $this->resetPage();
+        if ($this->admin) {
+            $this->deleted = false; // Deselect deleted when admin is selected
+        }
+    }
+
+    /**
+     * Updates the status of the component if deleted checkbox changed
+     */
+    public function updatingDeleted(): void
+    {
+        $this->resetPage();
+
+        if ($this->deleted) {
+            $this->admin = false; // Deselect admin when deleted is selected
+        }
     }
 
     /**
@@ -52,31 +69,55 @@ class UserDataTable extends Component
     public function render(): View
     {
         $search = trim(Str::lower($this->search));
+        $users = $this->findUsers($search);
 
         return view('livewire.user-data-table', [
-            'users' => ($this->admin)
-                ? User::admins()
-                    ->where(function ($query) use ($search) {
-                        $query->whereRaw('lower(first_name) like (?)', ["%{$search}%"])
-                            ->orwhereRaw('lower(last_name) like (?)', ["%{$search}%"])
-                            ->orwhereRaw('lower(username) like (?)', ["%{$search}%"])
-                            ->orwhereRaw('lower(email) like (?)', ["%{$search}%"])
-                            ->orWhereHas('roles', function ($q) use ($search) {
-                                $q->whereRaw('lower(name)  like (?)', ["%{$search}%"]);
-                            });
-                    })
-                    ->when($this->sortField, function ($query) {
-                        $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-                    })->with(['roles'])
-                    ->paginate(10)
-                : User::search($search)
-                    ->orWhereHas('roles', function ($q) use ($search) {
-                        $q->whereRaw('lower(name)  like (?)', ["%{$search}%"]);
-                    })
-                    ->when($this->sortField, function ($query) {
-                        $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-                    })->with(['roles'])
-                    ->paginate(10),
+            'users' => $users,
         ]);
+    }
+
+    private function findUsers(string $search)
+    {
+        if ($this->admin) {
+            return User::admins()
+                ->where(function ($query) use ($search) {
+                    $query->whereRaw('lower(first_name) like (?)', ["%{$search}%"])
+                        ->orwhereRaw('lower(last_name) like (?)', ["%{$search}%"])
+                        ->orwhereRaw('lower(username) like (?)', ["%{$search}%"])
+                        ->orwhereRaw('lower(email) like (?)', ["%{$search}%"])
+                        ->orWhereHas('roles', function ($q) use ($search) {
+                            $q->whereRaw('lower(name)  like (?)', ["%{$search}%"]);
+                        });
+                })
+                ->when($this->sortField, function ($query) {
+                    $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+                })->with(['roles'])
+                ->paginate(10);
+        } elseif ($this->deleted) {
+            return User::onlyTrashed()
+                ->search($search)
+                ->where(function ($query) use ($search) {
+                    $query->whereRaw('lower(first_name) like (?)', ["%{$search}%"])
+                        ->orwhereRaw('lower(last_name) like (?)', ["%{$search}%"])
+                        ->orwhereRaw('lower(username) like (?)', ["%{$search}%"])
+                        ->orwhereRaw('lower(email) like (?)', ["%{$search}%"])
+                        ->orWhereHas('roles', function ($q) use ($search) {
+                            $q->whereRaw('lower(name)  like (?)', ["%{$search}%"]);
+                        });
+                })
+                ->when($this->sortField, function ($query) {
+                    $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+                })->with(['roles'])
+                ->paginate(10);
+        } else {
+            return User::search($search)
+                ->orWhereHas('roles', function ($q) use ($search) {
+                    $q->whereRaw('lower(name)  like (?)', ["%{$search}%"]);
+                })
+                ->when($this->sortField, function ($query) {
+                    $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+                })->with(['roles'])
+                ->paginate(10);
+        }
     }
 }

@@ -1,10 +1,12 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="flex border-b border-black pb-2 font-semibold font-2xl dark:text-white dark:border-white">
-        Create new user
+    <div class="mb-5 flex items-center justify-between border-b border-black pb-2 font-semibold font-2xl
+    dark:text-white dark:border-white">
+        <div class="flex text-2xl">
+            Create new user
+        </div>
     </div>
-
     <div class="flex px-2 py-2">
         <form action="{{ route('users.store') }}"
               method="POST"
@@ -31,8 +33,9 @@
 
                 <x-form.input field-name="username"
                               input-type="username"
-                              :value="old('username')"
+                              :value="getValidLocalUsername()"
                               label="Username"
+                              :read-only="true"
                               :full-col="false"
                               :required="true"
                 />
@@ -46,7 +49,14 @@
                 />
 
                 <div class="col-span-7 w-4/5">
-                    <x-form.button :link="$link=false" type="submit" text="Create user" />
+                    <x-button class="bg-blue-600 hover:bg-blue-700">
+                        Create local user
+                    </x-button>
+                    <a href="{{route('users.index')}}">
+                        <x-button type="button" class="ml-3 bg-green-600 hover:bg-green-700">
+                            {{ __('common.actions.cancel') }}
+                        </x-button>
+                    </a>
                 </div>
             </div>
 

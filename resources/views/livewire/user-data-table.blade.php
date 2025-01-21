@@ -23,19 +23,35 @@
                                placeholder="Search" type="search">
                     </div>
                 </div>
-                <div class="relative flex items-start">
-                    <div class="flex h-5 items-center">
-                        <input wire:model.live="admin" id="admin" type="checkbox"
-                               class="h-4 w-4 text-indigo-600 transition duration-150 ease-in-out form-checkbox">
+                <div class="flex space-x-4">
+                    <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                            <input wire:model.live="admin" id="admin" type="checkbox"
+                                   class="h-4 w-4 text-indigo-600 transition duration-150 ease-in-out form-checkbox">
+                        </div>
+                        <div class="ml-3 text-sm leading-5">
+                            <label for="admin"
+                                   class="text-gray-700 dark:text-white"
+                            >
+                                Admins
+                            </label>
+                        </div>
                     </div>
-                    <div class="ml-3 text-sm leading-5">
-                        <label for="admin"
-                               class="text-gray-700 dark:text-white"
-                        >
-                            Admins
-                        </label>
+                    <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                            <input wire:model.live="deleted" id="deleted" type="checkbox"
+                                   class="h-4 w-4 text-indigo-600 transition duration-150 ease-in-out form-checkbox">
+                        </div>
+                        <div class="ml-3 text-sm leading-5">
+                            <label for="admin"
+                                   class="text-gray-700 dark:text-white"
+                            >
+                                Deleted users
+                            </label>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="mt-4 overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -46,7 +62,7 @@
                                 class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('first_name')"
-                                        class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        class=" dark:bg-gray-900 text-xs dark:text-white leading-4
                                         text-gray-500 uppercase tracking-wider"
                                 >
                                     First Name
@@ -61,7 +77,7 @@
                                 class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('last_name')"
-                                        class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        class=" dark:bg-gray-900 text-xs dark:text-white leading-4
                                         text-gray-500 uppercase tracking-wider"
                                 >
                                     Last Name
@@ -76,7 +92,7 @@
                                 class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('username')"
-                                        class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        class=" dark:bg-gray-900 text-xs dark:text-white leading-4
                                         text-gray-500 uppercase tracking-wider"
                                 >
                                     Username
@@ -91,7 +107,7 @@
                                 class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('email')"
-                                        class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        class=" dark:bg-gray-900 text-xs dark:text-white leading-4
                                         text-gray-500 uppercase tracking-wider"
                                 >
                                     Email
@@ -116,12 +132,11 @@
                                 Login type
                             </div>
                         </th>
-                        <th
-                                class="px-6 py-3 text-left">
+                        <th class="px-6 py-3 text-left">
                             <div class="flex items-center">
                                 <button wire:click="sortBy('logged_in_at')"
-                                        class="bg-gray-50 dark:bg-gray-900 text-xs dark:text-white leading-4
-                                        text-gray-500 uppercase tracking-wider"
+                                        class=" dark:bg-gray-900 text-xs dark:text-white leading-4
+                                       uppercase tracking-wider"
                                 >
                                     Logged in at
                                 </button>
@@ -131,7 +146,13 @@
                                         :sortAsc="$sortAsc" />
                             </div>
                         </th>
-                        <th></th>
+                        <th class="px-6 py-3 text-left">
+                            <div class="dark:bg-gray-900 text-xs dark:text-white leading-4
+                                        uppercase tracking-wider"
+                            >
+                                Actions
+                            </div>
+                        </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:bg-slate-800 ">
@@ -192,32 +213,35 @@
                             </td>
                             <td class="w-2/12 px-6 py-4 text-right text-sm font-medium leading-5 whitespace-no-wrap">
                                 <div class="flex space-x-2">
-                                    <a href="{{route('users.edit',$user)}}"
-                                    >
-                                        <x-button class="bg-blue-500 hover:bg-blue-700"
-                                                  wire:click="route('users.destroy', $user)">
-                                            {{ __('common.actions.edit') }}
-                                        </x-button>
-                                    </a>
-                                    @if(auth()->user()->id !== $user->id && $user->login_type === 'local')
-                                        @can('administrate-superadmin-portal-pages')
-                                            <x-modals.delete
-                                                    :route="route('users.destroy', $user)"
-                                                    class="w-full justify-center"
-                                            >
-                                                <x-slot:title>
-                                                    {{ __('user.backend.delete.modal title',[
-                                                    'user_fullname'=>$user->getFullNameAttribute()
-                                                    ]) }}
-                                                </x-slot:title>
-                                                <x-slot:body>
-                                                    {{ __('user.backend.delete.modal body', [
-                                                        'series_counter' => $user->series()->count(),
-                                                        'clips_counter'  => $user->clips()->count(),
-                                                    ]) }}
-                                                </x-slot:body>
-                                            </x-modals.delete>
-                                        @endcan
+                                    @if(!$user->deleted_at)
+                                        <a href="{{route('users.edit',$user)}}">
+                                            <x-button class="bg-blue-500 hover:bg-blue-700"
+                                                      wire:click="route('users.destroy', $user)">
+                                                {{ __('common.actions.edit') }}
+                                            </x-button>
+                                        </a>
+                                        @if(auth()->user()->id !== $user->id && $user->login_type === 'local')
+                                            @can('administrate-superadmin-portal-pages')
+                                                <x-modals.delete
+                                                        :route="route('users.destroy', $user)"
+                                                        class="w-full justify-center"
+                                                >
+                                                    <x-slot:title>
+                                                        {{ __('user.backend.delete.modal title',[
+                                                        'user_fullname'=>$user->getFullNameAttribute()
+                                                        ]) }}
+                                                    </x-slot:title>
+                                                    <x-slot:body>
+                                                        {{ __('user.backend.delete.modal body', [
+                                                            'series_counter' => $user->series()->count(),
+                                                            'clips_counter'  => $user->clips()->count(),
+                                                        ]) }}
+                                                    </x-slot:body>
+                                                </x-modals.delete>
+                                            @endcan
+                                        @endif
+                                    @else
+                                        DELETED USER
                                     @endif
                                 </div>
                             </td>

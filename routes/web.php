@@ -56,6 +56,7 @@ use App\Http\Controllers\Frontend\UserApplicationsController;
 use App\Http\Controllers\Frontend\UserCommentsController;
 use App\Http\Controllers\Frontend\UserSettingsController;
 use App\Http\Controllers\Frontend\UserSubscriptionsController;
+use App\Mail\NewLocalUserCreated;
 use App\Models\Activity;
 use App\Models\Article;
 use App\Models\Clip;
@@ -67,14 +68,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
-Route::get('/usersExpired', function () {
-
-    $users = User::admins();
-
-    return new App\Mail\ExpiredUsersFound($users);
-});
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])
+    ->name('password.reset');
 Route::redirect('/home', '/');
 Route::redirect('/admin', '/admin/dashboard');
+
+Route::get('/mailable', function () {
+    $user = App\Models\User::search('local.fxm3ze')->first();
+
+    return new NewLocalUserCreated($user, token: 'test');
+});
 
 // Quick __invoke
 Route::get('/search', ShowSearchResultsController::class)->name('search');

@@ -188,17 +188,6 @@ it('requires a last name for creating a new user', function () {
         ->assertSessionDoesntHaveErrors('last_name');
 });
 
-it('requires a unique username for creating new user', function () {
-    post(route('users.store'), ['username' => ''])
-        ->assertSessionHasErrors('username');
-
-    post(route('users.store'), ['username' => auth()->user()->username])
-        ->assertSessionHasErrors('username');
-
-    post(route('users.store'), ['username' => 'johndoe21'])
-        ->assertSessionDoesntHaveErrors('username');
-});
-
 it('has a button to enable user channel if user has a moderator role', function () {
     $moderator = User::factory()->create();
     $moderator->assignRole(Role::MODERATOR);
@@ -231,7 +220,6 @@ test('create user form should remember old values on validation error', function
     $attributes = [
         'first_name' => $this->faker->firstName(),
         'last_name' => $this->faker->lastName(),
-        'username' => $this->faker->userName(),
         'email' => auth()->user()->email,
     ];
 
@@ -254,7 +242,7 @@ test('an admin can create a new user', function () {
     $attributes = [
         'first_name' => 'John',
         'last_name' => 'Doe',
-        'username' => 'johndoe21',
+        'username' => 'local.test12',
         'email' => 'john@doe.com',
     ];
 
@@ -267,7 +255,7 @@ test('after creation user will be notified via email', function () {
     $attributes = [
         'first_name' => 'John',
         'last_name' => 'Doe',
-        'username' => 'johndoe21',
+        'username' => 'local.test12',
         'email' => 'john@doe.com',
     ];
     post(route('users.store'), $attributes);
