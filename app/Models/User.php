@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Enums\Role;
+use App\Mail\NewLocalUserCreated;
 use App\Models\Traits\RecordsActivity;
 use App\Models\Traits\Searchable;
-use App\Notifications\MailResetPasswordToken;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +19,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 #[ObservedBy(UserObserver::class)]
 class User extends Authenticatable
@@ -42,6 +43,11 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'login_type',
+        'expired',
+        'logged_in_at',
+        'last_visited_at',
+        'override_role',
     ];
 
     /**
@@ -272,21 +278,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Override the default mail template
-     * and send a custom password reset email
-     * to the user
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new MailResetPasswordToken($token, $this));
-    }
-
-    /**
      * Scope users with admin roles
      *
      * @return mixed
      */
-    public function scopeAdmins($query)
+    public function scopeAdmins($query): Builder
     {
         return $query->whereHas('roles', function ($q) {
             $q->where('name', Role::SUPERADMIN->lower())
@@ -295,14 +291,14 @@ class User extends Authenticatable
         });
     }
 
-    public function scopeModerators($query)
+    public function scopeModerators($query): Builder
     {
         return $query->whereHas('roles', function ($q) {
             $q->where('name', Role::MODERATOR->lower());
         });
     }
 
-    public function scopeByRole($query, Role $role)
+    public function scopeByRole($query, Role $role): Builder
     {
         return $query->whereHas('roles', function ($q) use ($role) {
             $q->where('name', $role->lower());
@@ -312,6 +308,11 @@ class User extends Authenticatable
     public function scopeExpired($query)
     {
         return $query->where('expired', true);
+    }
+
+    public function scopeLocal($query): Builder
+    {
+        return $query->where('login_type', '=', 'local');
     }
 
     /*
@@ -342,5 +343,16 @@ class User extends Authenticatable
         $settings->save();
 
         return $this->settings;
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        Mail::to($this)->send(new NewLocalUserCreated($this, $token));
     }
 }

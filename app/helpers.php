@@ -377,3 +377,17 @@ function getUniqueFacultiesWithPositionsFromOpencastThemes(Collection $collectio
         ];
     })->values()->toArray();
 }
+
+function getValidLocalUsername(): string
+{
+    do {
+        // Generate a random username
+        $randomUsername = strtolower(Str::random(6));
+        $suggestedUsername = 'local.'.$randomUsername;
+
+        // Check if the username exists in the database
+        $foundUser = User::local()->withTrashed()->where('username', $suggestedUsername)->exists();
+    } while ($foundUser); // Repeat until no user is found
+
+    return $suggestedUsername;
+}

@@ -9,12 +9,12 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewApplicationForAdminPortal extends Mailable
+class NewLocalUserCreated extends Mailable
 {
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private readonly User $user)
+    public function __construct(private readonly User $user, private readonly string $token)
     {
         //
     }
@@ -22,16 +22,22 @@ class NewApplicationForAdminPortal extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Application For Admin Portal',
+            subject: 'Welcome to '.config('app.name'),
         );
     }
 
     public function content(): Content
     {
+        $url = url(route('password.reset', [
+            'token' => $this->token,
+            'email' => $this->user->email,
+        ]));
+
         return new Content(
-            markdown: 'mail.new-application-for-admin-portal',
+            markdown: 'mail.new-local-user-created',
             with: [
                 'user' => $this->user,
+                'url' => $url,
             ]
         );
     }

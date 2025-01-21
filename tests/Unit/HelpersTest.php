@@ -210,3 +210,7 @@ it('has a check for a valid insert for statistics', function () {
 
     expect(check_valid_statistic_insert(23311872, 'POST', 'Firefox'))->toBeTrue();
 });
+
+it('has a suggested username for creating local users', function () {
+    expect(getValidLocalUsername())->toBeString()->toContain('local.');
+});

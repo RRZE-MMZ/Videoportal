@@ -28,6 +28,7 @@
                               input-type="text"
                               :value="$user->username"
                               label="Username"
+                              :disabled="($user->login_type !=='local')"
                               :full-col="true"
                               :read-only="true"
                 />
@@ -36,6 +37,7 @@
                               input-type="text"
                               :value="$user->first_name"
                               label="First Name"
+                              :disabled="($user->login_type !=='local')"
                               :full-col="true"
                               :required="true"
                 />
@@ -44,6 +46,7 @@
                               input-type="text"
                               :value="$user->last_name"
                               label="Last Name"
+                              disabled="{{($user->login_type !=='local')}}"
                               :full-col="true"
                               :required="true"
                 />
@@ -52,6 +55,7 @@
                               input-type="email"
                               :value="$user->email"
                               label="Email"
+                              disabled="{{($user->login_type !=='local')}}"
                               :full-col="true"
                               :required="true"
                 />
@@ -115,7 +119,7 @@
                 <div class="pr-10 text-lg">
                     User admin portal application processed by
                     <span
-                        class="italic"> {{ $user->settings->data['admin_portal_application_processed_by'] }} </span>
+                            class="italic"> {{ $user->settings->data['admin_portal_application_processed_by'] }} </span>
                     <span class="text-sm">
                     {{ Carbon::createFromFormat(
                     'Y-m-d H-i-s',$user->settings->data['admin_portal_application_processed_at']

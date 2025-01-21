@@ -40,6 +40,7 @@ class UsersController extends Controller
         $secret = random_int(20, 30);
         $validated['password'] = Hash::make((string) $secret);
         $validated['login_type'] = 'local';
+
         $user = User::create($validated);
 
         Password::sendResetLink(['email' => $user->email]);
