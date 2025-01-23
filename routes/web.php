@@ -256,6 +256,8 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
         Route::get('/{series}/clipsMetadata', 'showClipsMetadata')->name('series.clips.batch.show.clips.metadata');
         Route::patch('/{series}/updateClipsMetadata', 'updateClipsMetadata')
             ->name('series.clips.batch.update.clips.metadata');
+        Route::post('/{series}/deleteMultipleClips', 'deleteMultipleClips')
+            ->name('series.clips.batch.delete.multiple.clips');
 
         // add/remove an existing clip to selected series
         Route::get('/listSeries/{clip}', 'listSeries')->name('series.clips.listSeries');

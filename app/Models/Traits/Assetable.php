@@ -72,4 +72,15 @@ trait Assetable
             ->limit(1)->first();
         //        return $this->assets()->first();
     }
+
+    public function listAssetsByType()
+    {
+        return $this->assets()
+            ->get()
+            ->pluck('type')
+            ->unique()
+            ->sort()
+            ->values();
+
+    }
 }

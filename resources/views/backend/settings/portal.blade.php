@@ -69,6 +69,12 @@
                                   label="Main dev email address"
                                   :fullCol="true"
                                   :required="true" />
+                    <x-form.input field-name="project_helpdesk_mail_address"
+                                  input-type="email"
+                                  :value="$setting['project_helpdesk_mail_address']"
+                                  label="Project Helpdesk email"
+                                  :fullCol="true"
+                                  :required="true" />
                 </div>
             </div>
 

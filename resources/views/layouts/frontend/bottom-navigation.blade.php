@@ -7,7 +7,7 @@
         </a>
     </span>
     <span class="no-underline hover:underline">
-        <a href="{{ route('frontend.series.index') }}">
+        <a href="mailto:{{config('settings.portal.project_helpdesk_mail_address')}}">
             {{ __('common.menu.error report') }}
         </a>
     </span>

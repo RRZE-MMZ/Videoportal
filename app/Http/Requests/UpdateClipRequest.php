@@ -43,7 +43,7 @@ class UpdateClipRequest extends FormRequest
             'presenters' => ['array'],
             'presenters.*' => ['integer', 'nullable'],
             'tags' => ['array'],
-            'opencast_event_id' => ['sometimes', 'uuid'],
+            'opencast_event_id' => ['sometimes', 'uuid', 'nullable'],
             'tags.*' => ['string', 'nullable'],
             'acls' => ['array'],
             'acls.*' => ['integer', 'nullable'],

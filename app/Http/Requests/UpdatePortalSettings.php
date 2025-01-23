@@ -29,6 +29,7 @@ class UpdatePortalSettings extends FormRequest
             'protected_files_string' => ['required', 'string'],
             'feeds_default_owner_email' => ['required', 'email'],
             'default_image_id' => ['required', 'exists:images,id'],
+            'project_helpdesk_mail_address' => ['required', 'email'],
             'support_email_address' => ['required', 'email'],
             'admin_main_address' => ['required', 'email'],
             'show_dropbox_files_in_dashboard' => ['required', 'boolean'],

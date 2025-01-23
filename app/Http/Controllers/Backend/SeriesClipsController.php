@@ -173,4 +173,11 @@ class SeriesClipsController extends Controller
 
         return view('backend.seriesClips.showClipsMetadata', compact('series', 'clips'));
     }
+
+    public function deleteMultipleClips(Series $series, Request $request): RedirectResponse
+    {
+        $this->authorize('edit-series', $series);
+
+        return to_route('series.edit', $series);
+    }
 }

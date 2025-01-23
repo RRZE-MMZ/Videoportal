@@ -27,6 +27,26 @@
             />
         @endisset
     </mediaPlayer>
+@elseif(empty($defaultVideoUrl))
+    <div class="flex items-center justify-center text-white dark:text-white">
+        <div class="flex flex-col">
+            <div class="flex items-center m-4 p-4 border bg-green-700 dark:bg-gray-400 rounded-lg">
+                <div>
+                    <x-iconoir-info-circle class="w-6 h-6" />
+                </div>
+                <div class="flex flex-col w-full">
+                    <span class="text-3xl pl-4">
+                        {!!
+                            __('clip.frontend.clip still without assets warning', [
+                                    'mail_to' => 'mailto:'.env('SUPPORT_MAIL_ADDRESS'),
+                                    'mail_address' => env('SUPPORT_MAIL_ADDRESS')
+                                       ])
+                       !!}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 @else
     <mediaPlayer id="target"
                  src="{{ $defaultVideoUrl }}"
