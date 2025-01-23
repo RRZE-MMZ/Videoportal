@@ -43,6 +43,7 @@ class IndexPagesDatatable extends Component
     public function render()
     {
         $search = trim(Str::lower($this->search));
+
         $objects = $this->determineQuery($search)->paginate(20);
 
         return view('livewire.index-pages-datatable', [
@@ -139,7 +140,7 @@ class IndexPagesDatatable extends Component
         });
     }
 
-    protected function applyPresenterSearchFilter($query, $search)
+    protected function applyPresenterSearchFilter($query, $search): void
     {
         if (DB::getDriverName() === 'pgsql' || DB::getDriverName() === 'sqlite') {
             $query->whereRaw('lower(first_name) like ?', ["%{$search}%"])

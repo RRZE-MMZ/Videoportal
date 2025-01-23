@@ -14,17 +14,19 @@
             {{ trans_choice('common.menu.statistic',2) }}
         </x-button>
     </a>
-    @if($series->clips->count()> 0 )
+    @if($series->clips()->count()> 0 )
         <a href="{{ route('series.clips.batch.show.clips.metadata', $series) }}">
             <x-button class="bg-green-600 hover:bg-green-700">
                 {{ __('series.backend.actions.edit metadata of multiple clips') }}
             </x-button>
         </a>
-        <a href="{{ route('series.clips.changeEpisode', $series) }}">
-            <x-button class="bg-green-600 hover:bg-green-700">
-                {{ __('series.backend.actions.reorder series clips') }}
-            </x-button>
-        </a>
+        @if($series->chapters()->count() == 0)
+            <a href="{{ route('series.clips.changeEpisode', $series) }}">
+                <x-button class="bg-green-600 hover:bg-green-700">
+                    {{ __('series.backend.actions.reorder series clips') }}
+                </x-button>
+            </a>
+        @endif
     @endif
     <a href="{{ route('series.chapters.index', $series) }}">
         <x-button class="bg-green-600 hover:bg-green-700">

@@ -6,8 +6,6 @@ use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSeriesRequest;
 use App\Http\Requests\UpdateSeriesRequest;
-use App\Models\Clip;
-use App\Models\Semester;
 use App\Models\Series;
 use App\Models\Setting;
 use App\Models\User;
@@ -67,7 +65,6 @@ class SeriesController extends Controller
         $opencastSettings = Setting::opencast();
         $availableAssistants = collect();
         $opencastSeriesInfo = $opencastService->getSeriesInfo($series);
-        $chapters = $series->chapters()->orderBy('position')->get();
         if ($opencastSeriesInfo->get('health')->get('status') === 'pass' && $series->opencast_series_id !== '') {
             $assistants = User::byRole(Role::ASSISTANT)->get();
             // reject all assistants that are already in opencast series acl
@@ -83,20 +80,8 @@ class SeriesController extends Controller
             });
         }
 
-        $clips = Clip::select(['id', 'title', 'slug', 'episode', 'is_public', 'recording_date'])
-            ->where('series_id', $series->id)
-            ->addSelect(
-                [
-                    'semester' => Semester::select('name')
-                        ->whereColumn('id', 'clips.semester_id')
-                        ->take(1),
-                ]
-            )
-            ->orderBy('episode')
-            ->get();
-
         return view('backend.series.edit', compact([
-            'series', 'clips', 'chapters', 'opencastSeriesInfo', 'availableAssistants', 'opencastSettings',
+            'series', 'opencastSeriesInfo', 'availableAssistants', 'opencastSettings',
         ]));
     }
 

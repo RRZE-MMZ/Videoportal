@@ -13,6 +13,7 @@ return [
         'default_image_id' => env('DEFAULT_IMAGE_ID', 1),
         'support_email_address' => env('SUPPORT_MAIL_ADDRESS', 'support@tides.com'),
         'admin_main_address' => env('ADMIN_MAIL_ADDRESS', 'admin@tides.org'),
+        'project_helpdesk_mail_address' => env('PROJECT_HELPDESK_EMAIL', 'projecthelpdesk@github.com'),
         'player_show_article_link_in_player' => false,
         'player_article_link_url' => 1,
         'player_article_link_text' => '',

@@ -55,14 +55,30 @@
                      x-transition:leave-start="opacity-100 translate-y-10"
                      x-transition:leave-end="opacity-0 translate-y-0" class="w-full p-4">
                     <ul>
-                        @foreach($assetsResolutions as $key => $resolutionText)
-                            <li>
-                                <a href="{{ route('frontend.series.feed', [$series, $resolutionText]) }}"
-                                   class="underline">
-                                    {{ $resolutionText }}
-                                </a>
-                            </li>
-                        @endforeach
+                        <li>
+                            <a href="{{ route('frontend.series.feed', [$series, 'QHD']) }}"
+                               class="underline">
+                                QHD
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('frontend.series.feed', [$series, 'HD']) }}"
+                               class="underline">
+                                HD
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('frontend.series.feed', [$series, 'SD']) }}"
+                               class="underline">
+                                SD
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('frontend.series.feed', [$series, 'AUDIO']) }}"
+                               class="underline">
+                                Audio
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

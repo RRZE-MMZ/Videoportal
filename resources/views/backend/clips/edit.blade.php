@@ -122,7 +122,7 @@
                                       :value="old('opencast_event_id', $clip->opencast_event_id)"
                                       label="{{ __('common.metadata.opencast_event_id') }}"
                                       :fullCol="false"
-                                      :required="true" />
+                                      :required="false" />
                     @endcannot
                     <x-form.select2-single field-name="context_id"
                                            label="{{ __('common.metadata.context') }}"
