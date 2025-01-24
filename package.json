@@ -39,7 +39,7 @@
     "select2": "^4.1.0-rc.0",
     "tw-elements": "^1.0.0-alpha10",
     "vidstack": "^1.11.30",
-    "vite": "^4.5.5",
+    "vite": "^4.5.9",
     "vue": "^3.0.0"
   },
   "type": "module"
