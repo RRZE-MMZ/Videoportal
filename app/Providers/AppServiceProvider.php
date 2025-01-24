@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
         if (! app()->environment('production')) {
             Mail::alwaysTo(env('DEV_MAIL_ADDRESS'));
         }
-
         Relation::enforceMorphMap([
             'series' => 'App\Models\Series',
             'clip' => 'App\Models\Clip',

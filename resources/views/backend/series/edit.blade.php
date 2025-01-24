@@ -1,6 +1,11 @@
 @extends('layouts.backend')
 
 @section('content')
+    @if ($errors->has('clipIDs'))
+        <div class="alert alert-danger">
+            {{ $errors->first('clipIDs') }}
+        </div>
+    @endif
     <div class="flex border-b border-black flex-col dark:text-white dark:border-white font-normal">
         <div class="font-semibold  text-2xl">
             {{ $series->title }} [ ID : {{ $series->id }}]
