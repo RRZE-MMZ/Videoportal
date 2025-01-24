@@ -2,10 +2,12 @@
 
 use App\Enums\Role;
 use App\Http\Controllers\Backend\SeriesController;
+use App\Jobs\MassDeleteClipsJob;
 use App\Models\Clip;
 use App\Models\User;
 use Facades\Tests\Setup\ClipFactory;
 use Facades\Tests\Setup\SeriesFactory;
+use Illuminate\Support\Facades\Queue;
 
 use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
@@ -268,4 +270,35 @@ it('updates all clips metadata for a certain series', function () {
     patch(route('series.clips.batch.update.clips.metadata', $series), $attributes)->assertSessionDoesntHaveErrors();
 
     expect($lastClip->title)->not->toBe($series->latestClip()->first()->title);
+});
+
+it('validates the ids for deleting multiple clips of a series', function () {
+    $series = SeriesFactory::withClips(3)->ownedBy(signInRole(Role::MODERATOR))->create();
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([14, 15])])
+        ->assertSessionHasErrors();
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([])])
+        ->assertSessionHasErrors();
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([1, 2])])
+        ->assertSessionDoesntHaveErrors();
+
+    auth()->logout();
+
+    signInRole(Role::MODERATOR);
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([1, 2])])
+        ->assertForbidden();
+});
+
+it('dispatches a job to delete multiple clips', function () {
+    Queue::fake();
+    $series = SeriesFactory::withClips(3)->ownedBy(signInRole(Role::MODERATOR))->create();
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([1, 2])])
+        ->assertRedirect();
+
+    // Assert a job was pushed to a given queue...
+    Queue::assertPushed(MassDeleteClipsJob::class);
 });

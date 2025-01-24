@@ -9,12 +9,14 @@ use Illuminate\Validation\Rules\Password;
 
 class MassUpdateClipsRequest extends FormRequest
 {
+    protected $series;
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('edit-series', $this->series);
     }
 
     /**
@@ -45,6 +47,7 @@ class MassUpdateClipsRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        $this->series = $this->route('series');
         $this->merge([
             'slug' => Str::slug($this->title),
             'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty

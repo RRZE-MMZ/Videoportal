@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MassDeleteSeriesClipsRequest;
 use App\Http\Requests\MassUpdateClipsRequest;
 use App\Http\Requests\StoreClipRequest;
+use App\Jobs\MassDeleteClipsJob;
 use App\Models\Clip;
 use App\Models\Semester;
 use App\Models\Series;
@@ -113,6 +115,8 @@ class SeriesClipsController extends Controller
      */
     public function reorder(Series $series, Request $request): RedirectResponse
     {
+        $this->authorize('edit-series', $series);
+
         $validated = $request->validate([
             'episodes' => ['required', 'array'],
             'episodes.*' => ['integer'],
@@ -144,7 +148,6 @@ class SeriesClipsController extends Controller
 
     public function updateClipsMetadata(Series $series, MassUpdateClipsRequest $request)
     {
-        $this->authorize('edit-series', $series);
         $validated = $request->validated();
 
         $clips = $series->clips()->each(function ($clip) use ($validated) {
@@ -174,9 +177,13 @@ class SeriesClipsController extends Controller
         return view('backend.seriesClips.showClipsMetadata', compact('series', 'clips'));
     }
 
-    public function deleteMultipleClips(Series $series, Request $request): RedirectResponse
+    public function deleteMultipleClips(Series $series, MassDeleteSeriesClipsRequest $request): RedirectResponse
     {
-        $this->authorize('edit-series', $series);
+        $validated = $request->validated();
+
+        MassDeleteClipsJob::dispatch($validated['clip_ids']);
+
+        session()->flash('flashMessage', 'Series clips will be deleted...Please be patient');
 
         return to_route('series.edit', $series);
     }
