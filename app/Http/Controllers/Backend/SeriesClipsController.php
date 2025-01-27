@@ -181,7 +181,7 @@ class SeriesClipsController extends Controller
     {
         $validated = $request->validated();
 
-        MassDeleteClipsJob::dispatch($validated['clip_ids']);
+        MassDeleteClipsJob::dispatch($series, $validated['clip_ids']);
 
         session()->flash('flashMessage', 'Series clips will be deleted...Please be patient');
 

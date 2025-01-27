@@ -3,10 +3,12 @@
 use App\Enums\Role;
 use App\Http\Controllers\Backend\SeriesController;
 use App\Jobs\MassDeleteClipsJob;
+use App\Models\Chapter;
 use App\Models\Clip;
 use App\Models\User;
 use Facades\Tests\Setup\ClipFactory;
 use Facades\Tests\Setup\SeriesFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Queue;
 
 use function Pest\Laravel\delete;
@@ -301,4 +303,98 @@ it('dispatches a job to delete multiple clips', function () {
 
     // Assert a job was pushed to a given queue...
     Queue::assertPushed(MassDeleteClipsJob::class);
+});
+
+it('deletes multiple clips from the selected series', function () {
+    $series = SeriesFactory::withClips(3)->ownedBy(signInRole(Role::MODERATOR))->create();
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([1, 2])])
+        ->assertRedirect();
+
+    $series->refresh();
+    expect($series->clips()->count())->toBe(1);
+});
+
+it('will re assign an episode to the rest of the clips', function () {
+    $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
+    Clip::factory()->create([
+        'episode' => '1',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(4),
+    ]);
+    Clip::factory()->create([
+        'episode' => '2',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+    ]);
+    Clip::factory()->create([
+        'episode' => '3',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(2),
+    ]);
+    $fourthClip = Clip::factory()->create([
+        'episode' => '4',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(1),
+    ]);
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), ['clip_ids' => json_encode([2, 3])])
+        ->assertRedirect();
+
+    $series->refresh();
+    expect($series->clips()->count())->toBe(2);
+    expect($fourthClip->refresh()->episode)->toBe(2);
+});
+
+it('will re assign an episode to the rest of the clips inside the chapter', function () {
+    $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
+    $chapter1 = Chapter::factory()->create(['series_id' => $series->id]);
+    $chapter2 = Chapter::factory()->create(['series_id' => $series->id]);
+    Chapter::factory()->create(['series_id' => $series->id]);
+    $selectClipChapterOne = Clip::factory()->create([
+        'episode' => '1',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(4),
+        'chapter_id' => $chapter1->id,
+    ]);
+    $checkedClipChapterOne = Clip::factory()->create([
+        'episode' => '2',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter1->id,
+    ]);
+    Clip::factory()->create([
+        'episode' => '3',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(2),
+        'chapter_id' => $chapter1->id,
+    ]);
+    $selectedClipChapterTwo = Clip::factory()->create([
+        'episode' => '1',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter2->id,
+    ]);
+    Clip::factory()->create([
+        'episode' => '2',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter2->id,
+    ]);
+    $checkedClipChapterTwo = Clip::factory()->create([
+        'episode' => '3',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter2->id,
+    ]);
+
+    post(route('series.clips.batch.delete.multiple.clips', $series), [
+        'clip_ids' => json_encode([$selectClipChapterOne->id, $selectedClipChapterTwo->id]),
+    ])
+        ->assertRedirect();
+
+    $series->refresh();
+    expect($series->clips()->count())->toBe(4);
+    expect($checkedClipChapterOne->refresh()->episode)->toBe(1);
+    expect($checkedClipChapterTwo->refresh()->episode)->toBe(2);
 });

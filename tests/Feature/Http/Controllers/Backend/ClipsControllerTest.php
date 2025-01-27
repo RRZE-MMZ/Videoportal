@@ -698,6 +698,75 @@ test('a moderator can delete owned clips', function () {
     assertDatabaseMissing('clips', $clip->only('id'));
 });
 
+it('updates existing clips episode in the series when deleting a clip', function () {
+    $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
+    Clip::factory()->create([
+        'episode' => '1',
+        'series_id' => $series->id,
+        'recording_date' => \Illuminate\Support\Carbon::now()->subDays(4),
+    ]);
+    $deletedClip = Clip::factory()->create([
+        'episode' => '2',
+        'series_id' => $series->id,
+        'recording_date' => \Illuminate\Support\Carbon::now()->subDays(3),
+    ]);
+    $updatedClip = Clip::factory()->create([
+        'episode' => '3',
+        'series_id' => $series->id,
+        'recording_date' => \Illuminate\Support\Carbon::now()->subDays(2),
+    ]);
+
+    delete(route('clips.destroy', $deletedClip));
+    expect($updatedClip->refresh()->episode)->toBe(2);
+});
+
+it('updates existing clips episode in the series when deleting a clip of  chapter', function () {
+    $series = SeriesFactory::ownedBy(signInRole(Role::MODERATOR))->create();
+    $chapter1 = Chapter::factory()->create(['series_id' => $series->id]);
+    $chapter2 = Chapter::factory()->create(['series_id' => $series->id]);
+    Chapter::factory()->create(['series_id' => $series->id]);
+    $selectClipChapterOne = Clip::factory()->create([
+        'episode' => '1',
+        'series_id' => $series->id,
+        'recording_date' => \Illuminate\Support\Carbon::now()->subDays(4),
+        'chapter_id' => $chapter1->id,
+    ]);
+    $checkedClipChapterOne = Clip::factory()->create([
+        'episode' => '2',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter1->id,
+    ]);
+    Clip::factory()->create([
+        'episode' => '3',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(2),
+        'chapter_id' => $chapter1->id,
+    ]);
+    Clip::factory()->create([
+        'episode' => '1',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter2->id,
+    ]);
+    Clip::factory()->create([
+        'episode' => '2',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter2->id,
+    ]);
+    $checkedClipChapterTwo = Clip::factory()->create([
+        'episode' => '3',
+        'series_id' => $series->id,
+        'recording_date' => Carbon::now()->subDays(3),
+        'chapter_id' => $chapter2->id,
+    ]);
+
+    delete(route('clips.destroy', $selectClipChapterOne));
+    expect($checkedClipChapterOne->refresh()->episode)->toBe(1);
+    expect($checkedClipChapterTwo->refresh()->episode)->toBe(3);
+});
+
 test('clip format, type and context can have null values', function () {
     $clip = ClipFactory::ownedBy(signInRole(Role::MODERATOR))->create();
 

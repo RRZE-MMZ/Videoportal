@@ -18,12 +18,6 @@ beforeEach(function () {
 
     $this->wowzaService = app(WowzaService::class);
 });
-test('example', function () {
-    $response = $this->get('/');
-
-    $response->assertStatus(200);
-});
-
 it('denies post requests to simple users', function () {
     post(route('livestreams.makeReservation', ['event' => 'test-lecture-hall']))->assertRedirectToRoute('login');
 });
