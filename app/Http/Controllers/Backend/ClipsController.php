@@ -126,6 +126,18 @@ class ClipsController extends Controller
 
         // deleting a clip will fire an event and trigger a listener
         $clip->delete();
+        if ($clip->series_id) { // re arrage clips episodes number
+            $chapter = $clip->series->chapters()->find($clip->chapter_id);
+            if ($chapter) {
+                $clips = $chapter->clips()->orderBy('episode', 'asc')->get();
+                // Update the episode numbers sequentially
+            } else {
+                $clips = $clip->series->clips()->orderBy('episode', 'asc')->get();
+            }
+            foreach ($clips as $index => $clip) {
+                $clip->update(['episode' => $index + 1]);
+            }
+        }
 
         return ($clip->series_id) ? to_route('series.edit', $clip->series) : to_route('clips.index');
     }
