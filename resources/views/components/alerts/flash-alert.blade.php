@@ -13,7 +13,7 @@
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-90"
             class="mb-2 flex rounded-md bg-green-200 p-2 items-center">
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
                 <x-heroicon-o-check-circle class="h-5 w-5 text-green-800" />
             </div>
             <div class="ml-3">
@@ -25,7 +25,7 @@
                 <div class="-mx-1.5 -my-1.5">
                     <button @click="show = false"
                             class="inline-flex rounded-md p-1.5 text-green-800 hover:bg-green-100
-                                 focus:outline-none focus:bg-green-700 transition ease-in-out duration-150"
+                                 focus:outline-hidden focus:bg-green-700 transition ease-in-out duration-150"
                             aria-label="Dismiss">
                         <x-heroicon-o-x-circle class="h-5 w-5" />
                     </button>

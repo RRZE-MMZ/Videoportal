@@ -15,7 +15,7 @@
                    id="{{ $fieldName }}"
                    class="text-md block px-3 py-2 rounded-lg w-full bg-white dark:bg-gray-200 border-2 border-gray-300
                             placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white
-                            focus:border-gray-600 focus:outline-none"
+                            focus:border-gray-600 focus:outline-hidden"
             >
             <div class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm leading-5">
                 <svg class="h-6 w-6"

@@ -6,8 +6,8 @@
         {{ $btn_text }}
     </x-button>
     <div x-show="open" @click.away="open = false" @keydown.escape.window="open = false"
-         class="absolute inset-0 m-auto h-64 max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg
-        xl:max-w-2/3 2xl:max-w-screen-2/3 rounded-md bg-gray-200 dark:bg-slate-600 z-10">
+         class="absolute inset-0 m-auto h-64 max-w-full sm:max-w-(--breakpoint-sm) md:max-w-(--breakpoint-md) lg:max-w-(--breakpoint-lg)
+        xl:max-w-2/3 2xl:max-w-[theme(screens.2)]/3 rounded-md bg-gray-200 dark:bg-slate-600 z-10">
         <!-- Modal content -->
         <div class="rounded-lg">
             <!-- Modal header -->
@@ -41,13 +41,13 @@
                 <div
                     class="flex justify-center p-4 md:p-5 ">
                     <button type="submit"
-                            class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none
+                            class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-hidden
                             focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center
                             dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-blue-800">
                         {{  $btn_text }}
                     </button>
                     <button @click="open = false" data-modal-hide="static-modal" type="button"
-                            class="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-blue-600
+                            class="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-hidden bg-blue-600
                             rounded-lg border border-gray-200 hover:bg-blue-700  focus:z-10
                             focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800
                             dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">

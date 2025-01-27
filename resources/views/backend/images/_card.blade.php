@@ -45,7 +45,7 @@
             <div class="flex flex-col">
                 <div class="w-full">
                     <select
-                            class="w-full select2-tides-images focus:border-blue-500 focus:bg-white focus:outline-none"
+                            class="w-full select2-tides-images focus:border-blue-500 focus:bg-white focus:outline-hidden"
                             name="imageID"
                             style="width: 100%"
                     >

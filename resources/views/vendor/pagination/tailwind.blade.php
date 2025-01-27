@@ -12,7 +12,7 @@
                 <a href="{{ $paginator->previousPageUrl() }}"
                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white
                    dark:bg-gray-900 dark:text-white border border-gray-300 leading-5 rounded-md hover:text-gray-500
-                   focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100
+                   focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300 active:bg-gray-100
                    active:text-gray-700 transition ease-in-out duration-150"
                 >
                     {!! __('pagination.previous') !!}
@@ -23,7 +23,7 @@
                 <a href="{{ $paginator->nextPageUrl() }}"
                    class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700
                    bg-white dark:bg-gray-900 dark:text-white border border-gray-300 leading-5 rounded-md
-                   hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300
+                   hover:text-gray-500 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300
                    active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
                 >
                     {!! __('pagination.next') !!}
@@ -55,7 +55,7 @@
             </div>
 
             <div>
-                <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                <span class="relative z-0 inline-flex shadow-xs rounded-md">
                     {{-- Previous Page Link --}}
                     @if ($paginator->onFirstPage())
                         <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
@@ -76,7 +76,7 @@
                         <a href="{{ $paginator->previousPageUrl() }}" rel="prev"
                            class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500
                            bg-white dark:bg-gray-900 dark:text-white border border-gray-300 rounded-l-md
-                           leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300
+                           leading-5 hover:text-gray-400 focus:z-10 focus:outline-hidden focus:ring-3 ring-gray-300
                            focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out
                            duration-150"
                            aria-label="{{ __('pagination.previous') }}">
@@ -113,7 +113,7 @@
                                     <a href="{{ $url }}"
                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium
                                         text-gray-700 bg-white dark:bg-gray-900 dark:text-white border border-gray-300 leading-5 hover:text-gray-500
-                                         focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300
+                                         focus:z-10 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300
                                          active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
                                        aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
                                         {{ $page }}
@@ -128,7 +128,7 @@
                         <a href="{{ $paginator->nextPageUrl() }}" rel="next"
                            class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500
                            bg-white dark:bg-gray-900 dark:text-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400
-                           focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300
+                           focus:z-10 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300
                             active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
                            aria-label="{{ __('pagination.next') }}">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">

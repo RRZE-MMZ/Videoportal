@@ -16,7 +16,7 @@
                     x-transition:leave-start="opacity-100 transform scale-100"
                     x-transition:leave-end="opacity-0 transform scale-90"
                     class="mb-2 flex rounded-md bg-red-500 p-2 items-center py-2">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                     <x-heroicon-o-check-circle class="h-5 w-5 text-white" />
                 </div>
                 <div class="ml-3">
@@ -28,7 +28,7 @@
                     <div class="-mx-1.5 -my-1.5">
                         <button @click="show = false"
                                 class="inline-flex rounded-md p-1.5 text-white hover:bg-red-100
-                                 focus:outline-none focus:bg-red-700 transition ease-in-out duration-150"
+                                 focus:outline-hidden focus:bg-red-700 transition ease-in-out duration-150"
                                 aria-label="Dismiss">
                             <x-heroicon-o-x-circle class="h-5 w-5" />
                         </button>
@@ -232,7 +232,7 @@
                                     <label>
                                         <select
                                                 class="p-2 w-full select2-tides-users
-                                        focus:outline-none focus:bg-white focus:border-blue-500"
+                                        focus:outline-hidden focus:bg-white focus:border-blue-500"
                                                 name="owner_id"
                                                 style="width: 100%"
                                         >

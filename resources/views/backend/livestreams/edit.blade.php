@@ -46,7 +46,7 @@
 
                                 <ul class="space-y-4 text-left pt-10">
                                     <li class="flex items-center space-x-3 rtl:space-x-reverse">
-                                        <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        <svg class="shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
                                              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                              viewBox="0 0 16 12">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -55,7 +55,7 @@
                                         <span>      SBS Signal Status : Incoming Signal aus Hörsaal </span>
                                     </li>
                                     <li class="flex items-center space-x-3 rtl:space-x-reverse">
-                                        <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        <svg class="shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
                                              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                              viewBox="0 0 16 12">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -64,7 +64,7 @@
                                         <span>Kamera Signal Status : Incoming Signal aus Hörsaal</span>
                                     </li>
                                     <li class="flex items-center space-x-3 rtl:space-x-reverse">
-                                        <svg class="flex-shrink-0 w-3.5 h-3.5 text-gray-500 dark:text-gray-400"
+                                        <svg class="shrink-0 w-3.5 h-3.5 text-gray-500 dark:text-gray-400"
                                              aria-hidden="true"
                                              xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                              viewBox="0 0 24 24">

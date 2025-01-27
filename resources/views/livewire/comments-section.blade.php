@@ -20,7 +20,7 @@
                           id="content"
                           rows="4"
                           placeholder="{{ __('comment.common.type your comment here') }}"
-                          class=" w-full rounded-md border px-4 py-2 shadow dark:text-black text-sm"
+                          class=" w-full rounded-md border px-4 py-2 shadow-sm dark:text-black text-sm"
                 ></textarea>
 
                 @error('content')
@@ -29,7 +29,7 @@
 
                 <button type="submit"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6
-                                font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none
+                                font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-hidden
                                 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition
                                  ease-in-out duration-150 mt-2 disabled:opacity-50">
                     <svg wire:loading wire:target="postComment"
@@ -71,7 +71,7 @@
                              src="{{ URL::asset('/images/none.jpg') }}"
                          @endif
                          alt="avatar">
-                    <div class="ml-4 flex-grow">
+                    <div class="ml-4 grow">
                         <div class="flex items-center dark:text-white">
                             <div class="font-semibold">
                                 {{ $comment->owner->getFullNameAttribute() }}

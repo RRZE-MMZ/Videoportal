@@ -9,7 +9,7 @@
     </div>
     <div class="col-start-2 col-end-6">
         <select class="px-4 py-4 h-4 w-full  {{ $selectClass}}
-            focus:outline-none focus:bg-white focus:border-blue-500"
+            focus:outline-hidden focus:bg-white focus:border-blue-500"
                 name="{{ $fieldName }}[]"
                 multiple="multiple"
                 style="width: 100%"

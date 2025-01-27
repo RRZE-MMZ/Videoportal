@@ -4,7 +4,7 @@
     <main class="sm:container sm:mx-auto sm:mt-10 sm:max-w-lg">
         <div class="flex">
             <div class="w-full">
-                <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
+                <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-xs sm:shadow-lg">
 
                     <header class="bg-gray-200 px-6 py-5 font-semibold text-gray-700 sm:rounded-t-md sm:px-8 sm:py-6">
                         {{ __('Confirm Password') }}

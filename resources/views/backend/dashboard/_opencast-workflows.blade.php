@@ -80,7 +80,7 @@
                             <div class="flex space-x-2">
                                 <span class="bg-red-600 inline-flex items-center px-4 py-2 border uppercase
                                         border-transparent font-medium text-base text-white tracking-wider
-                                        active:bg-white-900 focus:outline-none focus:border-white-900 focus:ring
+                                        active:bg-white-900 focus:outline-hidden focus:border-white-900 focus:ring-3
                                         ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                 >
                                    {{ OpencastWorkflowState::tryFrom($event['status'])->lower() }}
@@ -89,7 +89,7 @@
                                     @if($activeLivestreams->get()->pluck('opencast_location_name')->contains($event['location']))
                                         <span class="bg-gray-600 inline-flex items-center px-4 py-2 border uppercase
                                         border-transparent font-medium text-base text-white tracking-wider
-                                        active:bg-white-900 focus:outline-none focus:border-white-900 focus:ring
+                                        active:bg-white-900 focus:outline-hidden focus:border-white-900 focus:ring-3
                                         ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                         >
                                                     {{ __('livestream.common.livestream exists') }}
@@ -188,7 +188,7 @@
                         <td class="px-6 py-3 text-green-700">
                             <span class="bg-green-600 inline-flex items-center px-4 py-2 border uppercase
                                         border-transparent font-medium text-base text-white tracking-wider
-                                        active:bg-white-900 focus:outline-none focus:border-white-900 focus:ring
+                                        active:bg-white-900 focus:outline-hidden focus:border-white-900 focus:ring-3
                                         ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                             >
                                    {{ OpencastWorkflowState::tryFrom($event['status'])->lower() }}

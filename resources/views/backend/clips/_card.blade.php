@@ -3,7 +3,7 @@
     $latestAsset = $clip->latestAsset();
 @endphp
 <div class="relative my-2 bg-gray-50 dark:bg-slate-800 rounded-md dark:border-white font-normal">
-    <div class="relative h-15 overflow-hidden">
+    <div class="relative overflow-hidden">
         <a href="@if (str_contains(url()->current(), 'admin')) {{route('clips.edit', $clip)}}
                 @else {{route('frontend.clips.show', $clip) }} @endif">
             <img

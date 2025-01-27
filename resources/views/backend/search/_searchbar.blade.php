@@ -8,7 +8,7 @@
             <div class="flex flex-col items-center rounded-full bg-white dark:bg-sky-950">
                 <div class="flex w-full items-center rounded-full">
                     <input
-                            class="ml-2 w-full px-4 py-2 text-gray-700 focus:outline-none placeholder-gray-500
+                            class="ml-2 w-full px-4 py-2 text-gray-700 focus:outline-hidden placeholder-gray-500
                         placeholder-opacity-100 "
                             id="term"
                             type="text"
@@ -17,7 +17,7 @@
 
                     <div class="p-4">
                         <button class="flex justify-center items-center p-2 w-8 h-8 text-white bg-gray-600 dark:bg-white
-                                            rounded-full hover:bg-gray-500 focus:outline-none"
+                                            rounded-full hover:bg-gray-500 focus:outline-hidden"
                                 type="search"
                         >
                             <svg class="h-6 w-6 dark:text-black"

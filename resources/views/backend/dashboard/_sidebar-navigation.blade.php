@@ -1,7 +1,7 @@
 <a
         href="{{route('dashboard')}}"
         class="flex items-left items-center text-white {{ setActiveLink(route('dashboard')) }}   hover:opacity-100 hover:mx-2
-    hover:rounded py-4 pl-6 my-4 nav-item space-x-2 "
+    hover:rounded-sm py-4 pl-6 my-4 nav-item space-x-2 "
 >
     <div>
         <x-heroicon-c-home class="w-4" />
@@ -15,7 +15,7 @@
 </div>
 <a
         href="{{route('series.index')}}"
-        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('series.index')) }} space-x-2"
 >
     <div>
@@ -27,7 +27,7 @@
 </a>
 <a
         href="{{route('clips.index')}}"
-        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('clips.index')) }} space-x-2"
 >
     <div>
@@ -39,7 +39,7 @@
 </a>
 <a
         href="{{route('podcasts.index')}}"
-        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('podcasts.index')) }} space-x-2"
 >
     <div>
@@ -51,7 +51,7 @@
 </a>
 <a
         href="{{route('channels.index')}}"
-        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('channels.index')) }} space-x-2"
 >
     <div>
@@ -66,7 +66,7 @@
 </div>
 <a
         href="{{route('images.index')}}"
-        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+        class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('images.index')) }} space-x-2"
 >
     <div>
@@ -80,7 +80,7 @@
 @can('administrate-assistant-pages')
     <a
             href="{{ route('presenters.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item  {{ setActiveLink(route('presenters.index')) }} space-x-2"
     >
         <div>
@@ -91,7 +91,7 @@
     </a>
     <a
             href="{{ route('activities.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('activities.index')) }} space-x-2"
     >
         <div>
@@ -103,7 +103,7 @@
     </a>
     <a
             href="{{ route('livestreams.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('livestreams.index')) }} space-x-2"
     >
         <div>
@@ -115,7 +115,7 @@
     </a>
     <a
             href="{{ route('devices.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item  {{ setActiveLink(route('devices.index')) }} space-x-2"
     >
         <div>
@@ -131,7 +131,7 @@
 @can('administrate-admin-portal-pages')
     <a
             href="{{ route('articles.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item  {{ setActiveLink(route('articles.index')) }} space-x-2"
     >
         <div>
@@ -145,7 +145,7 @@
 
     <a
             href="{{ route('collections.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('collections.index')) }} space-x-2"
     >
         <div>
@@ -160,7 +160,7 @@
     </div>
     <a
             href="{{ route('users.index') }}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item {{ setActiveLink(route('users.index')) }} space-x-2"
     >
         <div>
@@ -175,7 +175,7 @@
 
     <a
             href="{{route('systems.status')}}"
-            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded py-4
+            class="flex items-left items-center text-white hover:opacity-100 hover:mx-2 hover:rounded-sm py-4
         pl-6 nav-item  {{ setActiveLink(route('systems.status')) }} space-x-2"
     >
         <div>

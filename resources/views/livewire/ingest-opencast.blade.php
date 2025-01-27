@@ -29,7 +29,7 @@
             </p>
 
             <!-- Progress Bar -->
-            <div class="w-full shadow bg-grey" x-show="isUploading">
+            <div class="w-full shadow-sm bg-grey" x-show="isUploading">
                 <progress class="w-full text-center text-xs leading-none text-white bg-orange"
                           max="100"
                           x-bind:value="progress"></progress>

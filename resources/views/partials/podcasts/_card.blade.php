@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 sm:grid-cols-3 bg-gray-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div class="grid grid-cols-1 sm:grid-cols-3 bg-gray-50 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
     <!-- Image Section -->
     <div class="col-span-1 flex justify-center sm:justify-start p-4">
         <a href="{{ route('frontend.podcasts.show', $podcast) }}" class="block">

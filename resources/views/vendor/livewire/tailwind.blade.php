@@ -31,7 +31,7 @@
                                 class="relative inline-flex items-center px-4 py-2 text-sm font-medium
                                  dark:bg-gray-900 dark:border-gray-100 dark:text-white
                                 text-gray-700 bg-white border border-gray-300 leading-5 rounded-md
-                                hover:text-gray-500 focus:outline-none focus:shadow-outline-blue
+                                hover:text-gray-500 focus:outline-hidden focus:shadow-outline-blue
                                 focus:border-blue-300 active:bg-gray-100 active:text-gray-700
                                 transition ease-in-out duration-150">
                             {!! __('pagination.previous') !!}
@@ -47,7 +47,7 @@
                                 class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium
                                 text-gray-700 bg-white border border-gray-300 leading-5 rounded-md
                                  dark:bg-gray-900 dark:border-gray-100 dark:text-white
-                                hover:text-gray-500 focus:outline-none focus:shadow-outline-blue
+                                hover:text-gray-500 focus:outline-hidden focus:shadow-outline-blue
                                 focus:border-blue-300 active:bg-gray-100 active:text-gray-700
                                  transition ease-in-out duration-150">
                             {!! __('pagination.next') !!}
@@ -76,7 +76,7 @@
                 </div>
 
                 <div>
-                    <span class="relative z-0 inline-flex rounded-md shadow-sm">
+                    <span class="relative z-0 inline-flex rounded-md shadow-xs">
                         <span>
                             {{-- Previous Page Link --}}
                             @if ($paginator->onFirstPage())
@@ -103,7 +103,7 @@
                                         class="relative inline-flex items-center px-2 py-2 text-sm font-medium
                                         text-gray-500 bg-white border border-gray-300 rounded-l-md leading-5
                                         dark:bg-gray-900 dark:border-gray-100 dark:text-white
-                                        hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300
+                                        hover:text-gray-400 focus:z-10 focus:outline-hidden focus:border-blue-300
                                         focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition
                                         ease-in-out duration-150"
                                         aria-label="{{ __('pagination.previous') }}">
@@ -153,7 +153,7 @@
                                                     class="relative inline-flex items-center px-4
                                                     py-2 -ml-px text-sm font-medium text-gray-700
                                                     bg-white border border-gray-300 leading-5
-                                                    hover:text-gray-500 focus:z-10 focus:outline-none
+                                                    hover:text-gray-500 focus:z-10 focus:outline-hidden
                                                     dark:bg-gray-900 dark:border-gray-100 dark:text-white
                                                     focus:border-blue-300 focus:shadow-outline-blue
                                                     active:bg-gray-100 active:text-gray-700 transition
@@ -176,7 +176,7 @@
                                         rel="next"
                                         class="relative inline-flex items-center px-2 py-2 -ml-px text-sm
                                         font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md
-                                        leading-5 hover:text-gray-400 focus:z-10 focus:outline-none
+                                        leading-5 hover:text-gray-400 focus:z-10 focus:outline-hidden
                                         dark:bg-gray-900 dark:border-gray-100 dark:text-white
                                         focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100
                                         active:text-gray-500 transition ease-in-out duration-150"

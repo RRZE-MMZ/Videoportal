@@ -17,8 +17,8 @@
                                 <a href="{{ $url }}"
                                    class="video-link flex items-center px-3 py-1 sm:px-4 sm:py-2 bg-blue-800 border border-transparent rounded-md
                                     font-semibold text-xs sm:text-sm text-white uppercase tracking-widest
-                                    hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900
-                                    focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                    hover:bg-blue-700 active:bg-blue-900 focus:outline-hidden focus:border-blue-900
+                                    focus:ring-3 ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                    title="{{ __('clip.frontend.show.' . $type . ' video stream') }}">
                                     @if($type === 'presenter')
                                         <x-iconoir-video-camera class="w-5 sm:w-6 h-5 sm:h-6" />
@@ -76,8 +76,8 @@
                    x-on:click="open = ! open"
                    class="flex items-center px-3 sm:px-4 py-1 sm:py-2 bg-blue-800 border border-transparent rounded-md
                     font-semibold text-xs sm:text-sm text-white uppercase tracking-widest
-                    hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900
-                    focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    hover:bg-blue-700 active:bg-blue-900 focus:outline-hidden focus:border-blue-900
+                    focus:ring-3 ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                     Feeds
                     <x-heroicon-o-rss class="ml-2 sm:ml-4 h-4 sm:h-5 w-4 sm:w-5 fill-white" />
                 </a>
@@ -106,7 +106,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 text-center">
             @if ($clip->series_id)
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-iconoir-graduation-cap class="h-6 w-6 flex-shrink-0" />
+                    <x-iconoir-graduation-cap class="h-6 w-6 shrink-0" />
                     <a href="{{ route('frontend.series.show', $clip->series) }}">
                         {{ $clip->series->title }}
                     </a>
@@ -114,12 +114,12 @@
             @endif
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-iconoir-community class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-community class="h-6 w-6 shrink-0" />
                 <span>{{ $clip->presenters->pluck('full_name')->implode(', ') }}</span>
             </div>
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-iconoir-card-lock class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-card-lock class="h-6 w-6 shrink-0" />
                 <div class="pr-2">
                     {{ ($clip->acls->isEmpty()) ? Acl::PUBLIC->lower() : $clip->acls->pluck('name')->implode(',') }}
                 </div>
@@ -138,23 +138,23 @@
 
             @if($clip->is_livestream)
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-iconoir-play class="h-6 w-6 flex-shrink-0" />
+                    <x-iconoir-play class="h-6 w-6 shrink-0" />
                     <span>LIVESTREAM</span>
                 </div>
             @else
                 <div class="flex items-center justify-start lg:justify-center space-x-2">
-                    <x-iconoir-timer class="h-6 w-6 flex-shrink-0" />
+                    <x-iconoir-timer class="h-6 w-6 shrink-0" />
                     <span>{{ $clip->assets()->first()->durationToHours() }} Min</span>
                 </div>
             @endif
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-iconoir-calendar class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-calendar class="h-6 w-6 shrink-0" />
                 <span>{{ $clip->created_at->format('Y-m-d') }}</span>
             </div>
 
             <div class="flex items-center justify-start lg:justify-center space-x-2">
-                <x-iconoir-upload-data-window class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-upload-data-window class="h-6 w-6 shrink-0" />
                 <span>{{ $clip->assets->first()?->updated_at }}</span>
             </div>
 

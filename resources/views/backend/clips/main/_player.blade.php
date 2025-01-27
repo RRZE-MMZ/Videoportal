@@ -243,8 +243,8 @@
                                                 <a href="{{$url}}"
                                                    class="video-link w-full flex px-4 py-2 bg-blue-800 border border-transparent rounded-md
                     font-semibold text-xs text-white uppercase tracking-widest
-                    hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900
-                    focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 items-center"
+                    hover:bg-blue-700 active:bg-blue-900 focus:outline-hidden focus:border-blue-900
+                    focus:ring-3 ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 items-center"
                                                    title="composite video stream">
                                                     <x-heroicon-o-view-columns class="w-6 h-6 fill-white" />
                                                     <div class="pl-2">
@@ -256,8 +256,8 @@
                                                 <a href="{{$url}}"
                                                    class="video-link flex px-4 py-2 bg-blue-800 border border-transparent rounded-md
                     font-semibold text-xs text-white uppercase tracking-widest
-                    hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900
-                    focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 items-center"
+                    hover:bg-blue-700 active:bg-blue-900 focus:outline-hidden focus:border-blue-900
+                    focus:ring-3 ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 items-center"
                                                    title="presenter video stream place-items-center">
                                                     <x-heroicon-o-user class="w-6 h-6 fill-white" />
                                                     <div class="pl-2">
@@ -269,8 +269,8 @@
                                                 <a href="{{$url}}"
                                                    class="video-link flex px-4 py-2 bg-blue-800 border border-transparent
                                            rounded-md font-semibold text-xs text-white uppercase tracking-widest
-                                           hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900
-                                           focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out
+                                           hover:bg-blue-700 active:bg-blue-900 focus:outline-hidden focus:border-blue-900
+                                           focus:ring-3 ring-gray-300 disabled:opacity-25 transition ease-in-out
                                            duration-150 items-center"
                                                    title="presentation video stream">
                                                     <x-heroicon-o-computer-desktop class="w-6 h-6 fill-white" />

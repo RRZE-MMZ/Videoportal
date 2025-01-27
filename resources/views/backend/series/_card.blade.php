@@ -11,7 +11,7 @@
     $latestAsset = $series->lastPublicClip?->latestAsset();
 @endphp
 <div class="relative my-2 bg-gray-50 dark:bg-slate-800 rounded-md dark:border-white font-normal">
-    <div class="relative h-15 overflow-hidden">
+    <div class="relative overflow-hidden">
         <a href="{{ $url }}">
             <img
                     src="{{ ($series->lastPublicClip)
@@ -21,8 +21,8 @@
                     class="object-cover w-full h-full" />
         </a>
         <div
-                class="absolute w-full py-2.5 bottom-0 inset-x-0 bg-blue-600  text-white
-                    text-xs text-right pr-2 pb-2 leading-4 ">
+                class="absolute bottom-0 inset-x-0 bg-blue-600 text-white
+            text-xs text-right pr-2 pb-2 leading-4 py-2.5">
             {{ $latestAsset?->durationToHours() }}
         </div>
     </div>

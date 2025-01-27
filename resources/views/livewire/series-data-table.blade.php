@@ -12,7 +12,7 @@
                         <input wire:model.live="search"
                                id="search"
                                class="block w-full pl-10 pr-3 py-2 my-2 border border-gray-300 rounded-md leading-5
-                                            bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400
+                                            bg-white placeholder-gray-500 focus:outline-hidden focus:placeholder-gray-400
                                             dark:placeholder-gray-800 dark:bg-white dark:text-gray-900
                                             focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition
                                             duration-150 ease-in-out"
@@ -49,7 +49,7 @@
 
             </div>
 
-            <div class="mt-4 overflow-hidden shadow">
+            <div class="mt-4 overflow-hidden shadow-sm">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                     <tr>
@@ -148,7 +148,7 @@
                         <tr class="text-sm leading-5 text-gray-900 dark:text-white ">
                             <td class="w-4/12 px-6 py-4 whitespace-no-wrap  ">
                                 <div class="flex items-center">
-                                    <div class="h-12 w-24 flex-shrink-0">
+                                    <div class="h-12 w-24 shrink-0">
                                         <img class="h-12 w-24 "
                                              src="{{ ($singleSeries->lastPublicClip)
                                             ? fetchClipPoster($singleSeries->lastPublicClip?->latestAsset()?->player_preview)

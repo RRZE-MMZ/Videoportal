@@ -1,13 +1,13 @@
 @use(App\Enums\Role)
 
 <aside class="w-full sm:w-64" aria-label="Sidebar">
-    <div class="overflow-y-auto rounded bg-gray-50 dark:bg-sky-950 text-dark dark:text-gray-200 px-4 sm:px-3 py-4">
+    <div class="overflow-y-auto rounded-sm bg-gray-50 dark:bg-sky-950 text-dark dark:text-gray-200 px-4 sm:px-3 py-4">
         <ul class="space-y-2 list-none">
             <li>
                 <a href="{{ route('frontend.userSettings.edit') }}"
                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg
                           dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <x-heroicon-o-adjustments-horizontal class="flex-shrink-0 w-5 sm:w-6 h-5 sm:h-6 text-gray-500
+                    <x-heroicon-o-adjustments-horizontal class="shrink-0 w-5 sm:w-6 h-5 sm:h-6 text-gray-500
                           transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                     <span class="ml-2 sm:ml-3 flex-1 whitespace-nowrap">
                         {{ __('myPortal._sidebar_menu.Portal settings') }}
@@ -29,7 +29,7 @@
                 <a href="{{ route('frontend.user.comments') }}"
                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg
                           dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <x-heroicon-o-chat-bubble-oval-left class="flex-shrink-0 w-5 sm:w-6 h-5 sm:h-6 text-gray-500
+                    <x-heroicon-o-chat-bubble-oval-left class="shrink-0 w-5 sm:w-6 h-5 sm:h-6 text-gray-500
                           transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                     <span class="ml-2 sm:ml-3 flex-1 whitespace-nowrap">
                         {{ __('myPortal._sidebar_menu.Comments') }}

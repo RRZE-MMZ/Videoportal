@@ -7,7 +7,7 @@
             </h3>
         </div>
         <div>
-            <x-heroicon-o-check-circle class="h-6 w-6 rounded text-green-600" />
+            <x-heroicon-o-check-circle class="h-6 w-6 rounded-sm text-green-600" />
         </div>
     </div>
     <div class="flex items-center space-x-2 dark:text-white">

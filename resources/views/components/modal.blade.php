@@ -6,8 +6,8 @@
      style="display:none"
 >
     <div
-        class="absolute inset-0 m-auto h-64 max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg
-        xl:max-w-screen-xl 2xl:max-w-screen-2xl rounded-md bg-white p-4 shadow-md dark:bg-slate-800">
+        class="absolute inset-0 m-auto h-64 max-w-full sm:max-w-(--breakpoint-sm) md:max-w-(--breakpoint-md) lg:max-w-(--breakpoint-lg)
+        xl:max-w-(--breakpoint-xl) 2xl:max-w-(--breakpoint-2xl) rounded-md bg-white p-4 shadow-md dark:bg-slate-800">
         <div class="flex h-full flex-col justify-between">
             <header class="flex justify-center">
                 <h3 class="text-center text-lg font-bold dark:text-white">

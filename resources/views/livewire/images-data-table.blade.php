@@ -11,7 +11,7 @@
                         <input wire:model.live="search"
                                id="search"
                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5
-                                            bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400
+                                            bg-white placeholder-gray-500 focus:outline-hidden focus:placeholder-gray-400
                                             focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition
                                             duration-150 ease-in-out"
                                placeholder="Search" type="search">
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="mt-4 overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+            <div class="mt-4 overflow-hidden border-b border-gray-200 shadow-sm sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                     <tr>
@@ -124,7 +124,7 @@
                         <tr class="text-sm leading-5  dark:text-white ">
                             <td class="w-1/12 px-6 py-4 whitespace-no-wrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0">
+                                    <div class="shrink-0">
                                         <img class="h-20 rounded-[21px]"
                                              src="{{ URL::asset('/images/'.$image->file_name) }}"
                                              alt="{{ $image->description }}">

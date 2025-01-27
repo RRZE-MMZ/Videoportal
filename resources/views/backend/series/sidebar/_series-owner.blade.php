@@ -28,7 +28,7 @@
                         <label>
                             <select
                                     class="p-2 w-full select2-tides-users
-                                        focus:outline-none focus:bg-white focus:border-blue-500 "
+                                        focus:outline-hidden focus:bg-white focus:border-blue-500 "
                                     name="userID"
                                     style="width: 100%"
                             >

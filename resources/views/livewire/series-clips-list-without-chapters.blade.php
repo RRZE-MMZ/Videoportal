@@ -129,7 +129,7 @@
                         @else
                             <form method="GET" action="{{ route('frontend.clips.show', $clip) }}">
                                 <button type="submit"
-                                        class="focus:outline-none text-white text-sm py-1.5 px-5 rounded-md
+                                        class="focus:outline-hidden text-white text-sm py-1.5 px-5 rounded-md
                                             bg-blue-700 dark:bg-white hover:bg-blue-500 dark:hover:bg-gray-600
                                             hover:shadow-lg"
                                 >
@@ -141,7 +141,7 @@
                 </li>
             @empty
                 <div class="grid place-items-center">
-                    <div class="mb-4 w-full rounded bg-gray-200 dark:bg-slate-800 p-5 text-center text-2xl dark:text-white">
+                    <div class="mb-4 w-full rounded-sm bg-gray-200 dark:bg-slate-800 p-5 text-center text-2xl dark:text-white">
                         {{ __('series.common.no clips') }} for search term {{ $search }}
                     </div>
                 </div>

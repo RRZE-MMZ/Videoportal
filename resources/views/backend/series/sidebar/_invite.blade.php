@@ -15,7 +15,7 @@
 
         <div class="w-full pb-6">
             <select
-                    class="w-full p-2 select2-tides-users focus:border-blue-500 dark:bg-gray-200 focus:bg-white focus:outline-none"
+                    class="w-full p-2 select2-tides-users focus:border-blue-500 dark:bg-gray-200 focus:bg-white focus:outline-hidden"
                     name="userID"
                     style="width: 100%"
             >
