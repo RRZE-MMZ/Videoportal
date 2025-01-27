@@ -89,7 +89,7 @@
                     <x-heroicon-o-user @click="isOpen = !isOpen"
                                        class="relative w-8 h-8 rounded-full overflow-hidden border-2 border-gray-400
                                             hover:border-gray-300 focus:border-gray-300
-                                            focus:outline-none dark:text-white"
+                                            focus:outline-hidden dark:text-white"
                     />
                 @endif
 
@@ -128,7 +128,7 @@
         <header x-data="{ isOpen: false }" class="w-full px-6 py-5 bg-sidebar sm:hidden">
             {{--            <div class="flex items-center justify-between">--}}
             {{--                <a href="index.html" class="text-3xl font-semibold uppercase text-white hover:text-gray-300">Admin</a>--}}
-            {{--                <button @click="isOpen = !isOpen" class="text-3xl text-white focus:outline-none">--}}
+            {{--                <button @click="isOpen = !isOpen" class="text-3xl text-white focus:outline-hidden">--}}
             {{--                    <svg xmlns="http://www.w3.org/2000/svg"--}}
             {{--                         fill="none"--}}
             {{--                         viewBox="0 0 24 24"--}}
@@ -197,7 +197,7 @@
         </header>
 
         <div class="flex h-screen w-full flex-col overflow-x-hidden">
-            <main class="w-full flex-grow px-3 py-2 font-light bg-gray-100 dark:bg-gray-900">
+            <main class="w-full grow px-3 py-2 font-light bg-gray-100 dark:bg-gray-900">
                 <div class="pb-6 text-3xl text-black">
                     @if(Session::has('flashMessage'))
                         <x-alerts.flash-alert :message="Session::get('flashMessage', 'default')" />

@@ -2,7 +2,7 @@
     <tr class="text-sm leading-5 dark:text-white font-normal ">
         <td class="w-4/12 px-6 py-4 whitespace-no-wrap">
             <div class="flex items-center">
-                <div class="h-12 w-24 flex-shrink-0">
+                <div class="h-12 w-24 shrink-0">
                     <img class="h-12 w-24 "
                          src="{{ $series['_source']['poster'] }}" alt="">
                 </div>

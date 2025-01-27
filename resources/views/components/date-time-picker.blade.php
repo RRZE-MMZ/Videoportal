@@ -21,7 +21,7 @@
                         ></label>
                         <input type="checkbox" id="has_time_availability" name="has_time_availability"
                                @click="showPicker = !showPicker" class="mb-1 h-full w-full rounded-full bg-none
-                            focus:outline-none active:outline-none" x-model="checked">
+                            focus:outline-hidden active:outline-hidden" x-model="checked">
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <div class="col-start-2 col-end-8">
                         <input type="datetime-local" id="{{ $name }}_start" name="{{ $name }}_start" x-model="start"
                                class="py-2 px-4 w-1/2 leading-tight text-gray-700 bg-white rounded border-2
-                                            border-gray-200 appearance-none focus:outline-none focus:bg-white
+                                            border-gray-200 appearance-none focus:outline-hidden focus:bg-white
                                             focus:border-blue-500">
                     </div>
                     @error("{$name}_start")
@@ -64,7 +64,7 @@
                     <div class="col-start-2 col-end-8">
                         <input type="datetime-local" id="{{ $name }}_end" name="{{ $name }}_end" x-model="end"
                                class="py-2 px-4 w-1/2 leading-tight text-gray-700 bg-white rounded border-2
-                                            border-gray-200 appearance-none focus:outline-none focus:bg-white
+                                            border-gray-200 appearance-none focus:outline-hidden focus:bg-white
                                             focus:border-blue-500">
                     </div>
                     @error("{$name}_end")

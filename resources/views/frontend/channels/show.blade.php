@@ -29,7 +29,7 @@
         </div>
         <div>
             <figure class="md:flex bg-slate-100 rounded-xl p-8  md:p-0 dark:bg-slate-800">
-                <img class="w-24 h-24 rounded-sm mx-auto mt-10"
+                <img class="w-24 h-24 rounded-xs mx-auto mt-10"
                      src="@if(!is_null($channel->owner->presenter))
                                              {{ $channel->owner->presenter->getImageUrl() }}
                                              @else/images/DummyMann.png>

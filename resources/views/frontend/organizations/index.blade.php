@@ -23,7 +23,7 @@
                         </div>
                     </a>
                 @empty
-                    <li class="my-2 w-full rounded bg-white p-4 text-center dark:text-white">
+                    <li class="my-2 w-full rounded-sm bg-white p-4 text-center dark:text-white">
                         {{ __('organization.index.No organizations found') }}
                     </li>
                 @endforelse

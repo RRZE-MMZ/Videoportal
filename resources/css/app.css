@@ -1,14 +1,33 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
 
-@import '../../node_modules/select2/dist/css/select2.css';
-@import '../../node_modules/pikaday/css/pikaday.css';
-@import 'filepond/dist/filepond.min.css';
-@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-@import 'vidstack/player/styles/default/theme.css';
-@import 'vidstack/player/styles/default/layouts/video.css';
-@import 'vidstack/player/styles/default/layouts/audio.css';
+@import '../../node_modules/select2/dist/css/select2.css' layer(utilities);
+@import '../../node_modules/pikaday/css/pikaday.css' layer(utilities);
+@import 'filepond/dist/filepond.min.css' layer(utilities);
+@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+  layer(utilities);
+@import 'vidstack/player/styles/default/theme.css' layer(utilities);
+@import 'vidstack/player/styles/default/layouts/video.css' layer(utilities);
+@import 'vidstack/player/styles/default/layouts/audio.css' layer(utilities);
+
+@config '../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 /*Dark mode switcher smooth transition*/
 [x-cloak] {
@@ -20,31 +39,31 @@
 }
 
 .select2-search {
-  @apply rounded  border;
+  @apply rounded-sm  border;
 }
 
 .select2-search__ * {
-  @apply w-full border-none !important;
+  @apply w-full! border-none!;
 }
 
 .select2-search--inline {
-  @apply border-none !important;
+  @apply border-none!;
 }
 
 .select2-selection--single {
-  @apply h-10 !important;
-  @apply align-middle !important;
-  @apply py-1 !important;
+  @apply h-10!;
+  @apply align-middle!;
+  @apply py-1!;
 }
 
 .select2-selection__arrow {
-  @apply my-1 !important;
+  @apply my-1!;
 }
 
 .select2-search__field {
-  @apply h-8 !important;
-  @apply align-middle !important;
-  @apply py-1 !important;
+  @apply h-8!;
+  @apply align-middle!;
+  @apply py-1!;
 }
 
 /*.select2-selection__choice {*/

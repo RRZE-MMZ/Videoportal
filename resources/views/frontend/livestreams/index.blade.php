@@ -17,7 +17,7 @@
             @endphp
             @if($publicLivestreams->count() > 0)
                 <div class="flex items-center border-b-2 border-black dark:border-white pb-2">
-                    <div class="flex-grow">
+                    <div class="grow">
                         <h2 class="text-2xl font-bold dark:text-white">
                             {{__('livestream.frontend.public livestreams available')}}
                         </h2>
@@ -26,7 +26,7 @@
                 <ul class="flex-row">
                     <div class="grid grid-cols-4 gap-4">
                         @foreach ($publicLivestreams as $livestream)
-                            <li class="my-2 w-full rounded bg-white dark:bg-gray-900 p-4">
+                            <li class="my-2 w-full rounded-sm bg-white dark:bg-gray-900 p-4">
                                 @include('backend.clips._card',['clip'=> $livestream->clip])
                             </li>
                         @endforeach
@@ -36,7 +36,7 @@
             @if($hiddenLivestreams->count() > 0)
                 @can('administrate-assistant-pages')
                     <div class="flex items-center border-b-2 border-black dark:border-white pt-10 pb-2 ">
-                        <div class="flex-grow">
+                        <div class="grow">
                             <h2 class="text-2xl font-bold dark:text-white">
                                 {{ __('livestream.frontend.hidden livestreams') }}
                             </h2>

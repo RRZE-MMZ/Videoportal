@@ -20,7 +20,7 @@
                  @endif
                  alt="avatar">
 
-            <div class="ml-4 flex-grow">
+            <div class="ml-4 grow">
                 <div class="flex items-center">
                     <div class="dark:text-white"> You</div>
                     <div class="ml-2 text-sm italic dark:text-white">{{ $comment->created_at->diffForHumans() }}</div>

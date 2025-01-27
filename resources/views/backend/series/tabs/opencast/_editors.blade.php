@@ -110,7 +110,7 @@
                     @cannot('administrate-admin-portal-pages')
                         disabled
                     @endcannot
-                    class="mr-4 rounded-md text-md focus:border-blue-500 focus:bg-white focus:outline-none">
+                    class="mr-4 rounded-md text-md focus:border-blue-500 focus:bg-white focus:outline-hidden">
                 @foreach($availableAssistants as $user)
                     <option value="{{$user->username}}">{{ $user->getFullNameAttribute() }}</option>
                 @endforeach

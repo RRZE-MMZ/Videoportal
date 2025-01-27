@@ -7,8 +7,8 @@
             @include('frontend.search._searchbar')
         </div>
         <section class="dark:bg-gray-900">
-            <div class="py-4 sm:py-6 px-4 sm:px-6 mx-auto max-w-screen-xl lg:py-16 lg:px-8">
-                <div class="mx-auto max-w-screen-lg text-center mb-6 sm:mb-8 lg:mb-16">
+            <div class="py-4 sm:py-6 px-4 sm:px-6 mx-auto max-w-(--breakpoint-xl) lg:py-16 lg:px-8">
+                <div class="mx-auto max-w-(--breakpoint-lg) text-center mb-6 sm:mb-8 lg:mb-16">
                     <h2 class="mb-3 text-2xl sm:text-3xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                         {{ __('podcast.frontend.jumbotron heading') }}
                     </h2>

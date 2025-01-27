@@ -184,7 +184,7 @@
                 </li>
             @empty
                 <div class="grid place-items-center">
-                    <div class="mb-4 w-full rounded bg-gray-200 dark:bg-slate-800 p-5 text-center text-2xl dark:text-white">
+                    <div class="mb-4 w-full rounded-sm bg-gray-200 dark:bg-slate-800 p-5 text-center text-2xl dark:text-white">
                         {{ __('series.common.no clips') }}
                     </div>
                 </div>

@@ -7,7 +7,7 @@
             @include('frontend.clips._article_section')
         @endif
         <div class="flex flex-col sm:flex-row items-center border-b-2 border-black pb-2 dark:border-white">
-            <div class="flex-grow mb-2 sm:mb-0">
+            <div class="grow mb-2 sm:mb-0">
                 <h2 id="clip-title"
                     class="text-xl sm:text-2xl font-bold dark:text-white text-center sm:text-left"
                 >

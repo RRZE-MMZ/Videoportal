@@ -1,13 +1,13 @@
-<div class="flex justify-center rounded">
+<div class="flex justify-center rounded-sm">
     <form method="GET" action="{{ route('search') }}" class="w-full px-4 sm:px-0 lg:w-3/5">
         <div class="p-4">
-            <div class="flex flex-col items-center rounded bg-gray-50 dark:bg-slate-800 dark:border-white shadow-xl">
+            <div class="flex flex-col items-center rounded-sm bg-gray-50 dark:bg-slate-800 dark:border-white shadow-xl">
                 <!-- Input Field -->
                 <div class="flex w-full p-2 mt-4">
                     <div class="grow pr-10">
                         <input class="py-2 px-4 w-full leading-tight text-gray-700 dark:text-white
                                  rounded-full dark:placeholder-white dark:focus:border-white
-                                 focus:outline-none dark:bg-slate-900 mb-4"
+                                 focus:outline-hidden dark:bg-slate-900 mb-4"
                                id="term"
                                type="text"
                                name="term"
@@ -18,7 +18,7 @@
                         <!-- Search Button -->
                         <div class="flex justify-center">
                             <button class="flex justify-center items-center p-2 w-10 h-10 text-white bg-gray-600
-                                        rounded-full hover:bg-gray-500 focus:outline-none"
+                                        rounded-full hover:bg-gray-500 focus:outline-hidden"
                                     type="submit">
                                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">

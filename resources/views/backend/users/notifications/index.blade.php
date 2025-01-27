@@ -14,7 +14,7 @@
         <form action="{{ route('user.notifications.delete') }}" method="POST">
             @csrf
             @method('DELETE')
-            <div class="mt-4 overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+            <div class="mt-4 overflow-hidden border-b border-gray-200 shadow-sm sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                     <tr>
@@ -91,8 +91,8 @@
                                     <button type="submit"
                                             class="inline-flex items-center px-4 py-2  border bg-red-500
                                                     hover:bg-red-700 border-transparent rounded-md font-medium text-base
-                                                     text-white tracking-wider active:bg-white-900 focus:outline-none
-                                                    focus:border-white-900 focus:ring ring-gray-300 disabled:opacity-25
+                                                     text-white tracking-wider active:bg-white-900 focus:outline-hidden
+                                                    focus:border-white-900 focus:ring-3 ring-gray-300 disabled:opacity-25
                                                     transition ease-in-out duration-150"
                                             formaction="{{ route('user.notifications.delete', [
                                                 'selected_notifications' => [$notification->id]]) }}">
@@ -131,7 +131,7 @@
         </form>
     @else
         <div class="flex justify-center text-center">
-            <div class="mt-4 w-full overflow-hidden border-gray-200 p-4 text-xl shadow dark:text-white">
+            <div class="mt-4 w-full overflow-hidden border-gray-200 p-4 text-xl shadow-sm dark:text-white">
                 You have no notifications
             </div>
         </div>

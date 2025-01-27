@@ -42,8 +42,8 @@
                        x-on:click="open = !open"
                        class="flex px-4 py-2 bg-blue-800 border border-transparent rounded-md
                             font-semibold text-xs text-white uppercase tracking-widest
-                            hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900
-                            focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            hover:bg-blue-700 active:bg-blue-900 focus:outline-hidden focus:border-blue-900
+                            focus:ring-3 ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                         Feeds
                         <x-heroicon-o-rss class="ml-4 h-4 w-4 fill-white" />
                     </a>
@@ -91,7 +91,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 border-b-2 border-gray-500 py-4 my-4 gap-4">
             <div class="flex items-center align-middle">
-                <x-iconoir-calendar class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-calendar class="h-6 w-6 shrink-0" />
                 <span class="pl-3">
             {{ $series->fetchClipsSemester() }}
         </span>
@@ -99,7 +99,7 @@
 
             @if($series->presenters->isNotEmpty())
                 <div class="flex items-center align-middle">
-                    <x-iconoir-user-badge-check class="h-6 w-6 flex-shrink-0" />
+                    <x-iconoir-user-badge-check class="h-6 w-6 shrink-0" />
                     <span class="pl-3">
                 {{ $series->presenters->map(function ($presenter) {
                     return $presenter->getFullNameAttribute();
@@ -109,19 +109,19 @@
             @endif
 
             <div class="flex items-center align-middle">
-                <x-iconoir-card-lock class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-card-lock class="h-6 w-6 shrink-0" />
                 <span class="pl-3">
                 {{ $series->fetchClipsAcls() }}
                 </span>
             </div>
 
             <div class="flex items-center align-middle">
-                <x-iconoir-upload-square class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-upload-square class="h-6 w-6 shrink-0" />
                 <span class="pl-3"> {{ $series->latestClip?->updated_at }} </span>
             </div>
 
             <div class="flex items-center align-middle">
-                <x-iconoir-database-stats class="h-6 w-6 flex-shrink-0" />
+                <x-iconoir-database-stats class="h-6 w-6 shrink-0" />
                 <span class="pl-3"> {{ __('series.frontend.show.views', ['counter' => $series->views()]) }} </span>
             </div>
         </div>

@@ -11,7 +11,7 @@
         x-transition:leave-start="opacity-100 transform scale-100"
         x-transition:leave-end="opacity-0 transform scale-90"
         class="flex rounded-md bg-{{ ($messageType=='success')?'green':'red' }}-200 p-4 my-8">
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
                 <svg class="h-5 w-5 text-{{ ($messageType=='success')?'green':'red' }}-400"
                      viewBox="0 0 20 20"
                      fill="currentColor">
@@ -30,7 +30,7 @@
                 <div class="-mx-1.5 -my-1.5">
                     <button @click="show = false" type="button"
                             class="inline-flex rounded-md p-1.5 text-{{ ($messageType=='success')?'green':'red' }}-500
-                                    hover:bg-{{ ($messageType=='success')?'green':'red' }}-100 focus:outline-none
+                                    hover:bg-{{ ($messageType=='success')?'green':'red' }}-100 focus:outline-hidden
                                     focus:bg-{{ ($messageType=='success')?'green':'red' }}-100 transition
                                     ease-in-out duration-150"
                             aria-label="Dismiss"

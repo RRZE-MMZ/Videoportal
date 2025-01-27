@@ -31,7 +31,7 @@
 
     <footer class="bg-gray-100 dark:bg-sky-950">
         <div class="flex flex-col md:flex-row sm:flex-row justify-between items-center p-4 mx-auto
-        max-w-screen-xl text-dark dark:text-white">
+        max-w-(--breakpoint-xl) text-dark dark:text-white">
             <!-- Copyright Text -->
             <div class="w-full md:w-auto sm:w-auto mb-2 sm:mb-0 text-center md:text-left sm:text-left
             whitespace-nowrap text-wrap sm:italic">

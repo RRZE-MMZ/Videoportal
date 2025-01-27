@@ -10,7 +10,7 @@
     <div class=" flex-row w-full">
         <div class="w-full">
             <select name="ids[]"
-                    class="select2-tides px-4 py-4 h-4 w-full focus:outline-none focus:bg-white focus:border-blue-500"
+                    class="select2-tides px-4 py-4 h-4 w-full focus:outline-hidden focus:bg-white focus:border-blue-500"
                     multiple
                     style="width:100%">
                 @foreach ($series->clipsWithoutChapter($chapter) as $clip)

@@ -3,7 +3,7 @@
 @section('content')
 
     <section class="bg-white dark:bg-slate-600">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+        <div class="py-8 px-4 mx-auto max-w-(--breakpoint-xl) text-center lg:py-16">
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl
                 lg:text-6xl dark:text-white">
                 {{ __('homepage.jumbotron heading') }}
@@ -169,7 +169,7 @@
         <ul class="flex-row">
             <div class="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-8">
                 @forelse($clips as $clip)
-                    <li class="my-2 w-full rounded bg-white dark:bg-gray-900 p-4">
+                    <li class="my-2 w-full rounded-sm bg-white dark:bg-gray-900 p-4">
                         @include('backend.clips._card',[
                                 'clip'=> $clip,
                                 'route' => 'admin'
