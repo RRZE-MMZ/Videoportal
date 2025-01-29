@@ -61,7 +61,10 @@ class UsersController extends Controller
      */
     public function edit(User $user): View
     {
-        return view('backend.users.edit', compact('user'));
+        $userSeriesCounter = $user->series()->count();
+        $userClipsCounter = $user->clips()->Single()->count();
+
+        return view('backend.users.edit', compact('user', 'userSeriesCounter', 'userClipsCounter'));
     }
 
     /**

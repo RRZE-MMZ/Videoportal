@@ -75,7 +75,6 @@
                             Back to users list
                         </x-button>
                     </a>
-
                 </div>
             </div>
         </form>
@@ -85,7 +84,6 @@
             @include('backend.users.sidebar._presenter')
         </div>
     </div>
-
 
     @if(isset($user->settings->data['admin_portal_application_status']))
         @if($user->settings->data['admin_portal_application_status'] === ApplicationStatus::IN_PROGRESS())
@@ -128,5 +126,26 @@
                 </div>
             </div>
         @endif
+    @endif
+
+    @if($userSeriesCounter > 0)
+        <div class="flex border-b border-black text-lg flex-col dark:text-white dark:border-white font-normal
+    py-4 my-4">
+            <div class="flex w-full items-center">
+                {{ $user->getFullNameAttribute() }} owned {{ $userSeriesCounter.' '.__('common.menu.series') }}
+            </div>
+        </div>
+
+        @livewire('user-series-data-table',['user' => $user])
+    @endif
+    @if($userClipsCounter > 0)
+        <div class="flex border-b border-black text-lg flex-col dark:text-white dark:border-white font-normal
+    py-4 mt-4 pt-10">
+            <div class="flex w-full items-center">
+                {{ $user->getFullNameAttribute() }} owned clips
+            </div>
+        </div>
+
+        @livewire('user-clips-data-table',['user' => $user])
     @endif
 @endsection
