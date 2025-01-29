@@ -38,6 +38,7 @@ use App\Http\Controllers\Backend\UpdateSeriesImage;
 use App\Http\Controllers\Backend\UploadImageController;
 use App\Http\Controllers\Backend\UserNotificationsController;
 use App\Http\Controllers\Backend\UsersController;
+use App\Http\Controllers\Backend\UsersRevokeMultipleObjectsOwnership;
 use App\Http\Controllers\Backend\VideoWorkflowSettingsController;
 use App\Http\Controllers\Frontend\AcceptUseTermsController;
 use App\Http\Controllers\Frontend\AdminPortalUseTermsController;
@@ -56,7 +57,6 @@ use App\Http\Controllers\Frontend\UserApplicationsController;
 use App\Http\Controllers\Frontend\UserCommentsController;
 use App\Http\Controllers\Frontend\UserSettingsController;
 use App\Http\Controllers\Frontend\UserSubscriptionsController;
-use App\Mail\NewLocalUserCreated;
 use App\Models\Activity;
 use App\Models\Article;
 use App\Models\Clip;
@@ -72,12 +72,6 @@ Route::get('/reset-password/{token}', [PasswordResetController::class, 'showRese
     ->name('password.reset');
 Route::redirect('/home', '/');
 Route::redirect('/admin', '/admin/dashboard');
-
-Route::get('/mailable', function () {
-    $user = App\Models\User::search('local.fxm3ze')->first();
-
-    return new NewLocalUserCreated($user, token: 'test');
-});
 
 // Quick __invoke
 Route::get('/search', ShowSearchResultsController::class)->name('search');
@@ -363,6 +357,13 @@ Route::prefix('admin')->middleware(['auth', 'saml', 'can:access-dashboard'])->gr
     // Portal admin resources (portal assistants are not included)
     Route::middleware(['user.admin'])->group(function () {
         Route::resource('users', UsersController::class)->except(['show']);
+
+        Route::post('/users/{user}/revokeMultipleSeriesOwnerShip', [
+            UsersRevokeMultipleObjectsOwnership::class, 'series',
+        ])->name('users.revokeMultipleSeriesOwnerShip');
+        Route::post('/users/{user}/revokeMultipleClipsOwnerShip', [
+            UsersRevokeMultipleObjectsOwnership::class, 'clips',
+        ])->name('users.revokeMultipleClipsOwnerShip');
 
         // Collections administration
         Route::resource('collections', CollectionsController::class)->except(['show']);

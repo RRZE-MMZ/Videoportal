@@ -178,7 +178,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:bg-slate-800 ">
                     @forelse ($clips as $clip)
-                        <tr class="text-sm leading-5 text-gray-900 dark:text-white ">
+                        <tr class="text-lg leading-5 text-gray-900 dark:text-white ">
                             <td class="w-4/12 px-6 py-4 whitespace-no-wrap">
                                 <div class="flex items-center">
                                     <div class="h-12 w-24 shrink-0">

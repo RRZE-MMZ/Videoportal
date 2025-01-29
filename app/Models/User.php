@@ -10,6 +10,7 @@ use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -70,6 +71,16 @@ class User extends Authenticatable
         'logged_in_at' => 'datetime:Y-m-d H:i:s',
         'last_visit_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function resolveRouteBinding($value, $field = null): ?Model
+    {
+        return $this->where('username', $value)->firstOrFail();
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'username';
+    }
 
     /**
      * Get the user's full name.
