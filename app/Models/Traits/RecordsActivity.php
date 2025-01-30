@@ -20,23 +20,46 @@ trait RecordsActivity
 
     public static function bootRecordsActivity(): void
     {
+        static::created(function ($model) {
+            // pass a non-empty `after` so it doesn't get skipped
+            $model->recordActivity(
+                $model->activityDescription('created'),
+                [
+                    'before' => [],
+                    'after' => $model->getAttributes(),
+                ]
+            );
+        });
+
+        static::deleted(function ($model) {
+            // We consider "before" as the model’s attributes that got deleted
+            $model->recordActivity(
+                $model->activityDescription('deleted'),
+                [
+                    'before' => $model->getOriginal(),
+                    'after' => [],
+                ]
+            );
+        });
+
+        // handle the other events (updated, deleted, etc.)
         foreach (self::recordableEvents() as $event) {
+            if ($event === 'created') {
+                // we already handled `created` above
+                continue;
+            }
+
             if ($event === 'updated') {
                 static::updating(function ($model) {
                     $model->oldAttributes = $model->getOriginal();
                 });
             }
-            static::$event(function ($model) use ($event) {
 
+            static::$event(function ($model) use ($event) {
                 $attributes = ($event === 'updated')
-                    ? [
-                        'before' => '',
-                        'after' => '',
-                    ]
-                    : [
-                        'before' => '',
-                        'after' => $model->getOriginal(),
-                    ];
+                    ? ['before' => '', 'after' => '']
+                    : ['before' => '', 'after' => $model->getOriginal()];
+
                 $model->recordActivity($model->activityDescription($event, $attributes));
             });
         }
@@ -52,6 +75,10 @@ trait RecordsActivity
         $user = (auth()->user()) ?? $this->owner;
         $changes = (empty($changes['before']) && empty($changes['after'])) ? $this->activityChanges() : $changes;
 
+        // do not record if nothing changed
+        if (empty($changes['before']) && empty($changes['after'])) {
+            return;
+        }
         if (! Cache::has('insert_smil_command')) {
             Activity::create([
                 'user_id' => ($user?->id) ?? 0,
@@ -70,7 +97,7 @@ trait RecordsActivity
         return Activity::where('object_id', $this->id)->where('content_type', lcfirst(class_basename(static::class)));
     }
 
-    protected function activityChanges(): array
+    public function activityChanges(): array
     {
         return ($this->wasChanged($this->checkedAttributes))
             ?
@@ -82,7 +109,7 @@ trait RecordsActivity
                     'updated_at', 'slug',
                 ]),
             ]
-            : ['before' => [''], 'after' => ['']];
+            : ['before' => [], 'after' => []];
     }
 
     protected function activityDescription($description): string

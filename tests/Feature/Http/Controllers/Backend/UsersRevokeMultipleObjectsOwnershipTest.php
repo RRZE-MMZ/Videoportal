@@ -154,3 +154,30 @@ it('notifies users on multiple clips ownership change', function () {
     Notification::assertSentTo($this->moderatorA, MassOwnershipRevoke::class);
     Notification::assertSentTo($this->moderatorB, MassOwnershipAssignment::class);
 });
+
+it('updates series activity on  series ownership change', function () {
+    [$seriesA, $seriesB] = Series::factory(2)->create(['owner_id' => $this->moderatorA->id]);
+    $clipA = Clip::factory()->create(['owner_id' => $this->moderatorA->id, 'series_id' => $seriesA->id]);
+    $this->signInRole(Role::SUPERADMIN);
+
+    expect($seriesA->activities()->count())->toBe(1);
+    post(route('users.revokeMultipleSeriesOwnerShip', $this->moderatorA), [
+        'series_ids' => json_encode([$seriesA->id, $seriesB->id]),
+        'userID' => $this->moderatorB->id,
+    ]);
+
+    expect($seriesA->activities()->count())->toBe(2);
+});
+
+it('updates clips activity on clips ownership change', function () {
+    [$clipA, $clipB] = Clip::factory(2)->create(['owner_id' => $this->moderatorA->id]);
+    $this->signInRole(Role::SUPERADMIN);
+
+    expect($clipA->activities()->count())->toBe(1);
+    post(route('users.revokeMultipleClipsOwnerShip', $this->moderatorA), [
+        'clip_ids' => json_encode([$clipA->id, $clipB->id]),
+        'userID' => $this->moderatorB->id,
+    ]);
+
+    expect($clipA->activities()->count())->toBe(2);
+});

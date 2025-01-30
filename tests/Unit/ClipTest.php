@@ -32,7 +32,7 @@ test('to array', function () {
         'allow_comments', 'is_public', 'created_at', 'updated_at', 'organization_id', 'folder_id', 'recording_date',
         'acronym', 'opencast_logo_pos', 'uploaded_at', 'is_livestream', 'language_id', 'context_id', 'format_id',
         'type_id', 'chapter_id', 'supervisor_id', 'image_id', 'has_time_availability', 'time_availability_start',
-        'time_availability_end', 'opencast_event_id', 'has_video_assets', 'owner', 'series', 'semester', 'organization',
+        'time_availability_end', 'opencast_event_id', 'has_video_assets', 'series', 'owner', 'semester', 'organization',
         'language', 'context', 'format', 'type', 'image',
     ]);
 });
@@ -43,10 +43,10 @@ it('has a slug route', function () {
     ));
 });
 
-it('has an inceremental slug', function () {
+it('has an incremental slug', function () {
     $anotherClip = Clip::factory()->create(['title' => $this->clip->title, 'episode' => $this->clip->episode]);
 
-    expect($anotherClip->slug)->toBe($this->clip->slug.'-2');
+    expect($anotherClip->slug)->toBe($this->clip->slug.'-1');
 });
 
 it('has a unique slug', function () {

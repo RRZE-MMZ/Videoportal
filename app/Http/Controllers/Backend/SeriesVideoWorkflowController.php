@@ -159,7 +159,12 @@ class SeriesVideoWorkflowController extends Controller
         // actually position is the themeID
         $opencastService->updateSeriesTheme($series, $validated['position']);
 
-        $series->recordActivity("Update Theme to : {$validated['faculty']} with ID:{$validated['position']}");
+        $description = "Update Theme to : {$validated['faculty']} with ID:{$validated['position']}";
+        $changes = [
+            'before' => [''],
+            'after' => [$validated['faculty'], $validated['position']],
+        ];
+        $series->recordActivity($description, $changes);
         session()->flash('flashMessage', 'Video workflow updated successfully');
 
         return to_route('series.edit', $series);

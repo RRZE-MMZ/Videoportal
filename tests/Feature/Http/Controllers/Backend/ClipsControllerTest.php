@@ -612,7 +612,7 @@ it('keeps the same slug if title is not changed', function () {
     ]);
     $clip->refresh();
 
-    expect($clip->slug)->toBe($assertedClipSlug->value);
+    expect($clip->slug)->toBe($assertedClipSlug);
 
 });
 

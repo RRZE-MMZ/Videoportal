@@ -1,4 +1,4 @@
-@if(str_contains(url()->current(), 'admin'))
+@if(request()->is('admin*'))
     @php
         $url = route('series.edit', $series)
     @endphp

@@ -1,4 +1,4 @@
-<div class="relative w-full py-8" x-data="{ isOpen: false }" @click.away="isOpen = false">
+<div class="w-full py-8" x-data="{ isOpen: false }" @click.away="isOpen = false">
     <!-- Search Input -->
     <input
             type="text"
@@ -14,8 +14,8 @@
     <!-- Dropdown Results -->
     @if (!empty($users))
         <ul
-                class="absolute w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg
-                max-h-92 overflow-y-auto z-10"
+                class="w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg
+                max-h-46 overflow-y-auto z-10"
                 x-show="isOpen"
                 x-cloak
         >
@@ -25,7 +25,9 @@
                         class="px-4 py-2 cursor-pointer hover:bg-blue-100 transition duration-150"
                         :class="{ 'bg-blue-200': {{ $index }} === $wire.activeIndex }"
                 >
-                    <span class="font-semibold text-gray-800">{{ $user->getFullNameAttribute() }}</span>
+                    <span class="font-semibold text-gray-800">
+                        {{ $user->getFullNameAttribute() }} [{{$user->username}}]
+                    </span>
                     <p class="text-sm text-gray-600">{{ $user->email }}</p>
                 </li>
             @endforeach

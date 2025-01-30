@@ -18,14 +18,17 @@ trait Accessable
      */
     public function addAcls(Collection $aclsCollection): void
     {
+        $existingACLS = $this->acls()->get()->pluck('id')->sort()->values();
+        $newACLS = $aclsCollection->sort()->values();
         if ($aclsCollection->isEmpty()) {
             $this->acls()->detach();
-            $this->recordActivity('All ACLs detached.');
+            // do not record if nothing changed
+            if ($existingACLS->diff($newACLS)->isNotEmpty()) {
+                $this->recordActivity('All ACLs detached.');
+            }
 
             return;
         }
-        $existingACLS = $this->acls()->get()->pluck('id')->sort()->values();
-        $newACLS = $aclsCollection->sort()->values();
         if (! $existingACLS->diff($newACLS)->isEmpty() || ! $newACLS->diff($existingACLS)->isEmpty()) {
             $this->acls()->sync($aclsCollection);
             $this->recordActivity('ACL changed! ', [

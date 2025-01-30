@@ -23,6 +23,10 @@ class UsersRevokeMultipleObjectsOwnership extends Controller
         $seriesCollection->each(function ($series) use ($newOwner) {
             $series->owner_id = $newOwner->id;
             $series->save();
+            $series->clips->each(function (Clip $clip) use ($newOwner) {
+                $clip->owner_id = $newOwner->id;
+                $clip->save();
+            });
             $series->clips()->update(['owner_id' => $newOwner->id]);
         });
 
@@ -41,9 +45,11 @@ class UsersRevokeMultipleObjectsOwnership extends Controller
         $previousOwner = $user;
         $clipIds = collect($validated['clip_ids']);
         $newOwner = User::find($validated['userID']);
-        $clipsQuery = Clip::whereIn('id', $clipIds);
-        $clips = $clipsQuery->get();
-        $clipsQuery->update(['owner_id' => $newOwner->id]);
+        $clips = Clip::whereIn('id', $clipIds)->get();
+        $clips->each(function ($clip) use ($newOwner) {
+            $clip->owner_id = $newOwner->id;
+            $clip->save();
+        });
 
         $previousOwner->notify(new MassOwnershipRevoke($clips, 'clips'));
         $newOwner->notify(new MassOwnershipAssignment($clips, 'clips'));

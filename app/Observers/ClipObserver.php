@@ -31,7 +31,7 @@ class ClipObserver
             $clip->supervisor_id = auth()->user()->id;
         }
 
-        $clip->save();
+        $clip->saveQuietly();
         session()->flash('flashMessage', $clip->title.' '.__FUNCTION__.' successfully');
 
         $this->openSearchService->createIndex(new ClipResource($clip));
@@ -51,7 +51,7 @@ class ClipObserver
     {
         if (auth()->user()?->isAdmin() && $clip->supervisor_id !== auth()->user()->id) {
             $clip->supervisor_id = auth()->user()->id;
-            $clip->save();
+            $clip->saveQuietly();
         }
 
         session()->flash('flashMessage', "{$clip->title} ".__FUNCTION__.' successfully');

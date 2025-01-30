@@ -13,18 +13,20 @@ trait Presentable
         return $this->morphToMany(Presenter::class, 'presentable')->withTimestamps();
     }
 
-    public function addPresenters(Collection $presentersCollection): void
+    public function addPresenters(Collection $presentersCollection, string $action = 'edit'): void
     {
+        $existingPresenters = $this->presenters->pluck('id')->sort()->values();
         if ($presentersCollection->isEmpty()) {
             $this->presenters()->detach();
-            $this->recordActivity('All Presenters removed.', [
-                'before' => $this->presenters->pluck('last_name')->flatten(),
-                'after' => []]);
+            if ($existingPresenters->isNotEmpty() && $presentersCollection->isNotEmpty()) {
+                $this->recordActivity('All Presenters removed.', [
+                    'before' => $this->presenters->pluck('last_name')->flatten(),
+                    'after' => []]);
+            }
 
             return;
         }
 
-        $existingPresenters = $this->presenters->pluck('id')->sort()->values();
         $newPresenters = $this->getNewPresenters($presentersCollection);
 
         if (! $existingPresenters->diff($newPresenters)->isEmpty() ||

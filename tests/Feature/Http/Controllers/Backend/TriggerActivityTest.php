@@ -76,8 +76,8 @@ it('returns all activities for a given clip', function () {
     $clip->save();
     $anotherClip = Clip::factory()->create();
 
-    expect($clip->activities()->count())->toEqual(3);
-    expect($anotherClip->activities()->count())->toEqual(2);
+    expect($clip->activities()->count())->toEqual(2);
+    expect($anotherClip->activities()->count())->toEqual(1);
 });
 
 it('triggers an activity on presenter create', function () {

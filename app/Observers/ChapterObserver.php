@@ -17,7 +17,7 @@ class ChapterObserver
 
     public function updated(Chapter $chapter): void
     {
-        $chapter->series->recordActivity('Updated chapter:'.$chapter->title);
+        $chapter->series->recordActivity('Updated chapter:'.$chapter->title, $chapter->activityChanges());
     }
 
     /**
