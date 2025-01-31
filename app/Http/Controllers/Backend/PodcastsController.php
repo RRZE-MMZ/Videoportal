@@ -46,8 +46,9 @@ class PodcastsController extends Controller
         }
 
         $validated['owner_id'] = auth()->id();
-        $podcast = Podcast::create(Arr::except($validated, ['hosts', 'guests', 'image']));
+        $podcast = Podcast::create(Arr::except($validated, ['hosts', 'guests', 'image', 'tags']));
         $podcast->prepareAndSyncPodcastPresenters($validated['hosts'], $validated['guests']);
+        $podcast->addTags(collect($validated['tags']));
 
         return to_route('podcasts.edit', $podcast);
     }
@@ -70,7 +71,8 @@ class PodcastsController extends Controller
             $validated['image_id'] = $image->id;
         }
 
-        $podcast->update(Arr::except($validated, ['hosts', 'guests', 'image']));
+        $podcast->update(Arr::except($validated, ['hosts', 'guests', 'image', 'tags']));
+        $podcast->addTags(collect($validated['tags']));
         $podcast->prepareAndSyncPodcastPresenters($validated['hosts'], $validated['guests']);
 
         return to_route('podcasts.edit', $podcast);

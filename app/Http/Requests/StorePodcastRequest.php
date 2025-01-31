@@ -21,6 +21,8 @@ class StorePodcastRequest extends FormRequest
             'hosts' => ['array'],
             'guests' => ['array'],
             'is_published' => ['boolean'],
+            'tags' => ['array'],
+            'tags.*' => ['string', 'nullable'],
             'website_url' => ['nullable', 'url'],
             'spotify_url' => ['nullable', 'url'],
             'apple_podcasts_url' => ['nullable', 'url'],
@@ -31,6 +33,7 @@ class StorePodcastRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
             'hosts' => $this->hosts = $this->hosts ?? [],
             'guests' => $this->guests = $this->guests ?? [],
             'is_published' => $this->is_published === 'on',

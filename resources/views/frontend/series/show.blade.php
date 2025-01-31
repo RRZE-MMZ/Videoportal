@@ -48,6 +48,20 @@
                         <x-heroicon-o-rss class="ml-4 h-4 w-4 fill-white" />
                     </a>
                 </div>
+                @if ($series->tags->isNotEmpty())
+                    <div class="flex flex-col pt-6 sm:pt-10">
+                        <div class="flex flex-wrap pt-4 gap-2">
+                            @foreach($series->tags as $tag)
+                                <div
+                                        class="text-xs sm:text-sm mr-1 inline-flex items-center font-bold leading-sm px-2 sm:px-3 py-1 bg-green-200
+                            text-green-700 rounded-full"
+                                >
+                                    {{ $tag->name }}
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
                 <div x-show="open" @click.outside="open = false" x-transition:enter="transition ease-out duration-300"
                      x-transition:enter-start="opacity-0 translate-y-0"
                      x-transition:enter-end="opacity-100 translate-y-0"

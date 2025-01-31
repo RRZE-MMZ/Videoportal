@@ -31,6 +31,8 @@ class UpdateSeriesRequest extends FormRequest
             'slug' => ['required'],
             'presenters' => ['array'],
             'presenters.*' => ['integer', 'nullable'],
+            'tags' => ['array'],
+            'tags.*' => ['string', 'nullable'],
             'opencast_series_id' => ['null', 'uuid'],
             'password' => ['nullable', Password::min(8)->mixedCase()],
             'is_public' => ['boolean'],
@@ -43,6 +45,7 @@ class UpdateSeriesRequest extends FormRequest
         $this->merge([
             'slug' => Str::slug($this->title),
             'is_public' => $this->is_public === 'on',
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
             'allow_comments' => $this->allow_comments === 'on',
             'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if select2 presenters is empty
         ]);

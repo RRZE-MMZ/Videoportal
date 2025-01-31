@@ -42,6 +42,12 @@
                                                  :items="$podcast->getPrimaryPresenters(primary: false)"
                         />
 
+                        <x-form.select2-multiple field-name="tags"
+                                                 :model="$podcast"
+                                                 label="{{ __('common.metadata.tags') }}"
+                                                 select-class="select2-tides-tags"
+                                                 :items="$podcast->tags" />
+
                         <x-form.toggle-button :value="$podcast->is_published"
                                               label="{{ __('common.forms.public') }}"
                                               field-name="is_published"

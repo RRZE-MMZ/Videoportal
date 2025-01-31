@@ -64,6 +64,13 @@
                                                  :model="null"
                                                  :items="[]"
                         />
+                        
+                        <x-form.select2-multiple field-name="tags"
+                                                 label="{{ __('common.metadata.tags') }}"
+                                                 select-class="select2-tides-tags"
+                                                 :model="null"
+                                                 :items="[]"
+                        />
 
                         <x-form.toggle-button :value="true"
                                               label="{{ __('common.forms.public available') }}"

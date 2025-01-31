@@ -11,6 +11,7 @@ use App\Models\Traits\Presentable;
 use App\Models\Traits\RecordsActivity;
 use App\Models\Traits\Searchable;
 use App\Models\Traits\Slugable;
+use App\Models\Traits\Taggable;
 use App\Observers\ClipObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -39,6 +40,7 @@ class Clip extends BaseModel
     use RecordsActivity;
     use Searchable;
     use Slugable;
+    use Taggable;
 
     protected $with = ['acls'];
 
@@ -201,34 +203,6 @@ class Clip extends BaseModel
             $this->posterImage = null;
         }
         $this->save();
-    }
-
-    /**
-     * Add tags to clip
-     */
-    public function addTags(Collection $tagsCollection): void
-    {
-        /*
-         * Check for tags collection from post request.
-         * The closure returns a tag model, where the model is either selected or created.
-         * The tag model is synchronized with the clip tags.
-         * In case the collection is empty assumed that clip has no tags and delete them
-         */
-        if ($tagsCollection->isNotEmpty()) {
-            $this->tags()->sync($tagsCollection->map(function ($tagName) {
-                return tap(Tag::firstOrCreate(['name' => $tagName]))->save();
-            })->pluck('id'));
-        } else {
-            $this->tags()->detach();
-        }
-    }
-
-    /**
-     * Tags relationship
-     */
-    public function tags(): BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class, 'clip_tag')->withTimestamps();
     }
 
     public function livestream(): HasOne

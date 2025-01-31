@@ -63,10 +63,13 @@
                     @endif
                 </div>
                 <div class="mt-4">
-                    <span class="text-gray-600 dark:text-white">{{ trans_choice('common.categories',2) }}:</span>
-                    <span class="inline-block bg-blue-200 text-blue-800 text-xs sm:text-sm px-2 py-1 rounded-full">
-                        Podcast
+                    <span class="text-gray-600 dark:text-white">{{ __('common.metadata.tags') }}:</span>
+                    @foreach($podcast->tags as $tag)
+                        <span class="inline-block bg-blue-200 text-blue-800 text-xs sm:text-sm px-2 py-1 rounded-full">
+                        {{ $tag->name }}
                     </span>
+                    @endforeach
+
                 </div>
             </div>
 

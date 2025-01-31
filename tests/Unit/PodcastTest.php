@@ -4,6 +4,7 @@ use App\Models\Podcast;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 uses()->group('unit');
 
@@ -32,4 +33,8 @@ it('has many comments', function () {
 
 it('belogns to an image with the attribute of podcasts cover', function () {
     expect($this->podcast->cover())->toBeInstanceOf(BelongsTo::class);
+});
+
+it('has many tags using taggable trait', function () {
+    expect($this->podcast->tags())->toBeInstanceOf(MorphToMany::class);
 });
