@@ -33,12 +33,13 @@ class SeriesController extends Controller
     {
         $validated = $request->validated();
 
-        $series = auth()->user()->series()->create(Arr::except($validated, ['presenters']));
+        $series = auth()->user()->series()->create(Arr::except($validated, ['presenters', 'tags']));
 
         $opencastSeriesId = $opencastService->createSeries($series);
 
         $series->updateOpencastSeriesId($opencastSeriesId);
         $series->addPresenters(collect($validated['presenters']));
+        $series->addTags(collect($validated['tags']));
 
         session()->flash('flashMessage', 'Series created successfully');
 
@@ -104,7 +105,8 @@ class SeriesController extends Controller
 
             $series->updateOpencastSeriesId($opencastSeriesId);
         }
-        $series->update(Arr::except($validated, ['presenters']));
+        $series->update(Arr::except($validated, ['presenters', 'tags']));
+        $series->addTags(collect($validated['tags']));
         $series->addPresenters(collect($validated['presenters']));
 
         return to_route('series.edit', $series);

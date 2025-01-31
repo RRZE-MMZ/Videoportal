@@ -31,6 +31,8 @@ class StorePodcastEpisodeRequest extends FormRequest
             'slug' => ['required'],
             'episode_number' => ['required', 'integer'],
             'recording_date' => ['required', 'date'],
+            'tags' => ['array'],
+            'tags.*' => ['string', 'nullable'],
             'description' => ['nullable', 'string', 'max:40000'],
             'notes' => ['nullable', 'string', 'max:40000'],
             'transcription' => ['nullable', 'string', 'max:40000'],
@@ -48,6 +50,7 @@ class StorePodcastEpisodeRequest extends FormRequest
         $setting = Setting::portal();
         $settingData = $setting->data;
         $this->merge([
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
             'image_id' => (isset($this->image_id)) ? $this->image_id : $settingData['default_image_id'],
             'hosts' => $this->hosts = $this->hosts ?? [],
             'guests' => $this->guests = $this->guests ?? [],

@@ -22,7 +22,7 @@
                                 src="/podcast-files/covers/PodcastDefaultFAU.png" alt="Podcast Cover 3"
                             @endif
                             alt="Podcast Cover"
-                            class="w-full h-auto rounded-md">
+                            class="w-full h-auto max-w-md max-h-96 object-contain rounded-md mx-auto">
                 </div>
                 @if($episode->getAssetsByType(Content::AUDIO)->first())
                     <div class=" space-y-4 ">
@@ -73,9 +73,13 @@
                 @endif
                 <div class="mt-4">
                     <span class="text-gray-600 dark:text-white">
-                        {{ trans_choice('common.categories', 2) }}:</span>
-                    <span
-                            class="inline-block bg-blue-200 text-blue-800 text-sm px-2 py-1 rounded-full">Podcast</span>
+                        {{ __('common.metadata.tags') }}:</span>
+                    @foreach($episode->tags as $tag)
+                        <span class="inline-block bg-blue-200 text-blue-800 text-sm px-2 py-1 rounded-full">
+                            {{$tag->name}}
+                        </span>
+                    @endforeach
+
                 </div>
             </div>
         </div>

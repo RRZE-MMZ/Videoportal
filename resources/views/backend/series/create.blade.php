@@ -52,12 +52,16 @@
                                  label="{{ __('common.password') }}"
                                  :full-col="true"
                 />
-
+                <x-form.select2-multiple field-name="tags"
+                                         label="{{ __('common.metadata.tags') }}"
+                                         select-class="select2-tides-tags"
+                                         :model="null"
+                                         :items="[]"
+                />
                 <x-form.toggle-button :value="true"
                                       label="{{ __('common.forms.public available') }}"
                                       field-name="is_public"
                 />
-                
                 <x-form.toggle-button :value="false"
                                       label="{{ __('common.metadata.allow comments') }}"
                                       field-name="allow_comments"

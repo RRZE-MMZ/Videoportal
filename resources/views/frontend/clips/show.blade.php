@@ -34,7 +34,6 @@
                 @include('frontend.clips._info')
             @endif
         </div>
-
         <div class="flex flex-col sm:flex-row justify-between pt-20">
             @if(!is_null($previousNextClipCollection->get('previousClip')))
                 <a class="flex w-full sm:w-auto flex-row items-center justify-center sm:justify-start mb-2 sm:mb-0"
@@ -71,26 +70,6 @@
                     <p>
                         {!! $clip->description  !!}
                     </p>
-                </div>
-            </div>
-        @endif
-
-        @if ($clip->tags->isNotEmpty())
-            <div class="flex flex-col pt-6 sm:pt-10">
-                <h2 class="w-full border-b-2 border-black pb-2 dark:border-white text-lg sm:text-2xl
-                font-semibold dark:text-white"
-                >
-                    Tags
-                </h2>
-                <div class="flex flex-wrap pt-4 gap-2">
-                    @foreach($clip->tags as $tag)
-                        <div
-                                class="text-xs sm:text-sm mr-1 inline-flex items-center font-bold leading-sm px-2 sm:px-3 py-1 bg-green-200
-                            text-green-700 rounded-full"
-                        >
-                            {{ $tag->name }}
-                        </div>
-                    @endforeach
                 </div>
             </div>
         @endif

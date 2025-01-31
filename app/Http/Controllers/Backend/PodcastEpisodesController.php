@@ -30,8 +30,9 @@ class PodcastEpisodesController extends Controller
         $validated['owner_id'] = auth()->id();
         $validated['image_id'] =
             $this->updateEpisodesImage(image: $validated['image'], imageTitle: $validated['title'], podcast: $podcast);
-        $episode = $podcast->episodes()->create(Arr::except($validated, ['hosts', 'guests', 'image']));
+        $episode = $podcast->episodes()->create(Arr::except($validated, ['hosts', 'guests', 'image', 'tags']));
         $episode->prepareAndSyncPodcastPresenters($validated['hosts'], $validated['guests']);
+        $episode->addTags(collect($validated['tags']));
 
         return to_route('podcasts.episodes.edit', compact('podcast', 'episode'));
     }
@@ -55,7 +56,9 @@ class PodcastEpisodesController extends Controller
                 );
         }
 
-        $episode->update(Arr::except($validated, ['hosts', 'guests', 'image']));
+        $episode->update(Arr::except($validated, ['hosts', 'guests', 'image', 'tags']));
+
+        $episode->addTags(collect($validated['tags']));
 
         return to_route('podcasts.episodes.edit', compact('podcast', 'episode'));
     }

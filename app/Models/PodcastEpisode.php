@@ -7,6 +7,7 @@ use App\Models\Traits\Presentable;
 use App\Models\Traits\RecordsActivity;
 use App\Models\Traits\Searchable;
 use App\Models\Traits\Slugable;
+use App\Models\Traits\Taggable;
 use App\Observers\PodcastEpisodeObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -25,6 +26,7 @@ class PodcastEpisode extends BaseModel
     use RecordsActivity;
     use Searchable;
     use Slugable;
+    use Taggable;
 
     protected $touches = ['podcast'];
 

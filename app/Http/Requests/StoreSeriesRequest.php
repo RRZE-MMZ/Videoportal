@@ -30,6 +30,8 @@ class StoreSeriesRequest extends FormRequest
             'organization_id' => ['required', 'integer'],
             'presenters' => ['array'],
             'presenters.*' => ['integer', 'nullable'],
+            'tags' => ['array'],
+            'tags.*' => ['string', 'nullable'],
             'slug' => ['required'],
             'password' => ['nullable', Password::min(8)->mixedCase()],
             'is_public' => ['boolean'],
@@ -47,6 +49,7 @@ class StoreSeriesRequest extends FormRequest
             'is_public' => $this->is_public === 'on',
             'allow_comments' => $this->allow_comments === 'on',
             'presenters' => $this->presenters = $this->presenters ?? [], // set empty array if presenters array is empty
+            'tags' => $this->tags = $this->tags ?? [], // set empty array if select2 tags is empty
             'image_id' => (isset($this->image_id)) ? $this->image_id : $settingData['default_image_id'],
         ]);
     }

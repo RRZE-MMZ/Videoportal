@@ -75,6 +75,10 @@ it('has many presenters using presentable trait', function () {
     expect($this->series->presenters())->toBeInstanceOf(MorphToMany::class);
 });
 
+it('has many tags using taggable trait', function () {
+    expect($this->series->tags())->toBeInstanceOf(MorphToMany::class);
+});
+
 it('has many documents using documentable trait', function () {
     expect($this->series->documents())->toBeInstanceOf(MorphToMany::class);
 });

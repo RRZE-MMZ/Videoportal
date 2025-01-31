@@ -110,7 +110,7 @@
                                            :full-col="false"
                                            :value="$episode->recording_date" />
 
-                        <x-form.input field-name="{{ __('common.forms.title') }}"
+                        <x-form.input field-name="title"
                                       input-type="text"
                                       :value="$episode->title"
                                       label="{{ __('common.forms.title') }}"
@@ -146,6 +146,12 @@
                                                  :model="$episode"
                                                  :items="$episode->getPrimaryPresenters(primary: false)"
                         />
+
+                        <x-form.select2-multiple field-name="tags"
+                                                 :model="$episode"
+                                                 label="{{ __('common.metadata.tags') }}"
+                                                 select-class="select2-tides-tags"
+                                                 :items="$episode->tags" />
 
                         <x-form.toggle-button :value="$episode->is_published"
                                               label="{{ __('common.forms.public') }}"

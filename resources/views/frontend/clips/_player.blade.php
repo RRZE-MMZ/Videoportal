@@ -101,7 +101,20 @@
             </div>
         </div>
     </div>
-
+    @if ($clip->tags->isNotEmpty())
+        <div class="flex flex-col pt-6 sm:pt-10">
+            <div class="flex flex-wrap pt-4 gap-2">
+                @foreach($clip->tags as $tag)
+                    <div
+                            class="text-xs sm:text-sm mr-1 inline-flex items-center font-bold leading-sm px-2 sm:px-3 py-1 bg-green-200
+                            text-green-700 rounded-full"
+                    >
+                        {{ $tag->name }}
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
     <div class="border-b-2 border-gray-500 pt-20 sm:pt-8 pb-8 dark:text-white">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 text-center">
             @if ($clip->series_id)

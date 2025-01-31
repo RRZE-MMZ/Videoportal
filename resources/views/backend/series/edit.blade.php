@@ -62,6 +62,11 @@
                                          label="{{trans_choice('common.menu.presenter',2)}}"
                                          select-class="select2-tides-presenters"
                                          :items="$series->presenters" />
+                <x-form.select2-multiple field-name="tags"
+                                         :model="$series"
+                                         label="{{ __('common.metadata.tags') }}"
+                                         select-class="select2-tides-tags"
+                                         :items="$series->tags" />
 
                 <x-form.password field-name="password"
                                  :value="$series->password"

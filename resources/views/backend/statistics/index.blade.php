@@ -10,8 +10,8 @@
                                                                 ]) }}
             @else
                 {{ __('statistic.backend.statistic for series:', [
-                                                                'clip_title' => $obj['info']->title,
-                                                                'clip_id' => $obj['info']->id
+                                                                'series_title' => $obj['info']->title,
+                                                                'series_id' => $obj['info']->id
                                                                 ]) }}
             @endif
 
@@ -48,7 +48,7 @@
             @endif
         </div>
     @endif
-    <div class="flex flex-col py-2 px-2  justify-stretch">
+    <div class="flex flex-col py-2 px-2  justify-stretch pt-8">
         <div class=" text-xl font-bold text-left rtl:text-right text-gray-500 dark:text-gray-400 pb-10">
             {{ __('statistic.backend.geolocation statistics') }}
         </div>
